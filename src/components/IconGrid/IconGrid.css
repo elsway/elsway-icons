@@ -174,7 +174,7 @@ aside.detail-footer {
   grid-template-columns: 280px 1fr;
   gap: 24px;
   padding: 12px 24px;
-  height: 146px;
+  min-height: 146px;
 }
 
 figure {
@@ -254,7 +254,7 @@ figcaption > p {
     bottom: -20px;
     display: flex;
     flex-direction: column;
-    height: 440px;
+    min-height: 440px;
     margin-inline: -10px;
     border-radius: 0;
   }
