@@ -1,5 +1,5 @@
 {
-  "name": "@phosphor-icons/homepage",
+  "name": "@elsway-icons/homepage",
   "version": "2.1.1",
   "license": "MIT",
   "homepage": "https://elswayicons.com",
@@ -30,8 +30,8 @@
     "sync-docs": "tsx scripts/sync-docs.ts"
   },
   "dependencies": {
-    "@phosphor-icons/core": "^2.1.1",
-    "@phosphor-icons/react": "^2.1.10",
+    "@elsway-icons/core": "npm:@phosphor-icons/core@^2.1.1",
+    "@elsway-icons/react": "npm:@phosphor-icons/react@^2.1.10",
     "file-saver": "^2.0.5",
     "fuse.js": "^6.6.2",
     "motion": "^12.33.0",

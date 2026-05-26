@@ -4,7 +4,7 @@ import {
   HourglassMediumIcon,
   QuestionIcon,
   SmileyXEyesIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 
 interface NoticeProps {
   message?: ReactNode;

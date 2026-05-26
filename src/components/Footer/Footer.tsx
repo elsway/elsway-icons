@@ -3,7 +3,7 @@ import {
   ArrowULeftUpIcon,
   CoffeeIcon,
   HandHeartIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 
 import Links from "@/components/Links/Links";
 

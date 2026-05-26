@@ -6,8 +6,8 @@ import {
   CheckCircleIcon,
   DiceFiveIcon,
   LinkIcon,
-} from "@phosphor-icons/react";
-import { IconStyle } from "@phosphor-icons/core";
+} from "@elsway-icons/react";
+import { IconStyle } from "@elsway-icons/core";
 
 import { useTransientState } from "@/hooks";
 import { useApplicationStore } from "@/state";

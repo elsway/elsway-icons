@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@phosphor-icons/core':
-        specifier: ^2.1.1
-        version: 2.1.1
-      '@phosphor-icons/react':
-        specifier: ^2.1.10
-        version: 2.1.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@elsway-icons/core':
+        specifier: npm:@phosphor-icons/core@^2.1.1
+        version: '@phosphor-icons/core@2.1.1'
+      '@elsway-icons/react':
+        specifier: npm:@phosphor-icons/react@^2.1.10
+        version: '@phosphor-icons/react@2.1.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)'
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5

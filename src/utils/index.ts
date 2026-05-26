@@ -1,4 +1,4 @@
-import { IconStyle } from "@phosphor-icons/core";
+import { IconStyle } from "@elsway-icons/core";
 import TinyColor from "tinycolor2";
 
 import { SnippetType } from "@/lib";

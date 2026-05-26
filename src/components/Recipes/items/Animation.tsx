@@ -1,4 +1,4 @@
-import { Cube } from "@phosphor-icons/react";
+import { Cube } from "@elsway-icons/react";
 
 import { RecipeProps } from "../Recipe";
 

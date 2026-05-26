@@ -6,7 +6,7 @@ import {
   MagnifyingGlassIcon,
   XIcon,
   HourglassHighIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 import ReactGA from "react-ga4";
 
 import { useDebounce } from "@/hooks";

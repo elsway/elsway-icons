@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { icons, IconStyle } from "@phosphor-icons/core";
+import { icons, IconStyle } from "@elsway-icons/core";
 import IconJar, { IconGroup, IconSet, Icon, License } from "iconjar-exporter";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -11,7 +11,7 @@ const LICENSE_URL = "https://elswayicons.com/LICENSE";
 const OUT_DIR = path.join(__dirname, "../public/assets");
 const CORE_DIR = path.join(
   __dirname,
-  "../node_modules/@phosphor-icons/core/assets"
+  "../node_modules/@elsway-icons/core/assets"
 );
 
 abstract class Exporter {
