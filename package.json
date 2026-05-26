@@ -30,8 +30,8 @@
     "sync-docs": "tsx scripts/sync-docs.ts"
   },
   "dependencies": {
-    "@elsway-icons/core": "npm:@phosphor-icons/core@^2.1.1",
-    "@elsway-icons/react": "npm:@phosphor-icons/react@^2.1.10",
+    "@elsway-icons/core": "file:./vendor/elsway-icons-core",
+    "@elsway-icons/react": "file:./vendor/elsway-icons-react",
     "file-saver": "^2.0.5",
     "fuse.js": "^6.6.2",
     "motion": "^12.33.0",
