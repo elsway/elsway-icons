@@ -20,20 +20,20 @@ jobs:
     strategy:
       matrix:
         repository: [
-          'phosphor-icons/core',
-          'phosphor-icons/figma',
-          'phosphor-icons/flutter',
-          'phosphor-icons/penpot',
-          'phosphor-icons/phosphor-elm',
-          'phosphor-icons/play',
-          'phosphor-icons/react',
-          'phosphor-icons/sketch',
-          'phosphor-icons/swift',
-          'phosphor-icons/theme',
-          'phosphor-icons/unplugin',
-          'phosphor-icons/vue',
-          'phosphor-icons/web',
-          'phosphor-icons/webcomponents'
+          'elsway-icons/core',
+          'elsway-icons/figma',
+          'elsway-icons/flutter',
+          'elsway-icons/penpot',
+          'elsway-icons/elsway-elm',
+          'elsway-icons/play',
+          'elsway-icons/react',
+          'elsway-icons/sketch',
+          'elsway-icons/swift',
+          'elsway-icons/theme',
+          'elsway-icons/unplugin',
+          'elsway-icons/vue',
+          'elsway-icons/web',
+          'elsway-icons/webcomponents'
         ]
     steps:
       - name: Checkout

@@ -6,7 +6,7 @@ import {
   GasCanIcon,
   IceCreamIcon,
   FlyingSaucerIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 
 import { RecipeProps } from "../Recipe";
 

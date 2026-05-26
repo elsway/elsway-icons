@@ -16,8 +16,8 @@ import {
   XCircleIcon,
   CaretDoubleLeftIcon,
   CaretDoubleRightIcon,
-} from "@phosphor-icons/react";
-import { IconStyle } from "@phosphor-icons/core";
+} from "@elsway-icons/react";
+import { IconStyle } from "@elsway-icons/core";
 import ReactGA from "react-ga4";
 
 import Tabs, { Tab } from "@/components/Tabs";
@@ -245,7 +245,7 @@ const Panel = () => {
 
     const { name } = entry;
     const data = await fetch(
-      `https://raw.githubusercontent.com/phosphor-icons/core/main/raw/${weight}/${name}${
+      `https://raw.githubusercontent.com/elsway-icons/core/main/raw/${weight}/${name}${
         weight === "regular" ? "" : `-${weight}`
       }.svg`
     );
@@ -281,7 +281,7 @@ const Panel = () => {
 
     const { name } = entry;
     saveAs(
-      `https://raw.githubusercontent.com/phosphor-icons/core/main/raw/${weight}/${name}${
+      `https://raw.githubusercontent.com/elsway-icons/core/main/raw/${weight}/${name}${
         weight === "regular" ? "" : `-${weight}`
       }.svg`,
       `${entry?.name}${weight === "regular" ? "" : `-${weight}`}.svg`

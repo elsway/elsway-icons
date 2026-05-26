@@ -1,4 +1,4 @@
-import { IconContext } from "@phosphor-icons/react";
+import { IconContext } from "@elsway-icons/react";
 
 import Recipe from "./Recipe";
 import items from "./items";
@@ -10,7 +10,7 @@ const Recipes = () => {
       <div className="toolbar">
         <div className="toolbar-contents">
           <h2>Recipes</h2>
-          <p>Cool stuff to do with Phosphor</p>
+          <p>Cool stuff to do with Elsway</p>
         </div>
       </div>
       <div className="grid-container">

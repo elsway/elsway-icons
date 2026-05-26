@@ -1,17 +1,17 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { icons, IconStyle } from "@phosphor-icons/core";
+import { icons, IconStyle } from "@elsway-icons/core";
 import IconJar, { IconGroup, IconSet, Icon, License } from "iconjar-exporter";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const LICENSE_URL = "https://phosphoricons.com/LICENSE";
+const LICENSE_URL = "https://elswayicons.com/LICENSE";
 const OUT_DIR = path.join(__dirname, "../public/assets");
 const CORE_DIR = path.join(
   __dirname,
-  "../node_modules/@phosphor-icons/core/assets"
+  "../node_modules/@elsway-icons/core/assets"
 );
 
 abstract class Exporter {
@@ -24,7 +24,7 @@ abstract class Exporter {
 }
 
 class NucleoExporter implements Exporter {
-  static JSON_PATH = path.join(OUT_DIR, "./phosphor.nucleo.json");
+  static JSON_PATH = path.join(OUT_DIR, "./elsway.nucleo.json");
   static SET_ID = 1;
   static data: {
     sets: Array<{ label: string; id: number }>;
@@ -40,7 +40,7 @@ class NucleoExporter implements Exporter {
 
   static async load(): Promise<void> {
     NucleoExporter.data = {
-      sets: [{ label: "Phosphor Icons", id: NucleoExporter.SET_ID }],
+      sets: [{ label: "Elsway Icons", id: NucleoExporter.SET_ID }],
       groups: [],
       icons: [],
     };
@@ -73,7 +73,7 @@ class NucleoExporter implements Exporter {
 
 class IconJarExporter implements Exporter {
   static iconJar: IconJar;
-  static JAR_PATH = path.join(OUT_DIR, "./phosphor.iconjar");
+  static JAR_PATH = path.join(OUT_DIR, "./elsway.iconjar");
 
   static async load(): Promise<void> {
     const now = new Date();
@@ -101,12 +101,12 @@ class IconJarExporter implements Exporter {
       sets.push(set);
     }
 
-    const group = new IconGroup("Phosphor Icons");
+    const group = new IconGroup("Elsway Icons");
     for (const set of sets) {
       group.addSet(set);
     }
 
-    IconJarExporter.iconJar = new IconJar("phosphor", [group]);
+    IconJarExporter.iconJar = new IconJar("elsway", [group]);
   }
 
   static async save(): Promise<void> {

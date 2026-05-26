@@ -48,6 +48,6 @@ jobs:
           USERNAME: ${{ secrets.DREAMHOST_FTP_USERNAME }}
           PASSWORD: ${{ secrets.DREAMHOST_FTP_PASSWORD }}
           HOST: ${{ secrets.DREAMHOST_FTP_HOST }}
-          DEPLOY_PATH: preview.phosphoricons.com
+          DEPLOY_PATH: preview.elswayicons.com
         run: |
           sshpass -p "$PASSWORD" rsync -avz --delete ./dist/* $USERNAME@$HOST:$DEPLOY_PATH

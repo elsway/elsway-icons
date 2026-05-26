@@ -1,5 +1,5 @@
-import * as Icons from "@phosphor-icons/react";
-import { icons as iconData } from "@phosphor-icons/core";
+import * as Icons from "@elsway-icons/react";
+import { icons as iconData } from "@elsway-icons/core";
 
 import { IconEntry } from ".";
 

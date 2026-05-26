@@ -31,7 +31,7 @@ assignees: rektdeckard
 <!--
 - OS: [e.g. Windows 10]
 - Browser/Environment [e.g. chrome, safari, node]
-- Library [e.g. @phosphor-icons/react]
+- Library [e.g. @elsway-icons/react]
 - Version [e.g. 2.1.0]
 -->
 

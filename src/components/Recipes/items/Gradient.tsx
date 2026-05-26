@@ -3,7 +3,7 @@ import {
   ImageIcon,
   PeaceIcon,
   RainbowCloudIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 
 import { RecipeProps } from "../Recipe";
 

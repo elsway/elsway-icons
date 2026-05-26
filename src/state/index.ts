@@ -3,11 +3,11 @@ import { create, type UseBoundStore, type StoreApi } from "zustand";
 import { persist, PersistStorage } from "zustand/middleware";
 
 import TinyColor from "tinycolor2";
-import { IconStyle } from "@phosphor-icons/core";
+import { IconStyle } from "@elsway-icons/core";
 import { type IconEntry, icons } from "@/lib";
 import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 
-export const STORAGE_KEY = "__phosphor_settings__";
+export const STORAGE_KEY = "__elsway_settings__";
 
 interface ApplicationFields {
   // Fields

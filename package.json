@@ -1,8 +1,8 @@
 {
-  "name": "@phosphor-icons/homepage",
+  "name": "@elsway-icons/homepage",
   "version": "2.1.1",
   "license": "MIT",
-  "homepage": "https://phosphoricons.com",
+  "homepage": "https://elswayicons.com",
   "author": {
     "name": "Tobias Fried",
     "email": "friedtm@gmail.com",
@@ -10,7 +10,7 @@
   },
   "description": "A flexible icon family for interfaces, diagrams, presentations — whatever, really.",
   "keywords": [
-    "phosphor",
+    "elsway",
     "icons",
     "svg",
     "design",
@@ -18,7 +18,7 @@
     "UI",
     "UX"
   ],
-  "repository": "github:phosphor-icons/homepage",
+  "repository": "github:elsway-icons/homepage",
   "private": true,
   "packageManager": "pnpm@10.6.3",
   "scripts": {
@@ -30,8 +30,8 @@
     "sync-docs": "tsx scripts/sync-docs.ts"
   },
   "dependencies": {
-    "@phosphor-icons/core": "^2.1.1",
-    "@phosphor-icons/react": "^2.1.10",
+    "@elsway-icons/core": "^2.1.1",
+    "@elsway-icons/react": "^2.1.10",
     "file-saver": "^2.0.5",
     "fuse.js": "^6.6.2",
     "motion": "^12.33.0",

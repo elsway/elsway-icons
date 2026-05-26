@@ -1,23 +1,23 @@
-# Phosphor Icons
+# Elsway Icons
 
 <!-- BEGIN_LOGO -->
 <img src="/.github/logo.png" width="128" align="right" />
 <!-- END_LOGO -->
 
 <!-- BEGIN_OVERVIEW -->
-Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really.
+Elsway is a flexible icon family for interfaces, diagrams, presentations — whatever, really.
 
 - 1,248 icons and counting
 - 6 weights: **Thin**, **Light**, **Regular**, **Bold**, **Fill**, and **Duotone**
 - Designed at 16 x 16px to read well small and scale up big
 - Raw stroke information retained to fine-tune the style
 
-More ways to use at [phosphoricons.com](https://phosphoricons.com).
+More ways to use at [elswayicons.com](https://elswayicons.com).
 <!-- END_OVERVIEW -->
 
 ## For developers
 
-Phosphor is available for [web](https://github.com/phosphor-icons/web), [React](https://github.com/phosphor-icons/react), [Vue](https://github.com/phosphor-icons/vue), [Flutter](https://github.com/phosphor-icons/flutter), [Elm](https://github.com/phosphor-icons/phosphor-elm), and other frameworks and platforms.
+Elsway is available for [web](https://github.com/elsway-icons/web), [React](https://github.com/elsway-icons/react), [Vue](https://github.com/elsway-icons/vue), [Flutter](https://github.com/elsway-icons/flutter), [Elm](https://github.com/elsway-icons/elsway-elm), and other frameworks and platforms.
 
 ### Vanilla Web
 
@@ -30,12 +30,12 @@ Phosphor is available for [web](https://github.com/phosphor-icons/web), [React](
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+      href="https://cdn.jsdelivr.net/npm/@elsway-icons/web@2.1.1/src/regular/style.css"
     />
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+      href="https://cdn.jsdelivr.net/npm/@elsway-icons/web@2.1.1/src/fill/style.css"
     />
   </head>
   <body>
@@ -46,16 +46,16 @@ Phosphor is available for [web](https://github.com/phosphor-icons/web), [React](
 </html>
 ```
 
-Check out the full documentation on the [@phosphor-icons/web](https://github.com/phosphor-icons/web) repo page.
+Check out the full documentation on the [@elsway-icons/web](https://github.com/elsway-icons/web) repo page.
 
 ### React
 
-- **Powerful** – Phosphor's intuitive but powerful API can style the `color`, `size`, and `weight` of an icon with a few keystrokes, provide default styles to all icons via the Context API, or directly manipulate the SVG at runtime through render props to do some amazing things! Check out the full documentation on the [@phosphor-icons/react](https://github.com/phosphor-icons/react) repo page.
+- **Powerful** – Elsway's intuitive but powerful API can style the `color`, `size`, and `weight` of an icon with a few keystrokes, provide default styles to all icons via the Context API, or directly manipulate the SVG at runtime through render props to do some amazing things! Check out the full documentation on the [@elsway-icons/react](https://github.com/elsway-icons/react) repo page.
 
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { Smiley, Heart, Horse } from "@phosphor-icons/react";
+import { Smiley, Heart, Horse } from "@elsway-icons/react";
 
 const App = () => {
   return (
@@ -75,7 +75,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 ### Vue
 
-- **Parity** – As with React, you can manipulate the `color`, `size`, and `weight` of an icon with a few keystrokes, or provide default styles to all icons via the `provide/inject` API. It is fully tree-shakable and ready to use right away. Check out the full documentation on the [@phosphor-icons/vue](https://github.com/phosphor-icons/vue) repo page.
+- **Parity** – As with React, you can manipulate the `color`, `size`, and `weight` of an icon with a few keystrokes, or provide default styles to all icons via the `provide/inject` API. It is fully tree-shakable and ready to use right away. Check out the full documentation on the [@elsway-icons/vue](https://github.com/elsway-icons/vue) repo page.
 
 ```html
 <template>
@@ -87,7 +87,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 </template>
 
 <script>
-  import { PhHorse, PhHeart, PhCube } from "@phosphor-icons/vue";
+  import { PhHorse, PhHeart, PhCube } from "@elsway-icons/vue";
   export default {
     name: "App",
     components: {
@@ -105,59 +105,59 @@ ReactDOM.render(<App />, document.getElementById("root"));
 <!-- BEGIN_LINKS -->
 ## Our Projects
 
-- [@phosphor-icons/homepage](https://github.com/phosphor-icons/homepage) ▲ Phosphor homepage and general info
-- [@phosphor-icons/core](https://github.com/phosphor-icons/core) ▲ Phosphor icon assets and catalog
-- [@phosphor-icons/elm](https://github.com/phosphor-icons/phosphor-elm) ▲ Phosphor icons for Elm
-- [@phosphor-icons/figma](https://github.com/phosphor-icons/figma) ▲ Phosphor icons Figma plugin
-- [@phosphor-icons/flutter](https://github.com/phosphor-icons/flutter) ▲ Phosphor IconData library for Flutter
-- [@phosphor-icons/pack](https://github.com/phosphor-icons/pack) ▲ Phosphor web font stripper to generate minimal icon bundles
-- [@phosphor-icons/penpot](https://github.com/phosphor-icons/penpot) ▲ Phosphor icons Penpot plugin
-- [@phosphor-icons/react](https://github.com/phosphor-icons/react) ▲ Phosphor icon component library for React
-- [@phosphor-icons/sketch](https://github.com/phosphor-icons/sketch) ▲ Phosphor icons Sketch plugin
-- [@phosphor-icons/swift](https://github.com/phosphor-icons/swift) ▲ Phosphor icon component library for SwiftUI
-- [@phosphor-icons/theme](https://github.com/phosphor-icons/theme) ▲ A VS Code (and other IDE) theme with the Phosphor color palette
-- [@phosphor-icons/unplugin](https://github.com/phosphor-icons/unplugin) ▲ A multi-framework bundler plugin for generating Phosphor sprite sheets
-- [@phosphor-icons/vue](https://github.com/phosphor-icons/vue) ▲ Phosphor icon component library for Vue
-- [@phosphor-icons/web](https://github.com/phosphor-icons/web) ▲ Phosphor icons for Vanilla JS
-- [@phosphor-icons/webcomponents](https://github.com/phosphor-icons/webcomponents) ▲ Phosphor icons as Web Components
+- [@elsway-icons/homepage](https://github.com/elsway-icons/homepage) ▲ Elsway homepage and general info
+- [@elsway-icons/core](https://github.com/elsway-icons/core) ▲ Elsway icon assets and catalog
+- [@elsway-icons/elm](https://github.com/elsway-icons/elsway-elm) ▲ Elsway icons for Elm
+- [@elsway-icons/figma](https://github.com/elsway-icons/figma) ▲ Elsway icons Figma plugin
+- [@elsway-icons/flutter](https://github.com/elsway-icons/flutter) ▲ Elsway IconData library for Flutter
+- [@elsway-icons/pack](https://github.com/elsway-icons/pack) ▲ Elsway web font stripper to generate minimal icon bundles
+- [@elsway-icons/penpot](https://github.com/elsway-icons/penpot) ▲ Elsway icons Penpot plugin
+- [@elsway-icons/react](https://github.com/elsway-icons/react) ▲ Elsway icon component library for React
+- [@elsway-icons/sketch](https://github.com/elsway-icons/sketch) ▲ Elsway icons Sketch plugin
+- [@elsway-icons/swift](https://github.com/elsway-icons/swift) ▲ Elsway icon component library for SwiftUI
+- [@elsway-icons/theme](https://github.com/elsway-icons/theme) ▲ A VS Code (and other IDE) theme with the Elsway color palette
+- [@elsway-icons/unplugin](https://github.com/elsway-icons/unplugin) ▲ A multi-framework bundler plugin for generating Elsway sprite sheets
+- [@elsway-icons/vue](https://github.com/elsway-icons/vue) ▲ Elsway icon component library for Vue
+- [@elsway-icons/web](https://github.com/elsway-icons/web) ▲ Elsway icons for Vanilla JS
+- [@elsway-icons/webcomponents](https://github.com/elsway-icons/webcomponents) ▲ Elsway icons as Web Components
 
 ## Community Projects
 
-- [adamglin0/compose-phosphor-icons](https://github.com/adamglin0/compose-phosphor-icon) ▲ Phosphor icons for Compose Multiplatform
-- [altdsoy/phosphor_icons](https://github.com/altdsoy/phosphor_icons) ▲ Phosphor icons for Phoenix and TailwindCSS
-- [amPerl/egui-phosphor](https://github.com/amperl/egui-phosphor) ▲ Phosphor icons for egui apps (Rust)
-- [babakfp/phosphor-icons-svelte](https://github.com/babakfp/phosphor-icons-svelte) ▲ Phosphor icons for Svelte apps
-- [brettkolodny/phosphor-lustre](https://github.com/brettkolodny/phosphor-lustre) ▲ Phosphor icons for Lustre
-- [cellularmitosis/phosphor-uikit](https://github.com/cellularmitosis/phosphor-uikit) ▲ XCode asset catalog generator for Phosphor icons (Swift/UIKit)
-- [cjohansen/phosphor-clj](https://github.com/cjohansen/phosphor-clj) ▲ Phosphor icons as Hiccup for Clojure and ClojureScript
-- [codeat3/blade-phosphor-icons](https://github.com/codeat3/blade-phosphor-icons) ▲ Phosphor icons in your Laravel Blade views
-- [dennym/phosphor_icons_ex](https://github.com/dennym/phosphor_icons_ex) ▲ Phosphor icons for Elixir, Phoenix and Ash
-- [dreamRs/phosphor-r](https://github.com/dreamRs/phosphoricons) ▲ Phosphor icon wrapper for R documents and applications
-- [duongdev/phosphor-react-native](https://github.com/duongdev/phosphor-react-native) ▲ Phosphor icon component library for React Native
-- [haruaki07/phosphor-svelte](https://github.com/haruaki07/phosphor-svelte) ▲ Phosphor icons for Svelte apps
-- [IgnaceMaes/ember-phosphor-icons](https://github.com/IgnaceMaes/ember-phosphor-icons) ▲ Phosphor icons for Ember apps
-- [iota-uz/icons](https://github.com/iota-uz/icons) ▲ Phosphor icons as Templ components (Go)
-- [jajuma/phosphorhyva](https://github.com/JaJuMa-GmbH/phosphor-hyva) ▲ Phosphor icons for Magento 2 & Mage-OS with Hyvä Theme
-- [Kitten](https://kitten.small-web.org/reference/#icons) ▲ Phosphor icons integrated by default in Kitten
-- [lucagoslar/phosphor-css](https://github.com/lucagoslar/phosphor-css) ▲ CSS wrapper for Phosphor SVG icons
-- [maful/ruby-phosphor-icons](https://github.com/maful/ruby-phosphor-icons) ▲ Phosphor icons for Ruby and Rails applications
-- [meadowsys/phosphor-svgs](https://github.com/meadowsys/phosphor-svgs) ▲ Phosphor icons as Rust string constants
-- [mwood/tamagui-phosphor-icons](https://github.com/mwood23/tamagui-phosphor-icons) ▲ Phosphor icons for Tamagui
-- [noozo/phosphoricons_elixir](https://github.com/noozo/phosphoricons_elixir) ▲ Phosphor icons as SVG strings for Elixir/Phoenix
-- [oyedejioyewole/nuxt-phosphor-icons](https://github.com/oyedejioyewole/nuxt-phosphor-icons) ▲ Phosphor icons integration for Nuxt
-- [pepaslabs/phosphor-uikit](https://github.com/pepaslabs/phosphor-uikit) ▲ Xcode asset catalog generator for Swift/UIKit
-- [raycast/phosphor-icons](https://www.raycast.com/marinsokol/phosphor-icons) ▲ Phosphor icons Raycast extension
-- [reatlat/eleventy-plugin-phosphoricons](https://github.com/reatlat/eleventy-plugin-phosphoricons) ▲ An Eleventy shortcode plugin to embed icons as inline SVGs
-- [robruiz/wordpress-phosphor-icons-block](https://github.com/robruiz/phosphor-icons-block) ▲ Phosphor icon block for use in WordPress v5.8+
-- [sachaw/solid-phosphor](https://github.com/sachaw/solid-phosphor) ▲ Phosphor icons for SolidJS
-- [SeanMcP/phosphor-astro](https://github.com/SeanMcP/phosphor-astro) ▲ Phosphor icons as Astro components
-- [SorenHolstHansen/phosphor-leptos](https://github.com/SorenHolstHansen/phosphor-leptos) ▲ Phosphor icon component library for Leptos apps (Rust)
-- [vnphanquang/phosphor-icons-tailwindcss](https://github.com/vnphanquang/phosphor-icons-tailwindcss) ▲ TailwindCSS plugin for Phosphor icons
-- [wireui/phosphoricons](https://github.com/wireui/phosphoricons) ▲ Phosphor icons for Laravel
+- [adamglin0/compose-elsway-icons](https://github.com/adamglin0/compose-elsway-icon) ▲ Elsway icons for Compose Multiplatform
+- [altdsoy/elsway_icons](https://github.com/altdsoy/elsway_icons) ▲ Elsway icons for Phoenix and TailwindCSS
+- [amPerl/egui-elsway](https://github.com/amperl/egui-elsway) ▲ Elsway icons for egui apps (Rust)
+- [babakfp/elsway-icons-svelte](https://github.com/babakfp/elsway-icons-svelte) ▲ Elsway icons for Svelte apps
+- [brettkolodny/elsway-lustre](https://github.com/brettkolodny/elsway-lustre) ▲ Elsway icons for Lustre
+- [cellularmitosis/elsway-uikit](https://github.com/cellularmitosis/elsway-uikit) ▲ XCode asset catalog generator for Elsway icons (Swift/UIKit)
+- [cjohansen/elsway-clj](https://github.com/cjohansen/elsway-clj) ▲ Elsway icons as Hiccup for Clojure and ClojureScript
+- [codeat3/blade-elsway-icons](https://github.com/codeat3/blade-elsway-icons) ▲ Elsway icons in your Laravel Blade views
+- [dennym/elsway_icons_ex](https://github.com/dennym/elsway_icons_ex) ▲ Elsway icons for Elixir, Phoenix and Ash
+- [dreamRs/elsway-r](https://github.com/dreamRs/elswayicons) ▲ Elsway icon wrapper for R documents and applications
+- [duongdev/elsway-react-native](https://github.com/duongdev/elsway-react-native) ▲ Elsway icon component library for React Native
+- [haruaki07/elsway-svelte](https://github.com/haruaki07/elsway-svelte) ▲ Elsway icons for Svelte apps
+- [IgnaceMaes/ember-elsway-icons](https://github.com/IgnaceMaes/ember-elsway-icons) ▲ Elsway icons for Ember apps
+- [iota-uz/icons](https://github.com/iota-uz/icons) ▲ Elsway icons as Templ components (Go)
+- [jajuma/elswayhyva](https://github.com/JaJuMa-GmbH/elsway-hyva) ▲ Elsway icons for Magento 2 & Mage-OS with Hyvä Theme
+- [Kitten](https://kitten.small-web.org/reference/#icons) ▲ Elsway icons integrated by default in Kitten
+- [lucagoslar/elsway-css](https://github.com/lucagoslar/elsway-css) ▲ CSS wrapper for Elsway SVG icons
+- [maful/ruby-elsway-icons](https://github.com/maful/ruby-elsway-icons) ▲ Elsway icons for Ruby and Rails applications
+- [meadowsys/elsway-svgs](https://github.com/meadowsys/elsway-svgs) ▲ Elsway icons as Rust string constants
+- [mwood/tamagui-elsway-icons](https://github.com/mwood23/tamagui-elsway-icons) ▲ Elsway icons for Tamagui
+- [noozo/elswayicons_elixir](https://github.com/noozo/elswayicons_elixir) ▲ Elsway icons as SVG strings for Elixir/Phoenix
+- [oyedejioyewole/nuxt-elsway-icons](https://github.com/oyedejioyewole/nuxt-elsway-icons) ▲ Elsway icons integration for Nuxt
+- [pepaslabs/elsway-uikit](https://github.com/pepaslabs/elsway-uikit) ▲ Xcode asset catalog generator for Swift/UIKit
+- [raycast/elsway-icons](https://www.raycast.com/marinsokol/elsway-icons) ▲ Elsway icons Raycast extension
+- [reatlat/eleventy-plugin-elswayicons](https://github.com/reatlat/eleventy-plugin-elswayicons) ▲ An Eleventy shortcode plugin to embed icons as inline SVGs
+- [robruiz/wordpress-elsway-icons-block](https://github.com/robruiz/elsway-icons-block) ▲ Elsway icon block for use in WordPress v5.8+
+- [sachaw/solid-elsway](https://github.com/sachaw/solid-elsway) ▲ Elsway icons for SolidJS
+- [SeanMcP/elsway-astro](https://github.com/SeanMcP/elsway-astro) ▲ Elsway icons as Astro components
+- [SorenHolstHansen/elsway-leptos](https://github.com/SorenHolstHansen/elsway-leptos) ▲ Elsway icon component library for Leptos apps (Rust)
+- [vnphanquang/elsway-icons-tailwindcss](https://github.com/vnphanquang/elsway-icons-tailwindcss) ▲ TailwindCSS plugin for Elsway icons
+- [wireui/elswayicons](https://github.com/wireui/elswayicons) ▲ Elsway icons for Laravel
 
-If you've made a port of Phosphor and you want to see it here, just open a PR [here](https://github.com/phosphor-icons/homepage)!
+If you've made a port of Elsway and you want to see it here, just open a PR [here](https://github.com/elsway-icons/homepage)!
 
 ## License
 
-MIT © [Phosphor Icons](https://github.com/phosphor-icons)
+MIT © [Elsway Icons](https://github.com/elsway-icons)
 <!-- END_LINKS -->

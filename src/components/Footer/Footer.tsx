@@ -3,7 +3,7 @@ import {
   ArrowULeftUpIcon,
   CoffeeIcon,
   HandHeartIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 
 import Links from "@/components/Links/Links";
 
@@ -52,7 +52,7 @@ const Footer = (_: FooterProps) => {
         <div className="outro">
           <Links />
           <p>
-            Phosphor is a passion project by{" "}
+            Elsway is a passion project by{" "}
             <a className="main-link" href="https://helenazhang.com">
               Helena Zhang
             </a>{" "}
@@ -120,10 +120,10 @@ const Footer = (_: FooterProps) => {
             .
           </p>
           <p>
-            Phosphor is free and open-source, licensed under{" "}
+            Elsway is free and open-source, licensed under{" "}
             <a
               className="main-link"
-              href="https://raw.githubusercontent.com/phosphor-icons/homepage/master/LICENSE"
+              href="https://raw.githubusercontent.com/elsway-icons/homepage/master/LICENSE"
             >
               MIT
             </a>
@@ -134,7 +134,7 @@ const Footer = (_: FooterProps) => {
               className="main-button"
               onClick={() =>
                 window.open(
-                  "https://www.buymeacoffee.com/phosphoricons",
+                  "https://www.buymeacoffee.com/elswayicons",
                   "_blank",
                   "noopener noreferrer"
                 )
@@ -147,7 +147,7 @@ const Footer = (_: FooterProps) => {
               className="main-button"
               onClick={() =>
                 window.open(
-                  "https://patreon.com/phosphoricons",
+                  "https://patreon.com/elswayicons",
                   "_blank",
                   "noopener noreferrer"
                 )
@@ -168,8 +168,8 @@ const Footer = (_: FooterProps) => {
                 IBM Plex Mono
               </a>
               . Contact us at{" "}
-              <a className="main-link" href="mailto:hello@phosphoricons.com">
-                hello@phosphoricons.com
+              <a className="main-link" href="mailto:hello@elswayicons.com">
+                hello@elswayicons.com
               </a>{" "}
               <span
                 role="img"

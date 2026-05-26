@@ -1,6 +1,6 @@
 <!-- omit in toc -->
 
-# Contributing to Phosphor Icons
+# Contributing to Elsway Icons
 
 First off, thanks for taking the time to contribute! ❤️
 
@@ -8,7 +8,7 @@ We welcome many forms of contributions, though due to the creative nature of the
 
 > If you like the project, but don't have time to contribute, there are other easy ways to support the project and show your appreciation:
 >
-> - Donate via [Buy Me a Coffee](https://www.buymeacoffee.com/phosphoricons), or become a recurring contributor via [Patreon](https://patreon.com/phosphoricons) (this really helps!)
+> - Donate via [Buy Me a Coffee](https://www.buymeacoffee.com/elswayicons), or become a recurring contributor via [Patreon](https://patreon.com/elswayicons) (this really helps!)
 > - Star the project
 > - Tweet about it, or share on other platforms
 > - Refer this project in your project's README
@@ -31,13 +31,13 @@ We welcome many forms of contributions, though due to the creative nature of the
 
 ## I Have a Question
 
-> If you want to ask a question, we assume that you have read the available [documentation](https://github.com/phosphor-icons/homepage/blob/master/README.md).
+> If you want to ask a question, we assume that you have read the available [documentation](https://github.com/elsway-icons/homepage/blob/master/README.md).
 
-Before you ask a question, it is best to search for existing [issues](https://github.com/phosphor-icons/homepage/issues) that might help you. In case you have found a suitable issue and still need clarification, you can add your question as a comment in that issue. It is also advisable to search the internet for answers first.
+Before you ask a question, it is best to search for existing [issues](https://github.com/elsway-icons/homepage/issues) that might help you. In case you have found a suitable issue and still need clarification, you can add your question as a comment in that issue. It is also advisable to search the internet for answers first.
 
 If you then still feel the need to ask a question and need clarification, we recommend the following:
 
-- Open a new issue using an [issue template](https://github.com/phosphor-icons/homepage/issues/new/choose).
+- Open a new issue using an [issue template](https://github.com/elsway-icons/homepage/issues/new/choose).
 - Provide as much context as you can about what you're running into (the template has prompts to help you here).
 - Provide project and platform versions (`nodejs`, `npm`, etc), depending on what seems relevant.
 
@@ -55,8 +55,8 @@ We will address the issue as soon as we can.
 
 #### Before Submitting an Icon Request
 
-- Make sure there is not already an existing request for the icon(s) in question by searching the [issues](https://github.com/phosphor-icons/homepage/issues?q=label%3Aicon).
-- If requesting a brand icon or logo, read the discussion [regarding brand logos](https://github.com/orgs/phosphor-icons/discussions/392) first, and be sure the brand meets the criteria and scope for this project.
+- Make sure there is not already an existing request for the icon(s) in question by searching the [issues](https://github.com/elsway-icons/homepage/issues?q=label%3Aicon).
+- If requesting a brand icon or logo, read the discussion [regarding brand logos](https://github.com/orgs/elsway-icons/discussions/392) first, and be sure the brand meets the criteria and scope for this project.
 - If requesting a visual change to an existing icon, make sure it is based on clarity, consistency, or readability.
 
 <!-- omit in toc -->
@@ -65,7 +65,7 @@ We will address the issue as soon as we can.
 
 We use GitHub issues to track bicon requests. In order to submit a good icon request:
 
-- Open an [issue](https://github.com/phosphor-icons/homepage/issues/new?assignees=rektdeckard&labels=icon&projects=&template=icon_request.md&title=).
+- Open an [issue](https://github.com/elsway-icons/homepage/issues/new?assignees=rektdeckard&labels=icon&projects=&template=icon_request.md&title=).
 - Include potential use-cases, and any alternatives in the set and why they are insufficient.
 - Be specific. If requesting multiple icons, do not use "etc." unless it is unambiguous what that means.
 - If applicabable, add the following supporting information:
@@ -84,8 +84,8 @@ A good bug report contains all the necessary information for us (or others in th
 
 - If your issue pertains to a specific library, please leave it on the relevant repository.
 - Make sure that you are using the latest version.
-- Determine if your bug is really a bug and not an error on your side, e.g. using incompatible environment components/versions (Make sure that you have read the [documentation](https://github.com/phosphor-icons/homepage/blob/master/README.md). If you are looking for support, you might want to check [this section](#i-have-a-question)).
-- To see if other users have experienced (and potentially already solved) the same issue you are having, check if there is not already a bug report existing for your bug or error in the [issue tracker](https://github.com/phosphor-icons/homepage/issues?q=label%3Abug).
+- Determine if your bug is really a bug and not an error on your side, e.g. using incompatible environment components/versions (Make sure that you have read the [documentation](https://github.com/elsway-icons/homepage/blob/master/README.md). If you are looking for support, you might want to check [this section](#i-have-a-question)).
+- To see if other users have experienced (and potentially already solved) the same issue you are having, check if there is not already a bug report existing for your bug or error in the [issue tracker](https://github.com/elsway-icons/homepage/issues?q=label%3Abug).
 - Also make sure to search elsewhere (including Stack Overflow, framework or environment docs) to see if users outside of the GitHub community have discussed the issue.
 - Collect information about the bug:
   - Stack trace (Traceback)
@@ -98,13 +98,13 @@ A good bug report contains all the necessary information for us (or others in th
 
 #### How Do I Submit a Good Bug Report?
 
-> Please do not report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs can be sent by email to [hello@phosphoricons.com](mailto:hello@phosphoricons.com?cc=friedtm@gmail.com&subject=Phosphor%20Security%20Vulnerability).
+> Please do not report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs can be sent by email to [hello@elswayicons.com](mailto:hello@elswayicons.com?cc=friedtm@gmail.com&subject=Elsway%20Security%20Vulnerability).
 
 <!-- You may add a PGP key to allow the messages to be sent encrypted as well. -->
 
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 
-- Open an [issue](https://github.com/phosphor-icons/homepage/issues/new?assignees=rektdeckard&labels=bug&projects=&template=bug_report.md&title=).
+- Open an [issue](https://github.com/elsway-icons/homepage/issues/new?assignees=rektdeckard&labels=bug&projects=&template=bug_report.md&title=).
 - Fill in the templated fields, making sure to:
   - Explain the behavior you would expect and the actual behavior.
   - Provide as much context as possible and describe the _reproduction steps_ that someone else can follow to recreate the issue on their own. This usually includes your code. For good bug reports you should isolate the problem and create a reduced test case.
@@ -120,28 +120,28 @@ Once it's filed:
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for Phosphor Icons, **including completely new features and minor improvements to existing functionality**. Following these guidelines will help maintainers and the community to understand your suggestion and find related suggestions.
+This section guides you through submitting an enhancement suggestion for Elsway Icons, **including completely new features and minor improvements to existing functionality**. Following these guidelines will help maintainers and the community to understand your suggestion and find related suggestions.
 
 <!-- omit in toc -->
 
 #### Before Submitting an Enhancement
 
 - Make sure that you are using the latest version.
-- Read the [documentation](https://github.com/phosphor-icons/homepage/blob/master/README.md) carefully and find out if the functionality is already covered, maybe by an individual configuration.
-- Search the [issues](https://github.com/phosphor-icons/homepage/issues) to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
+- Read the [documentation](https://github.com/elsway-icons/homepage/blob/master/README.md) carefully and find out if the functionality is already covered, maybe by an individual configuration.
+- Search the [issues](https://github.com/elsway-icons/homepage/issues) to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 - Find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Keep in mind that we want features that will be useful to the majority of our users and not just a small subset. If you're just targeting a minority of users, consider writing an add-on/plugin library.
 
 <!-- omit in toc -->
 
 #### How Do I Submit a Good Enhancement Suggestion?
 
-Enhancement suggestions are tracked as [issues](https://github.com/phosphor-icons/homepage/issues).
+Enhancement suggestions are tracked as [issues](https://github.com/elsway-icons/homepage/issues).
 
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as possible.
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
 - You may want to **include screenshots and/or animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to.
-- **Explain why this enhancement would be useful** to most Phosphor Icons users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
+- **Explain why this enhancement would be useful** to most Elsway Icons users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 <!-- ### Your First Code Contribution -->
 

@@ -1,6 +1,6 @@
 ---
 name: Community port
-about: Add your Phosphor port to the list of community projects on all Phosphor repositories
+about: Add your Elsway port to the list of community projects on all Elsway repositories
 title: ""
 labels: documentation
 assignees: rektdeckard

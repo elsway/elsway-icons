@@ -3,11 +3,11 @@ import {
   ArrowCircleDownIcon,
   MegaphoneSimpleIcon,
   HandHeartIcon,
-} from "@phosphor-icons/react";
+} from "@elsway-icons/react";
 
 import Banner from "@/components/Banner";
 
-import PhosphorLogo from "@/assets/phosphor-logo.svg?react";
+import ElswayLogo from "@/assets/elsway-logo.svg?react";
 import PaperClipsTwo from "@/assets/paperclips-2.svg?react";
 import PaperClipsThree from "@/assets/paperclips-3.svg?react";
 import IPad from "@/assets/ipad.svg?react";
@@ -26,7 +26,7 @@ type HeaderProps = {};
 
 const handleGetStarted = () =>
   window.open(
-    "https://github.com/phosphor-icons/homepage#phosphor-icons",
+    "https://github.com/elsway-icons/homepage#elsway-icons",
     "_blank",
     "noopener noreferrer"
   );
@@ -47,7 +47,7 @@ const Header = (_: HeaderProps) => {
               Some packages may be renaming icons in coming versions, and
               deprecating older names. Existing names will continue to work, but
               we recommend upgrading at your convenience. See{" "}
-              <a href="https://github.com/phosphor-icons/react/releases/tag/v2.1.8">
+              <a href="https://github.com/elsway-icons/react/releases/tag/v2.1.8">
                 release notes
               </a>{" "}
               for details.
@@ -59,13 +59,13 @@ const Header = (_: HeaderProps) => {
             <HandHeartIcon size={32} mirrored />
             <small>
               We are now processing donations via{" "}
-              <a href="https://www.buymeacoffee.com/phosphoricons">
+              <a href="https://www.buymeacoffee.com/elswayicons">
                 Buy Me a Coffee
               </a>
               {", "}
-              <a href="https://ko-fi.com/phosphoricons">Ko-fi</a>
+              <a href="https://ko-fi.com/elswayicons">Ko-fi</a>
               {", and "}
-              <a href="https://opencollective.com/phosphoricons">
+              <a href="https://opencollective.com/elswayicons">
                 Open Collective
               </a>
               ! Your one-time or recurring contribution does a lot to keep us
@@ -76,7 +76,7 @@ const Header = (_: HeaderProps) => {
       </Banner.Container>
       <div className="header-contents">
         <div className="illustrations-top">
-          <PhosphorLogo id="logo" />
+          <ElswayLogo id="logo" />
 
           <PaperClipsThree id="paperclips-three" />
 
@@ -85,7 +85,7 @@ const Header = (_: HeaderProps) => {
         </div>
         <div className="intro">
           <h2>
-            Phosphor is a flexible icon family for interfaces, diagrams,
+            Elsway is a flexible icon family for interfaces, diagrams,
             presentations — whatever, really.
           </h2>
           <div className="button-container">

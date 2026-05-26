@@ -33,17 +33,17 @@ root.render(
 console.log(
   `
 
-%c  sphorphosphor  %co%cspho
-%c  s%cphorphosphor  %co%csphorpho%cs
-%c o %cp%chorphosphor  %co%csphorphosph%co
-%ch%co%cs %ch%corphosphor  %co%csphorphosphor%cp
-%ch%cos%cp  %cr%cphosphor  %co%csphorphosphorp%ch
-%ch%cosp%ch  %cp%chosphor  %co%csphorphosphorph%co
-%ch%cosph%co  %ch%cosphor  %co%csphorphosphorph%co
-%ch%cospho%cr  %co%csphor  %co%csphorphosphorph%co
-%ch%cosphor%cp  %cs%cphor  %co%csphorphosphorph%co
-%ch%cosphorph%co  %ch%cor  %co%csphorphosphorp%ch
-%ch%cosphorpho%cs  %co%cr  %co%csphorphosphor%cp
+%c  sphorelsway  %co%cspho
+%c  s%cphorelsway  %co%csphorpho%cs
+%c o %cp%chorelsway  %co%csphorphosph%co
+%ch%co%cs %ch%corelsway  %co%csphorelsway%cp
+%ch%cos%cp  %cr%celsway  %co%csphorelswayp%ch
+%ch%cosp%ch  %cp%chosphor  %co%csphorelswayph%co
+%ch%cosph%co  %ch%cosphor  %co%csphorelswayph%co
+%ch%cospho%cr  %co%csphor  %co%csphorelswayph%co
+%ch%cosphor%cp  %cs%cphor  %co%csphorelswayph%co
+%ch%cosphorph%co  %ch%cor  %co%csphorelswayp%ch
+%ch%cosphorpho%cs  %co%cr  %co%csphorelsway%cp
 %ch%cosphorphos%cp  %cr  %co%csphorphosph%co
 %ch%cosphorphosp%ch    %co%csphorphos%cp
 %ch%cosphorphosph%co   %co%cspho%crph
@@ -55,7 +55,7 @@ console.log(
 %c      r%cphospho%cr
 %c          s%cpho%cr
 
-%cThanks for your interest in Phosphor <3
+%cThanks for your interest in Elsway <3
 Hire me at https://tobiasfried.com
 `,
   "color: #8861A8;",

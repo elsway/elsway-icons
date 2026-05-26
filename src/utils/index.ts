@@ -1,4 +1,4 @@
-import { IconStyle } from "@phosphor-icons/core";
+import { IconStyle } from "@elsway-icons/core";
 import TinyColor from "tinycolor2";
 
 import { SnippetType } from "@/lib";
@@ -39,7 +39,7 @@ export function getCodeSnippets({
     [SnippetType.VUE]: `<Ph${displayName} :size="${size}" ${
       !isDefaultColor ? `color="${color}" ` : ""
     }${isDefaultWeight ? "" : `weight="${weight}" `}/>`,
-    [SnippetType.FLUTTER]: `Icon(\n  PhosphorIcons.${displayName.replace(
+    [SnippetType.FLUTTER]: `Icon(\n  ElswayIcons.${displayName.replace(
       /^\w/,
       (c) => c.toLowerCase()
     )}${
@@ -47,7 +47,7 @@ export function getCodeSnippets({
     },\n  size: ${size.toFixed(1)},\n${
       !isDefaultColor ? `  color: Color(0xff${color.replace("#", "")}),\n` : ""
     })`,
-    [SnippetType.ELM]: `Phosphor.${camelName}${
+    [SnippetType.ELM]: `Elsway.${camelName}${
       isDefaultWeight ? "" : " " + pascalWeight
     }
     |> withSize ${size}
