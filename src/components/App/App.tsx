@@ -4,7 +4,6 @@ import "./App.css";
 import Header from "@/components/Header";
 import Toolbar from "@/components/Toolbar";
 import IconGrid from "@/components/IconGrid";
-import Panel from "@/components/IconGrid/Panel";
 import Footer from "@/components/Footer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
@@ -40,22 +39,14 @@ const App: React.FC<any> = () => {
   return (
     <Fragment>
       <Header />
-      <div className="top-nav-blank" />
-      <div className="three-col-shell">
-        <aside className="pane left-rail">
-          <Toolbar />
-        </aside>
-        <main className="pane middle-pane">
-          <ErrorBoundary fallback={errorFallback}>
-            <Suspense fallback={waitingFallback}>
-              <IconGrid />
-            </Suspense>
-          </ErrorBoundary>
-        </main>
-        <aside className="pane right-rail">
-          <Panel />
-        </aside>
-      </div>
+      <main>
+        <Toolbar />
+        <ErrorBoundary fallback={errorFallback}>
+          <Suspense fallback={waitingFallback}>
+            <IconGrid />
+          </Suspense>
+        </ErrorBoundary>
+      </main>
       {/* <Recipes /> */}
       <Footer />
     </Fragment>
