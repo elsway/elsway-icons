@@ -5,7 +5,6 @@ import { IconContext } from "@elsway-icons/react";
 import { ApplicationTheme, useApplicationStore } from "@/state";
 import Notice from "@/components/Notice";
 
-import Panel from "./Panel";
 import IconGridItem from "./IconGridItem";
 import TagCloud from "./TagCloud";
 import "./IconGrid.css";
@@ -74,7 +73,6 @@ const IconGrid = (_: IconGridProps) => {
             />
           ))}
         </motion.div>
-        <Panel />
       </div>
     </IconContext.Provider>
   );
