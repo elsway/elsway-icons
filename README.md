@@ -30,12 +30,12 @@ Elsway is available for [web](https://github.com/elsway-icons/web), [React](http
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdn.jsdelivr.net/npm/@elsway-icons/web@2.1.1/src/regular/style.css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
     />
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdn.jsdelivr.net/npm/@elsway-icons/web@2.1.1/src/fill/style.css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
     />
   </head>
   <body>
@@ -46,16 +46,16 @@ Elsway is available for [web](https://github.com/elsway-icons/web), [React](http
 </html>
 ```
 
-Check out the full documentation on the [@elsway-icons/web](https://github.com/elsway-icons/web) repo page.
+Check out the full documentation on the [@phosphor-icons/web](https://github.com/elsway-icons/web) repo page.
 
 ### React
 
-- **Powerful** – Elsway's intuitive but powerful API can style the `color`, `size`, and `weight` of an icon with a few keystrokes, provide default styles to all icons via the Context API, or directly manipulate the SVG at runtime through render props to do some amazing things! Check out the full documentation on the [@elsway-icons/react](https://github.com/elsway-icons/react) repo page.
+- **Powerful** – Elsway's intuitive but powerful API can style the `color`, `size`, and `weight` of an icon with a few keystrokes, provide default styles to all icons via the Context API, or directly manipulate the SVG at runtime through render props to do some amazing things! Check out the full documentation on the [@phosphor-icons/react](https://github.com/elsway-icons/react) repo page.
 
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import { Smiley, Heart, Horse } from "@elsway-icons/react";
+import { Smiley, Heart, Horse } from "@phosphor-icons/react";
 
 const App = () => {
   return (
@@ -75,7 +75,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 ### Vue
 
-- **Parity** – As with React, you can manipulate the `color`, `size`, and `weight` of an icon with a few keystrokes, or provide default styles to all icons via the `provide/inject` API. It is fully tree-shakable and ready to use right away. Check out the full documentation on the [@elsway-icons/vue](https://github.com/elsway-icons/vue) repo page.
+- **Parity** – As with React, you can manipulate the `color`, `size`, and `weight` of an icon with a few keystrokes, or provide default styles to all icons via the `provide/inject` API. It is fully tree-shakable and ready to use right away. Check out the full documentation on the [@phosphor-icons/vue](https://github.com/elsway-icons/vue) repo page.
 
 ```html
 <template>
@@ -87,7 +87,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 </template>
 
 <script>
-  import { PhHorse, PhHeart, PhCube } from "@elsway-icons/vue";
+  import { PhHorse, PhHeart, PhCube } from "@phosphor-icons/vue";
   export default {
     name: "App",
     components: {
@@ -105,21 +105,21 @@ ReactDOM.render(<App />, document.getElementById("root"));
 <!-- BEGIN_LINKS -->
 ## Our Projects
 
-- [@elsway-icons/homepage](https://github.com/elsway-icons/homepage) ▲ Elsway homepage and general info
-- [@elsway-icons/core](https://github.com/elsway-icons/core) ▲ Elsway icon assets and catalog
-- [@elsway-icons/elm](https://github.com/elsway-icons/elsway-elm) ▲ Elsway icons for Elm
-- [@elsway-icons/figma](https://github.com/elsway-icons/figma) ▲ Elsway icons Figma plugin
-- [@elsway-icons/flutter](https://github.com/elsway-icons/flutter) ▲ Elsway IconData library for Flutter
-- [@elsway-icons/pack](https://github.com/elsway-icons/pack) ▲ Elsway web font stripper to generate minimal icon bundles
-- [@elsway-icons/penpot](https://github.com/elsway-icons/penpot) ▲ Elsway icons Penpot plugin
-- [@elsway-icons/react](https://github.com/elsway-icons/react) ▲ Elsway icon component library for React
-- [@elsway-icons/sketch](https://github.com/elsway-icons/sketch) ▲ Elsway icons Sketch plugin
-- [@elsway-icons/swift](https://github.com/elsway-icons/swift) ▲ Elsway icon component library for SwiftUI
-- [@elsway-icons/theme](https://github.com/elsway-icons/theme) ▲ A VS Code (and other IDE) theme with the Elsway color palette
-- [@elsway-icons/unplugin](https://github.com/elsway-icons/unplugin) ▲ A multi-framework bundler plugin for generating Elsway sprite sheets
-- [@elsway-icons/vue](https://github.com/elsway-icons/vue) ▲ Elsway icon component library for Vue
-- [@elsway-icons/web](https://github.com/elsway-icons/web) ▲ Elsway icons for Vanilla JS
-- [@elsway-icons/webcomponents](https://github.com/elsway-icons/webcomponents) ▲ Elsway icons as Web Components
+- [@phosphor-icons/homepage](https://github.com/elsway-icons/homepage) ▲ Elsway homepage and general info
+- [@phosphor-icons/core](https://github.com/elsway-icons/core) ▲ Elsway icon assets and catalog
+- [@phosphor-icons/elm](https://github.com/elsway-icons/elsway-elm) ▲ Elsway icons for Elm
+- [@phosphor-icons/figma](https://github.com/elsway-icons/figma) ▲ Elsway icons Figma plugin
+- [@phosphor-icons/flutter](https://github.com/elsway-icons/flutter) ▲ Elsway IconData library for Flutter
+- [@phosphor-icons/pack](https://github.com/elsway-icons/pack) ▲ Elsway web font stripper to generate minimal icon bundles
+- [@phosphor-icons/penpot](https://github.com/elsway-icons/penpot) ▲ Elsway icons Penpot plugin
+- [@phosphor-icons/react](https://github.com/elsway-icons/react) ▲ Elsway icon component library for React
+- [@phosphor-icons/sketch](https://github.com/elsway-icons/sketch) ▲ Elsway icons Sketch plugin
+- [@phosphor-icons/swift](https://github.com/elsway-icons/swift) ▲ Elsway icon component library for SwiftUI
+- [@phosphor-icons/theme](https://github.com/elsway-icons/theme) ▲ A VS Code (and other IDE) theme with the Elsway color palette
+- [@phosphor-icons/unplugin](https://github.com/elsway-icons/unplugin) ▲ A multi-framework bundler plugin for generating Elsway sprite sheets
+- [@phosphor-icons/vue](https://github.com/elsway-icons/vue) ▲ Elsway icon component library for Vue
+- [@phosphor-icons/web](https://github.com/elsway-icons/web) ▲ Elsway icons for Vanilla JS
+- [@phosphor-icons/webcomponents](https://github.com/elsway-icons/webcomponents) ▲ Elsway icons as Web Components
 
 ## Community Projects
 

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useShallow } from "zustand/react/shallow";
-import { EyedropperSampleIcon } from "@elsway-icons/react";
+import { EyedropperSampleIcon } from "@phosphor-icons/react";
 
 import { useThrottled } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";

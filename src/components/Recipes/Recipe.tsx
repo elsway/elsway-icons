@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import { ArrowCircleUpRightIcon } from "@elsway-icons/react";
+import { ArrowCircleUpRightIcon } from "@phosphor-icons/react";
 
 export type RecipeProps = {
   title: string;

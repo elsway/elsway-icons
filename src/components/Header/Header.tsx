@@ -3,7 +3,7 @@ import {
   ArrowCircleDownIcon,
   MegaphoneSimpleIcon,
   HandHeartIcon,
-} from "@elsway-icons/react";
+} from "@phosphor-icons/react";
 
 import Banner from "@/components/Banner";
 

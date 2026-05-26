@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { motion, useAnimation } from "motion/react";
-import { IconContext } from "@elsway-icons/react";
+import { IconContext } from "@phosphor-icons/react";
 
 import { ApplicationTheme, useApplicationStore } from "@/state";
 import Notice from "@/components/Notice";

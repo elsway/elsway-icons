@@ -1,8 +1,8 @@
 import type { JSX } from "react";
 import { useShallow } from "zustand/react/shallow";
 import Select from "react-dropdown-select";
-import { PencilSimpleLineIcon } from "@elsway-icons/react";
-import { IconStyle } from "@elsway-icons/core";
+import { PencilSimpleLineIcon } from "@phosphor-icons/react";
+import { IconStyle } from "@phosphor-icons/core";
 
 import { useApplicationStore } from "@/state";
 

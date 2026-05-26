@@ -1,4 +1,4 @@
-import { IconContext } from "@elsway-icons/react";
+import { IconContext } from "@phosphor-icons/react";
 
 import Recipe from "./Recipe";
 import items from "./items";
