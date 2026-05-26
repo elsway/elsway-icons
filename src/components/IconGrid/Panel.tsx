@@ -245,7 +245,7 @@ const Panel = () => {
 
     const { name } = entry;
     const data = await fetch(
-      `https://raw.githubusercontent.com/elsway-icons/core/main/raw/${weight}/${name}${
+      `https://raw.githubusercontent.com/phosphor-icons/core/main/raw/${weight}/${name}${
         weight === "regular" ? "" : `-${weight}`
       }.svg`
     );
@@ -281,7 +281,7 @@ const Panel = () => {
 
     const { name } = entry;
     saveAs(
-      `https://raw.githubusercontent.com/elsway-icons/core/main/raw/${weight}/${name}${
+      `https://raw.githubusercontent.com/phosphor-icons/core/main/raw/${weight}/${name}${
         weight === "regular" ? "" : `-${weight}`
       }.svg`,
       `${entry?.name}${weight === "regular" ? "" : `-${weight}`}.svg`
