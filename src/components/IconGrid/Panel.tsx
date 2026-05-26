@@ -218,7 +218,10 @@ const Panel = () => {
     if (!entry) return;
     if (!ref.current) return;
 
-    navigator.clipboard?.writeText(cloneWithSize(ref.current, size).outerHTML);
+    const fullName = `${entry.name}${weight === "regular" ? "" : `-${weight}`}`;
+    navigator.clipboard?.writeText(
+      `<!-- ${fullName} -->\n${cloneWithSize(ref.current, size).outerHTML}`
+    );
     setCopied(CopyType.SVG);
   };
 
@@ -250,7 +253,8 @@ const Panel = () => {
       }.svg`
     );
     const content = await data.text();
-    navigator.clipboard?.writeText(content);
+    const fullName = `${name}${weight === "regular" ? "" : `-${weight}`}`;
+    navigator.clipboard?.writeText(`<!-- ${fullName} -->\n${content}`);
     setCopied(CopyType.SVG_RAW);
   };
 
