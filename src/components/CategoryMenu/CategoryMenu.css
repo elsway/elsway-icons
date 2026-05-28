@@ -1,0 +1,48 @@
+.category-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.category-menu .brand {
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+  text-transform: lowercase;
+}
+
+.category-menu .categories {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.category-menu .cat-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--foreground);
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.category-menu .cat-btn:hover {
+  background: var(--background-card);
+}
+
+.category-menu .cat-btn.active {
+  background: var(--background-card);
+  border-color: var(--border-card);
+}
