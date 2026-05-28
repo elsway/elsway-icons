@@ -1,22 +1,10 @@
-import { useShallow } from "zustand/react/shallow";
-import {
-  ArrowCounterClockwiseIcon,
-  CheckCircleIcon,
-  LinkIcon,
-} from "@elsway-icons/react";
+import { CheckCircleIcon, LinkIcon } from "@elsway-icons/react";
 
 import { useTransientState } from "@/hooks";
-import { useApplicationStore } from "@/state";
 
 import "./SettingsActions.css";
 
 const SettingsActions = () => {
-  const { reset } = useApplicationStore(
-    useShallow((state) => ({
-      reset: state.resetApplicationState,
-    }))
-  );
-
   const [copied, setCopied] = useTransientState<boolean>(false, 2000);
 
   const copyDeepLinkToClipboard = () => {
@@ -32,13 +20,6 @@ const SettingsActions = () => {
 
   return (
     <>
-      <button
-        className="tool-button"
-        title="Restore default settings"
-        onClick={reset}
-      >
-        <ArrowCounterClockwiseIcon size={24} />
-      </button>
       <button
         className="tool-button"
         title="Copy URL for current settings"
