@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>elsway icons — mobile demo</title>
+<style>
+  :root {
+    --bg: #f3f1ec;
+    --card: #ffffff;
+    --ink: #2b2e22;
+    --muted: #8a8c82;
+    --accent: #3c402b;
+    --line: #e6e2d8;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #d8d4cb;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .device {
+    width: 375px; height: 760px;
+    background: var(--bg);
+    border-radius: 36px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.18);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    position: relative;
+    border: 10px solid #1a1a1a;
+  }
+  .statusbar {
+    height: 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 24px;
+    font-size: 14px; font-weight: 600;
+  }
+  .statusbar-icons { display: flex; gap: 6px; align-items: center; }
+  .statusbar-icons .icn { width: 16px; height: 16px; }
+  header {
+    padding: 8px 20px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 { margin: 0; font-size: 26px; font-weight: 700; }
+  header .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+  }
+  .search {
+    margin: 0 20px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    height: 44px;
+    display: flex; align-items: center; gap: 10px; padding: 0 14px;
+    color: var(--muted);
+  }
+  .search input { border: none; outline: none; flex: 1; background: transparent; font-size: 15px; color: var(--ink); }
+  .chips {
+    display: flex; gap: 8px; padding: 16px 20px; overflow-x: auto;
+  }
+  .chip {
+    flex-shrink: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink);
+  }
+  .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .list { flex: 1; overflow-y: auto; padding: 4px 20px 20px; }
+  .row {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .row .thumb {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: #eef0e6;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .row .meta { flex: 1; }
+  .row .title { font-size: 15px; font-weight: 600; }
+  .row .sub { font-size: 13px; color: var(--muted); }
+  .row .more { color: var(--muted); }
+  nav.tabbar {
+    height: 70px;
+    background: var(--card);
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+  }
+  nav.tabbar button {
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    color: var(--muted); font-size: 11px;
+    padding: 4px 0;
+  }
+  nav.tabbar button.active { color: var(--accent); }
+  .fab {
+    position: absolute;
+    right: 22px; bottom: 92px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    border: none; cursor: pointer;
+    box-shadow: 0 12px 24px rgba(60,64,43,.35);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icn { display: inline-block; width: 22px; height: 22px; }
+  .icn svg { width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+  <div class="device">
+    <div class="statusbar">
+      <span>9:41</span>
+      <div class="statusbar-icons">
+        <span class="icn" data-icon="cell-signal-high"></span>
+        <span class="icn" data-icon="wifi-high"></span>
+        <span class="icn" data-icon="battery-high"></span>
+      </div>
+    </div>
+
+    <header>
+      <h1>Today</h1>
+      <div class="avatar"><span class="icn" data-icon="user" data-color="white"></span></div>
+    </header>
+
+    <div class="search">
+      <span class="icn" data-icon="magnifying-glass"></span>
+      <input placeholder="Search anything" />
+      <span class="icn" data-icon="microphone"></span>
+    </div>
+
+    <div class="chips">
+      <span class="chip active"><span class="icn" data-icon="sparkle" data-color="white"></span> Featured</span>
+      <span class="chip"><span class="icn" data-icon="music-notes"></span> Music</span>
+      <span class="chip"><span class="icn" data-icon="film-strip"></span> Movies</span>
+      <span class="chip"><span class="icn" data-icon="book-open"></span> Books</span>
+      <span class="chip"><span class="icn" data-icon="camera"></span> Photos</span>
+    </div>
+
+    <div class="list">
+      <div class="row">
+        <div class="thumb"><span class="icn" data-icon="cloud-sun"></span></div>
+        <div class="meta">
+          <div class="title">Weather</div>
+          <div class="sub">28°C · Partly cloudy</div>
+        </div>
+        <span class="more icn" data-icon="caret-right"></span>
+      </div>
+      <div class="row">
+        <div class="thumb"><span class="icn" data-icon="calendar-blank"></span></div>
+        <div class="meta">
+          <div class="title">Calendar</div>
+          <div class="sub">3 events today</div>
+        </div>
+        <span class="more icn" data-icon="caret-right"></span>
+      </div>
+      <div class="row">
+        <div class="thumb"><span class="icn" data-icon="chat-circle-dots"></span></div>
+        <div class="meta">
+          <div class="title">Messages</div>
+          <div class="sub">2 new from Alex</div>
+        </div>
+        <span class="more icn" data-icon="caret-right"></span>
+      </div>
+      <div class="row">
+        <div class="thumb"><span class="icn" data-icon="map-pin"></span></div>
+        <div class="meta">
+          <div class="title">Places near you</div>
+          <div class="sub">12 picks within 1km</div>
+        </div>
+        <span class="more icn" data-icon="caret-right"></span>
+      </div>
+      <div class="row">
+        <div class="thumb"><span class="icn" data-icon="shopping-bag-open"></span></div>
+        <div class="meta">
+          <div class="title">Orders</div>
+          <div class="sub">1 arriving tomorrow</div>
+        </div>
+        <span class="more icn" data-icon="caret-right"></span>
+      </div>
+    </div>
+
+    <button class="fab" aria-label="New"><span class="icn" data-icon="plus" data-color="white" style="width:24px;height:24px"></span></button>
+
+    <nav class="tabbar">
+      <button class="active"><span class="icn" data-icon="house-simple"></span>Home</button>
+      <button><span class="icn" data-icon="compass"></span>Explore</button>
+      <button><span class="icn" data-icon="heart"></span>Saved</button>
+      <button><span class="icn" data-icon="bell"></span>Alerts</button>
+      <button><span class="icn" data-icon="user-circle"></span>Profile</button>
+    </nav>
+  </div>
+
+<script>
+  // Elsway icon CDN: self-hosted raw SVGs
+  const CDN = "https://elsway.github.io/phosphor-homepage/raw/regular/";
+
+  async function loadIcon(el) {
+    const name = el.dataset.icon;
+    const color = el.dataset.color || "currentColor";
+    try {
+      const res = await fetch(CDN + name + ".svg");
+      if (!res.ok) throw new Error(res.status);
+      let svg = await res.text();
+      // recolor strokes
+      svg = svg.replace(/stroke="currentColor"/g, 'stroke="' + color + '"');
+      svg = svg.replace(/fill="currentColor"/g, 'fill="' + color + '"');
+      el.innerHTML = svg;
+    } catch (e) {
+      el.textContent = "·";
+    }
+  }
+  document.querySelectorAll(".icn[data-icon]").forEach(loadIcon);
+</script>
+</body>
+</html>
