@@ -457,6 +457,8 @@ const Panel = () => {
           <button
             tabIndex={0}
             className="close-button"
+            aria-label="Close detail panel"
+            title="Close"
             onClick={() => setSelectionEntry(null)}
             onKeyDown={(e) => {
               e.key === "Enter" && setSelectionEntry(null);

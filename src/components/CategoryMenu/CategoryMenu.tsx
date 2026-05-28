@@ -28,12 +28,13 @@ const CategoryMenu: React.FC = () => {
   const current = useApplicationStore.use.searchQuery();
 
   return (
-    <div className="category-menu">
+    <nav className="category-menu" aria-label="Icon categories">
       <h1 className="brand">Elsway icons</h1>
-      <ul className="categories">
+      <ul className="categories" role="list">
         <li>
           <button
             className={`cat-btn ${current === "" ? "active" : ""}`}
+            aria-pressed={current === ""}
             onClick={() => setSearchQuery("")}
           >
             All
@@ -43,6 +44,7 @@ const CategoryMenu: React.FC = () => {
           <li key={c}>
             <button
               className={`cat-btn ${current === c ? "active" : ""}`}
+              aria-pressed={current === c}
               onClick={() => setSearchQuery(c)}
             >
               {c}
@@ -50,7 +52,7 @@ const CategoryMenu: React.FC = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 

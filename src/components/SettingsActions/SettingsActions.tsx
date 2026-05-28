@@ -23,6 +23,8 @@ const SettingsActions = () => {
       <button
         className="tool-button"
         title="Copy URL for current settings"
+        aria-label="Copy URL for current settings"
+        aria-live="polite"
         onClick={copyDeepLinkToClipboard}
       >
         {copied ? (
