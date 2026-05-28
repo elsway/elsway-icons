@@ -1,10 +1,9 @@
 import { Fragment, Suspense, useMemo } from "react";
 
 import "./App.css";
-import Header from "@/components/Header";
 import Toolbar from "@/components/Toolbar";
 import IconGrid from "@/components/IconGrid";
-import Footer from "@/components/Footer";
+import Panel from "@/components/IconGrid/Panel";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 // import Recipes from "@/components/Recipes";
@@ -38,17 +37,21 @@ const App: React.FC<any> = () => {
 
   return (
     <Fragment>
-      <Header />
-      <main>
-        <Toolbar />
-        <ErrorBoundary fallback={errorFallback}>
-          <Suspense fallback={waitingFallback}>
-            <IconGrid />
-          </Suspense>
-        </ErrorBoundary>
-      </main>
-      {/* <Recipes /> */}
-      <Footer />
+      <div className="three-col-shell primary">
+        <aside className="pane left-rail">
+          <Toolbar />
+        </aside>
+        <main className="pane middle-pane">
+          <ErrorBoundary fallback={errorFallback}>
+            <Suspense fallback={waitingFallback}>
+              <IconGrid />
+            </Suspense>
+          </ErrorBoundary>
+        </main>
+        <aside className="pane right-rail">
+          <Panel />
+        </aside>
+      </div>
     </Fragment>
   );
 };
