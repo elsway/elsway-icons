@@ -17,6 +17,7 @@ const waitingFallback = <Notice type="none" message="" />;
 const App: React.FC<any> = () => {
   const isDark =
     useApplicationStore.use.applicationTheme() === ApplicationTheme.DARK;
+  const hasSelection = !!useApplicationStore.use.selectionEntry();
 
   useCSSVariables(
     useMemo(
@@ -38,7 +39,11 @@ const App: React.FC<any> = () => {
 
   return (
     <Fragment>
-      <div className="three-col-shell primary">
+      <div
+        className={`three-col-shell primary ${
+          hasSelection ? "has-selection" : "no-selection"
+        }`}
+      >
         <aside className="pane left-rail">
           <CategoryMenu />
         </aside>
@@ -49,14 +54,16 @@ const App: React.FC<any> = () => {
             </Suspense>
           </ErrorBoundary>
         </main>
-        <aside className="pane right-rail">
-          <div className="right-stack-top">
-            <Toolbar />
-          </div>
-          <div className="right-stack-bottom">
-            <Panel />
-          </div>
-        </aside>
+        {hasSelection && (
+          <aside className="pane right-rail">
+            <div className="right-stack-top">
+              <Toolbar />
+            </div>
+            <div className="right-stack-bottom">
+              <Panel />
+            </div>
+          </aside>
+        )}
       </div>
     </Fragment>
   );

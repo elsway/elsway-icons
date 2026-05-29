@@ -82,6 +82,10 @@ button:focus-visible {
   overflow: hidden;
 }
 
+.three-col-shell.no-selection {
+  grid-template-columns: 260px 1fr;
+}
+
 .three-col-shell .right-rail {
   display: flex;
   flex-direction: column;
