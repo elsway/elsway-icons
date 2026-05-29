@@ -121,6 +121,36 @@ button:focus-visible {
   background: transparent !important;
   box-shadow: none !important;
   padding: 0 !important;
+  color: var(--foreground) !important;
+}
+
+/* Light-theme overrides for the toolbar inputs (originally designed for a dark sticky bar) */
+.three-col-shell .right-rail .right-stack-top .style-input,
+.three-col-shell .right-rail .right-stack-top .search-bar,
+.three-col-shell .right-rail .right-stack-top .size-input,
+.three-col-shell .right-rail .right-stack-top .color-input,
+.three-col-shell .right-rail .right-stack-top .tool-button {
+  color: var(--foreground) !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid var(--border-card) !important;
+  border-radius: 8px !important;
+  margin: 0 !important;
+}
+
+.three-col-shell .right-rail .right-stack-top .search-bar input,
+.three-col-shell .right-rail .right-stack-top .style-input input,
+.three-col-shell .right-rail .right-stack-top .style-input button,
+.three-col-shell .right-rail .right-stack-top .search-bar .keys {
+  color: var(--foreground) !important;
+  background-color: transparent !important;
+}
+
+.three-col-shell .right-rail .right-stack-top .toolbar-contents > * {
+  margin: 0 !important;
+}
+
+.three-col-shell .right-rail .right-stack-top button svg {
+  color: var(--foreground);
 }
 
 .three-col-shell .pane {
