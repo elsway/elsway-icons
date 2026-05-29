@@ -138,6 +138,13 @@ button:focus-visible {
   box-sizing: border-box;
 }
 
+.three-col-shell .middle-pane {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
 .three-col-shell .left-rail .toolbar,
 .three-col-shell .left-rail .toolbar-contents {
   display: flex !important;
