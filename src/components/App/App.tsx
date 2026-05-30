@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useMemo } from "react";
+import { Fragment, Suspense, useMemo, useRef } from "react";
 
 import "./App.css";
 import Toolbar from "@/components/Toolbar";
@@ -8,7 +8,7 @@ import CategoryMenu from "@/components/CategoryMenu";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 // import Recipes from "@/components/Recipes";
-import { useCSSVariables } from "@/hooks";
+import { useCSSVariables, useLenis } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
 
 const errorFallback = <Notice message="Search error" />;
@@ -18,6 +18,13 @@ const App: React.FC<any> = () => {
   const isDark =
     useApplicationStore.use.applicationTheme() === ApplicationTheme.DARK;
   const hasSelection = !!useApplicationStore.use.selectionEntry();
+
+  const leftRef = useRef<HTMLElement>(null);
+  const middleRef = useRef<HTMLElement>(null);
+  const rightRef = useRef<HTMLElement>(null);
+  useLenis(leftRef);
+  useLenis(middleRef);
+  useLenis(rightRef);
 
   useCSSVariables(
     useMemo(
@@ -44,10 +51,10 @@ const App: React.FC<any> = () => {
           hasSelection ? "has-selection" : "no-selection"
         }`}
       >
-        <aside className="pane left-rail">
+        <aside className="pane left-rail" ref={leftRef}>
           <CategoryMenu />
         </aside>
-        <main className="pane middle-pane">
+        <main className="pane middle-pane" ref={middleRef}>
           <ErrorBoundary fallback={errorFallback}>
             <Suspense fallback={waitingFallback}>
               <IconGrid />
@@ -55,7 +62,7 @@ const App: React.FC<any> = () => {
           </ErrorBoundary>
         </main>
         {hasSelection && (
-          <aside className="pane right-rail">
+          <aside className="pane right-rail" ref={rightRef}>
             <div className="right-stack-top">
               <Toolbar />
             </div>

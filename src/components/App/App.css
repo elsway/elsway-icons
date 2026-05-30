@@ -54,6 +54,70 @@ body {
   overflow: hidden;
   background: var(--background);
   color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lenis smooth-scroll baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Globally smooth UI transitions — easeOutCubic */
+:root {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+button,
+.cat-btn,
+.tool-button,
+.action-button,
+.grid-item,
+.chip,
+input,
+.search-bar,
+.style-input,
+.size-input,
+.color-input,
+a {
+  transition:
+    background-color 220ms var(--ease-smooth),
+    color 220ms var(--ease-smooth),
+    border-color 220ms var(--ease-smooth),
+    box-shadow 220ms var(--ease-smooth),
+    transform 220ms var(--ease-smooth),
+    opacity 220ms var(--ease-smooth);
+}
+.grid-item:hover {
+  transform: translateY(-1px);
+}
+.cat-btn:hover,
+.tool-button:hover,
+.action-button:hover {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Departure Mono reserved for brand/category — readable sans-serif everywhere else */

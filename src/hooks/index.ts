@@ -10,3 +10,4 @@ export { default as useThrottled } from "./useThrottled";
 export { default as useTimeoutFn } from "./useTimeoutFn";
 export { default as useTransientState } from "./useTransientState";
 export { default as useUnmount } from "./useUnmount";
+export { useLenis } from "./useLenis";
