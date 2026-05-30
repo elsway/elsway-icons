@@ -5,7 +5,7 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/phosphor-homepage/",
+  base: "/elsway-icons/",
   plugins: [react(), svgr()],
   resolve: {
     alias: {
