@@ -4,10 +4,10 @@
   flex: 2;
   align-items: center;
   height: 48px;
-  padding: 0 24px;
-  color: white;
+  padding: 12px 24px;
+  color: #000000;
   border-radius: 8px;
-  background-color: var(--scrim);
+  background-color: rgb(0 0 0 / 5%);
   font-family: "Manrope", sans-serif;
   font-size: 16px;
 }
@@ -24,11 +24,11 @@
   flex: 1;
   border: none;
   margin: 0 0 0 12px;
-  -webkit-appearance: none; /* Override default CSS styles */
+  -webkit-appearance: none;
   appearance: none;
-  height: 1px; /* Specified height */
-  background: rgba(255, 255, 255, 0.3);
-  outline: none; /* Remove outline */
+  height: 2px;
+  background: rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 @media screen and (max-width: 558px) {
@@ -42,38 +42,38 @@
 }
 
 .size-bar input::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  width: 16px; /* Set a specific slider handle width */
-  height: 16px; /* Slider handle height */
+  width: 16px;
+  height: 16px;
   padding: 6px;
   border-radius: 50%;
-  background: white; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #000000;
+  cursor: pointer;
   transition: height 0.1s, width 0.1s;
 }
 
 .size-bar input::-moz-range-thumb {
   appearance: none;
-  width: 16px; /* Set a specific slider handle width */
-  height: 16px; /* Slider handle height */
+  width: 16px;
+  height: 16px;
   padding: 6px;
   border-radius: 50%;
-  background: white; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #000000;
+  cursor: pointer;
   transition: height 0.1s, width 0.1s;
 }
 
 .size-bar input:focus::-moz-range-thumb {
   outline: none;
-  width: 24px; /* Set a specific slider handle width */
-  height: 24px; /* Slider handle height */
-  box-shadow: 0 0 0 6px var(--sheer);
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 .size-bar input:focus::-webkit-slider-thumb {
   outline: none;
-  width: 24px; /* Set a specific slider handle width */
-  height: 24px; /* Slider handle height */
-  box-shadow: 0 0 0 6px var(--sheer);
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.1);
 }

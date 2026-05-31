@@ -3,9 +3,9 @@
   height: 48px !important;
   justify-content: flex-start;
   padding: 0 24px !important;
-  color: white;
+  color: #000000;
   border-radius: 8px !important;
-  background-color: var(--scrim);
+  background-color: rgb(0 0 0 / 5%);
   font-size: 16px;
   border: none !important;
 }
@@ -27,10 +27,10 @@
 }
 
 .react-dropdown-select:focus-within {
-  background-color: white;
-  color: var(--moss);
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) !important;
   outline: none !important;
-  box-shadow: none !important;
 }
 
 .react-dropdown-select-item {
@@ -45,7 +45,7 @@
 }
 
 .react-dropdown-select-input {
-  color: #fff;
+  color: #000000;
 }
 .react-dropdown-select-dropdown {
   position: absolute;
