@@ -140,10 +140,10 @@ button:focus-visible {
 .two-col-shell {
   display: grid;
   grid-template-columns: 260px 1fr;
-  gap: 12px;
   height: 100vh;
-  padding: 12px;
   box-sizing: border-box;
+  gap: 12px;
+  padding: 0px;
   overflow: hidden;
 }
 
