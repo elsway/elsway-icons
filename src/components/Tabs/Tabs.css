@@ -38,7 +38,7 @@ button.tab:hover:not(.active) {
 }
 
 button.tab.active {
-  background-color: var(--background-layer);
+  background-color: rgb(0 0 0 / 5%);
   border-bottom: none;
 }
 
@@ -48,7 +48,7 @@ button.tab.active {
   max-height: 86px;
   padding: 20px 20px 10px;
   border-radius: 8px;
-  background-color: var(--background-layer);
+  background-color: rgb(0 0 0 / 5%);
   overflow-y: auto;
 }
 
