@@ -207,6 +207,16 @@ button:focus-visible {
   border: none !important;
   padding: 0 !important;
   border-radius: 0 !important;
+  position: relative;
+}
+
+.three-col-shell .middle-pane .middle-search {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 0 0 12px;
+  background: var(--background);
+  backdrop-filter: blur(6px);
 }
 
 .three-col-shell .left-rail .toolbar,

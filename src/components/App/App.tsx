@@ -5,6 +5,7 @@ import Toolbar from "@/components/Toolbar";
 import IconGrid from "@/components/IconGrid";
 import Panel from "@/components/IconGrid/Panel";
 import CategoryMenu from "@/components/CategoryMenu";
+import SearchInput from "@/components/SearchInput";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 // import Recipes from "@/components/Recipes";
@@ -55,6 +56,9 @@ const App: React.FC<any> = () => {
           <CategoryMenu />
         </aside>
         <main className="pane middle-pane" ref={middleRef}>
+          <div className="middle-search">
+            <SearchInput />
+          </div>
           <ErrorBoundary fallback={errorFallback}>
             <Suspense fallback={waitingFallback}>
               <IconGrid />

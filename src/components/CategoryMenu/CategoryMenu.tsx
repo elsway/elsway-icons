@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useApplicationStore } from "@/state";
 import "./CategoryMenu.css";
+
+const BRANDS = ["Cars24", "TeamBHP", "CarInfo", "VehicleInfo"] as const;
 
 const CATEGORIES = [
   "arrows",
@@ -26,10 +28,27 @@ const CATEGORIES = [
 const CategoryMenu: React.FC = () => {
   const setSearchQuery = useApplicationStore.use.setSearchQuery();
   const current = useApplicationStore.use.searchQuery();
+  const [brand, setBrand] = useState<(typeof BRANDS)[number]>("Cars24");
 
   return (
-    <nav className="category-menu" aria-label="Icon categories">
+    <nav className="category-menu" aria-label="Icon library">
       <h1 className="brand">Autonaut Icons</h1>
+
+      <div className="brand-group" role="tablist" aria-label="Brand">
+        {BRANDS.map((b) => (
+          <button
+            key={b}
+            role="tab"
+            aria-selected={brand === b}
+            className={`brand-btn ${brand === b ? "active" : ""}`}
+            onClick={() => setBrand(b)}
+          >
+            {b}
+          </button>
+        ))}
+      </div>
+
+      <div className="section-label">Categories</div>
       <ul className="categories" role="list">
         <li>
           <button
