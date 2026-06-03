@@ -1,6 +1,6 @@
 .grid-container {
   position: relative;
-  padding: 32px 16px;
+  padding: 0px;
   z-index: 1;
   content-visibility: auto;
   color: var(--foreground);
@@ -10,7 +10,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  max-width: 1152px;
+  /* max-width: 1152px; */
   margin: auto;
 }
 
