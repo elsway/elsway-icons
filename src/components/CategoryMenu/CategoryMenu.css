@@ -15,36 +15,52 @@
   text-transform: lowercase;
 }
 
-.category-menu .brand-group {
+.category-menu .brand-select {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 6px;
   padding: 4px 0 12px;
   border-bottom: 1px solid rgb(0 0 0 / 8%);
   margin-bottom: 4px;
 }
 
-.category-menu .brand-btn {
-  flex: 1 1 auto;
-  min-width: 0;
-  padding: 6px 10px;
+.category-menu .brand-select-label {
   font-family: "Departure Mono", "IBM Plex Mono", monospace;
-  font-size: 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(0 0 0 / 50%);
+  padding-left: 4px;
+}
+
+.category-menu .brand-select-control {
+  width: 100%;
+  height: 40px;
+  padding: 0 32px 0 12px;
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 13px;
   color: #000;
-  background: rgb(0 0 0 / 5%);
+  background-color: rgb(0 0 0 / 5%);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M3 5l3 3 3-3' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 12px;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  white-space: nowrap;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-.category-menu .brand-btn:hover {
-  background: rgb(0 0 0 / 8%);
+.category-menu .brand-select-control:hover {
+  background-color: rgb(0 0 0 / 8%);
 }
 
-.category-menu .brand-btn.active {
-  background: #000;
-  color: #fff;
+.category-menu .brand-select-control:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: rgb(0 0 0 / 12%);
 }
 
 .category-menu .section-label {

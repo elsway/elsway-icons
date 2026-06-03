@@ -34,19 +34,22 @@ const CategoryMenu: React.FC = () => {
     <nav className="category-menu" aria-label="Icon library">
       <h1 className="brand">Autonaut Icons</h1>
 
-      <div className="brand-group" role="tablist" aria-label="Brand">
-        {BRANDS.map((b) => (
-          <button
-            key={b}
-            role="tab"
-            aria-selected={brand === b}
-            className={`brand-btn ${brand === b ? "active" : ""}`}
-            onClick={() => setBrand(b)}
-          >
-            {b}
-          </button>
-        ))}
-      </div>
+      <label className="brand-select" aria-label="Brand">
+        <span className="brand-select-label">Brand</span>
+        <select
+          className="brand-select-control"
+          value={brand}
+          onChange={(e) =>
+            setBrand(e.target.value as (typeof BRANDS)[number])
+          }
+        >
+          {BRANDS.map((b) => (
+            <option key={b} value={b}>
+              {b}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <div className="section-label">Categories</div>
       <ul className="categories" role="list">
