@@ -1,6 +1,6 @@
 .app-header {
   display: grid;
-  grid-template-columns: 1fr 200px 240px;
+  grid-template-columns: 1fr 300px 300px;
   gap: 12px;
   align-items: center;
   /* padding: 12px 4px; */
@@ -11,10 +11,12 @@
   min-width: 0;
 }
 
-.app-header .search-bar,
+.app-header .search-bar {
+  width: auto;
+}
 .app-header .react-dropdown-select,
 .app-header .size-bar {
-  width: auto;
+  width: 300px !important;
 }
 
 /* Visually identical pill for all three header controls */
