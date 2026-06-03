@@ -29,7 +29,7 @@ const CategoryMenu: React.FC = () => {
 
   return (
     <nav className="category-menu" aria-label="Icon categories">
-      <h1 className="brand">Autonaut Icon</h1>
+      <h1 className="brand">Autonaut Icons</h1>
       <ul className="categories" role="list">
         <li>
           <button
