@@ -1,0 +1,24 @@
+.app-header {
+  display: grid;
+  grid-template-columns: 1fr 200px 240px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--background);
+}
+
+.app-header > * {
+  min-width: 0;
+}
+
+.app-header .search-bar,
+.app-header .react-dropdown-select,
+.app-header .size-bar {
+  width: 100% !important;
+}
+
+@media (max-width: 900px) {
+  .app-header {
+    grid-template-columns: 1fr;
+  }
+}

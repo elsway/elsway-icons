@@ -1,11 +1,10 @@
 import { Fragment, Suspense, useMemo, useRef } from "react";
 
 import "./App.css";
-import Toolbar from "@/components/Toolbar";
 import IconGrid from "@/components/IconGrid";
 import Panel from "@/components/IconGrid/Panel";
 import CategoryMenu from "@/components/CategoryMenu";
-import SearchInput from "@/components/SearchInput";
+import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 // import Recipes from "@/components/Recipes";
@@ -53,9 +52,7 @@ const App: React.FC<any> = () => {
           <CategoryMenu />
         </aside>
         <main className="pane middle-pane">
-          <div className="middle-search">
-            <SearchInput />
-          </div>
+          <AppHeader />
           <div className="grid-scroll" ref={gridScrollRef}>
             <ErrorBoundary fallback={errorFallback}>
               <Suspense fallback={waitingFallback}>
@@ -73,9 +70,6 @@ const App: React.FC<any> = () => {
           aria-label="Icon details"
           ref={popoverRef}
         >
-          <div className="phosphor-popover-toolbar">
-            <Toolbar />
-          </div>
           <div className="phosphor-popover-panel">
             <Panel />
           </div>
