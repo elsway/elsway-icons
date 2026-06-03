@@ -3,7 +3,9 @@
   flex-direction: column;
   gap: 16px;
   height: 100%;
-  background: white;
+  background: #fff;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .category-menu .brand {
