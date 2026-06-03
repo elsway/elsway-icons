@@ -40,7 +40,7 @@ class NucleoExporter implements Exporter {
 
   static async load(): Promise<void> {
     NucleoExporter.data = {
-      sets: [{ label: "Elsway Icons", id: NucleoExporter.SET_ID }],
+      sets: [{ label: "Autonaut Icon", id: NucleoExporter.SET_ID }],
       groups: [],
       icons: [],
     };
@@ -101,7 +101,7 @@ class IconJarExporter implements Exporter {
       sets.push(set);
     }
 
-    const group = new IconGroup("Elsway Icons");
+    const group = new IconGroup("Autonaut Icon");
     for (const set of sets) {
       group.addSet(set);
     }
