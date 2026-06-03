@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 200px 240px;
   gap: 12px;
   align-items: center;
-  padding: 12px 16px;
+  padding: 12px 4px;
   background: var(--background);
 }
 
@@ -14,7 +14,33 @@
 .app-header .search-bar,
 .app-header .react-dropdown-select,
 .app-header .size-bar {
-  width: 100% !important;
+  width: auto;
+}
+
+/* Visually identical pill for all three header controls */
+.app-header .search-bar,
+.app-header .react-dropdown-select,
+.app-header .size-bar {
+  height: 48px !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  background-color: rgb(0 0 0 / 5%) !important;
+  color: #000 !important;
+  font-family: Manrope, sans-serif !important;
+  font-size: 16px !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Disable the white focus background on search/dropdown so they stay consistent */
+.app-header .search-bar:focus-within,
+.app-header .react-dropdown-select:focus-within {
+  background-color: rgb(0 0 0 / 5%) !important;
+  color: #000 !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) !important;
 }
 
 @media (max-width: 900px) {
