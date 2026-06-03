@@ -19,7 +19,6 @@ const App: React.FC<any> = () => {
   const isDark =
     useApplicationStore.use.applicationTheme() === ApplicationTheme.DARK;
   const selectionEntry = useApplicationStore.use.selectionEntry();
-  const setSelectionEntry = useApplicationStore.use.setSelectionEntry();
   const hasSelection = !!selectionEntry;
 
   const leftRef = useRef<HTMLElement>(null);
@@ -68,27 +67,19 @@ const App: React.FC<any> = () => {
       </div>
 
       {hasSelection && (
-        <>
-          <div
-            className="popover-backdrop"
-            onClick={() => setSelectionEntry(null)}
-            aria-hidden="true"
-          />
-          <div
-            className="popover"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Icon details"
-            ref={popoverRef}
-          >
-            <div className="popover-section">
-              <Toolbar />
-            </div>
-            <div className="popover-section popover-detail">
-              <Panel />
-            </div>
+        <div
+          className="phosphor-popover"
+          role="dialog"
+          aria-label="Icon details"
+          ref={popoverRef}
+        >
+          <div className="phosphor-popover-toolbar">
+            <Toolbar />
           </div>
-        </>
+          <div className="phosphor-popover-panel">
+            <Panel />
+          </div>
+        </div>
       )}
     </Fragment>
   );
