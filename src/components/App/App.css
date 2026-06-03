@@ -142,8 +142,8 @@ button:focus-visible {
   grid-template-columns: 260px 1fr;
   height: 100vh;
   box-sizing: border-box;
-  gap: 12px;
-  padding: 0px;
+  /* gap: 12px; */
+  padding: 0;
   overflow: hidden;
 }
 
