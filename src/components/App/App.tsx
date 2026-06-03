@@ -18,14 +18,16 @@ const waitingFallback = <Notice type="none" message="" />;
 const App: React.FC<any> = () => {
   const isDark =
     useApplicationStore.use.applicationTheme() === ApplicationTheme.DARK;
-  const hasSelection = !!useApplicationStore.use.selectionEntry();
+  const selectionEntry = useApplicationStore.use.selectionEntry();
+  const setSelectionEntry = useApplicationStore.use.setSelectionEntry();
+  const hasSelection = !!selectionEntry;
 
   const leftRef = useRef<HTMLElement>(null);
-  const middleRef = useRef<HTMLElement>(null);
-  const rightRef = useRef<HTMLElement>(null);
+  const gridScrollRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   useLenis(leftRef);
-  useLenis(middleRef);
-  useLenis(rightRef);
+  useLenis(gridScrollRef);
+  useLenis(popoverRef);
 
   useCSSVariables(
     useMemo(
@@ -47,35 +49,47 @@ const App: React.FC<any> = () => {
 
   return (
     <Fragment>
-      <div
-        className={`three-col-shell primary ${
-          hasSelection ? "has-selection" : "no-selection"
-        }`}
-      >
+      <div className="two-col-shell primary">
         <aside className="pane left-rail" ref={leftRef}>
           <CategoryMenu />
         </aside>
-        <main className="pane middle-pane" ref={middleRef}>
+        <main className="pane middle-pane">
           <div className="middle-search">
             <SearchInput />
           </div>
-          <ErrorBoundary fallback={errorFallback}>
-            <Suspense fallback={waitingFallback}>
-              <IconGrid />
-            </Suspense>
-          </ErrorBoundary>
+          <div className="grid-scroll" ref={gridScrollRef}>
+            <ErrorBoundary fallback={errorFallback}>
+              <Suspense fallback={waitingFallback}>
+                <IconGrid />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
         </main>
-        {hasSelection && (
-          <aside className="pane right-rail" ref={rightRef}>
-            <div className="right-stack-top">
+      </div>
+
+      {hasSelection && (
+        <>
+          <div
+            className="popover-backdrop"
+            onClick={() => setSelectionEntry(null)}
+            aria-hidden="true"
+          />
+          <div
+            className="popover"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Icon details"
+            ref={popoverRef}
+          >
+            <div className="popover-section">
               <Toolbar />
             </div>
-            <div className="right-stack-bottom">
+            <div className="popover-section popover-detail">
               <Panel />
             </div>
-          </aside>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </Fragment>
   );
 };
