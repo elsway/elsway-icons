@@ -219,6 +219,13 @@ button:focus-visible {
   margin: 0 !important;
 }
 
+/* Reposition close-button inside the popover (it pokes out of the panel by default) */
+.phosphor-popover .close-button {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+}
+
 /* Detail panel inside popover */
 .phosphor-popover .phosphor-popover-panel aside.detail-footer {
   position: static !important;
