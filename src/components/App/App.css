@@ -155,7 +155,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 16px;
+  padding: 0px;
   box-sizing: border-box;
 }
 
@@ -172,6 +172,7 @@ button:focus-visible {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 16px;
 }
 
 /* Elsway-style bottom sheet (replaces side rail) */

@@ -1,9 +1,9 @@
 .app-header {
+  padding: 16px 16px 0px;
   display: grid;
   grid-template-columns: 1fr 300px 300px;
   gap: 12px;
   align-items: center;
-  /* padding: 12px 4px; */
   background: var(--background);
 }
 
