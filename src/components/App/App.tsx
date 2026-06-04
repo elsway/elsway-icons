@@ -65,12 +65,12 @@ const App: React.FC<any> = () => {
 
       {hasSelection && (
         <div
-          className="phosphor-popover"
+          className="elsway-popover"
           role="dialog"
           aria-label="Icon details"
           ref={popoverRef}
         >
-          <div className="phosphor-popover-panel">
+          <div className="elsway-popover-panel">
             <Panel />
           </div>
         </div>

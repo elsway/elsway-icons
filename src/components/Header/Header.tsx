@@ -47,7 +47,7 @@ const Header = (_: HeaderProps) => {
               Some packages may be renaming icons in coming versions, and
               deprecating older names. Existing names will continue to work, but
               we recommend upgrading at your convenience. See{" "}
-              <a href="https://github.com/phosphor-icons/react/releases/tag/v2.1.8">
+              <a href="https://github.com/elsway-icons/react/releases/tag/v2.1.8">
                 release notes
               </a>{" "}
               for details.

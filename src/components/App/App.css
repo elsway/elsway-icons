@@ -174,8 +174,8 @@ button:focus-visible {
   overflow-x: hidden;
 }
 
-/* Phosphor-style bottom sheet (replaces side rail) */
-.phosphor-popover {
+/* Elsway-style bottom sheet (replaces side rail) */
+.elsway-popover {
   position: fixed;
   left: 50%;
   bottom: 16px;
@@ -201,9 +201,9 @@ button:focus-visible {
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* Toolbar inside popover stays horizontal like phosphor's top bar */
-.phosphor-popover .phosphor-popover-toolbar .toolbar,
-.phosphor-popover .phosphor-popover-toolbar .toolbar-contents {
+/* Toolbar inside popover stays horizontal like elsway's top bar */
+.elsway-popover .elsway-popover-toolbar .toolbar,
+.elsway-popover .elsway-popover-toolbar .toolbar-contents {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -215,19 +215,19 @@ button:focus-visible {
   box-shadow: none !important;
   padding: 0 !important;
 }
-.phosphor-popover .phosphor-popover-toolbar .toolbar-contents > * {
+.elsway-popover .elsway-popover-toolbar .toolbar-contents > * {
   margin: 0 !important;
 }
 
 /* Reposition close-button inside the popover (it pokes out of the panel by default) */
-.phosphor-popover .close-button {
+.elsway-popover .close-button {
   position: absolute !important;
   top: 8px !important;
   right: 8px !important;
 }
 
 /* Detail panel inside popover */
-.phosphor-popover .phosphor-popover-panel aside.detail-footer {
+.elsway-popover .elsway-popover-panel aside.detail-footer {
   position: static !important;
   margin: 0 !important;
   max-width: 100% !important;
@@ -242,7 +242,7 @@ button:focus-visible {
 }
 
 @media (max-width: 720px) {
-  .phosphor-popover .phosphor-popover-panel aside.detail-footer {
+  .elsway-popover .elsway-popover-panel aside.detail-footer {
     grid-template-columns: 1fr !important;
   }
 }
