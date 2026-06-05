@@ -3,7 +3,6 @@ import { useApplicationStore, type IconBrand } from "@/state";
 import "./CategoryMenu.css";
 
 const BRANDS: { key: IconBrand; label: string }[] = [
-  { key: "default", label: "Default (sharp)" },
   { key: "cars24", label: "Cars24" },
   { key: "teambhp", label: "TeamBHP" },
   { key: "carinfo", label: "CarInfo" },
