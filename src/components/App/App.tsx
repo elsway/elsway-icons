@@ -8,7 +8,7 @@ import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 // import Recipes from "@/components/Recipes";
-import { useCSSVariables, useLenis } from "@/hooks";
+import { useCSSVariables } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
 
 const errorFallback = <Notice message="Search error" />;
@@ -20,12 +20,7 @@ const App: React.FC<any> = () => {
   const selectionEntry = useApplicationStore.use.selectionEntry();
   const hasSelection = !!selectionEntry;
 
-  const leftRef = useRef<HTMLElement>(null);
   const gridScrollRef = useRef<HTMLDivElement>(null);
-  const popoverRef = useRef<HTMLDivElement>(null);
-  useLenis(leftRef);
-  useLenis(gridScrollRef);
-  useLenis(popoverRef);
 
   useCSSVariables(
     useMemo(
@@ -48,7 +43,7 @@ const App: React.FC<any> = () => {
   return (
     <Fragment>
       <div className="two-col-shell primary">
-        <aside className="pane left-rail" ref={leftRef}>
+        <aside className="pane left-rail">
           <CategoryMenu />
         </aside>
         <main className="pane middle-pane">
@@ -68,7 +63,6 @@ const App: React.FC<any> = () => {
           className="elsway-popover"
           role="dialog"
           aria-label="Icon details"
-          ref={popoverRef}
         >
           <div className="elsway-popover-panel">
             <Panel />
