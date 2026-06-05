@@ -4,8 +4,12 @@ import { persist, PersistStorage } from "zustand/middleware";
 
 import TinyColor from "tinycolor2";
 import { IconStyle } from "@elsway-icons/core";
-import { type IconEntry, icons } from "@/lib";
+import { type IconEntry, icons as allIcons } from "@/lib";
 import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
+import elswayManifest from "../../public/raw/elsway/manifest.json";
+
+const ELSWAY_NAMES = new Set<string>(elswayManifest as string[]);
+const icons = allIcons.filter((i) => ELSWAY_NAMES.has(i.name));
 
 export const STORAGE_KEY = "__elsway_settings__";
 
