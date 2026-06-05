@@ -9,6 +9,13 @@ import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 
 export const STORAGE_KEY = "__elsway_settings__";
 
+export type IconBrand =
+  | "cars24"
+  | "teambhp"
+  | "carinfo"
+  | "vehicleinfo"
+  | "default";
+
 interface ApplicationFields {
   // Fields
   applicationTheme: ApplicationTheme;
@@ -19,6 +26,7 @@ interface ApplicationFields {
   iconPreviewOpen: string | false;
   selectionEntry: IconEntry | null;
   filteredQueryResults: ReadonlyArray<IconEntry>;
+  iconBrand: IconBrand;
 }
 
 interface PersistedApplicationFields {
@@ -35,6 +43,7 @@ export interface ApplicationState extends ApplicationFields {
   setIconColor: (color: string) => void;
   setIconPreviewOpen: (open: string | false) => void;
   setSelectionEntry: (entry: IconEntry | null) => void;
+  setIconBrand: (brand: IconBrand) => void;
   resetApplicationState: () => void;
 }
 
@@ -175,6 +184,7 @@ export const useApplicationStore = createSelectors(
             set({ iconPreviewOpen: open }),
           setSelectionEntry: (entry: IconEntry | null) =>
             set({ selectionEntry: entry }),
+          setIconBrand: (brand: IconBrand) => set({ iconBrand: brand }),
           resetApplicationState: () => {
             set({
               applicationTheme: ApplicationTheme.LIGHT,
@@ -216,6 +226,7 @@ function initialState(): ApplicationFields {
     iconColor,
     iconPreviewOpen: false,
     selectionEntry: null,
+    iconBrand: "cars24" as IconBrand,
     filteredQueryResults:
       searchQuery.trim() === ""
         ? icons

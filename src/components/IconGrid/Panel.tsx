@@ -1,5 +1,4 @@
 import React, {
-  useRef,
   useState,
   useEffect,
   useMemo,
@@ -100,13 +99,19 @@ const Panel = () => {
     iconColor: color,
     selectionEntry: entry,
     setSelectionEntry,
+    iconBrand: brand,
   } = useApplicationStore();
+  const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
+  const elswaySrc = entry
+    ? `${import.meta.env.BASE_URL}raw/elsway/${brand}/${weightFolder}/${
+        entry.name
+      }.svg`
+    : "";
 
   const [copied, setCopied] = useTransientState<SnippetType | CopyType | false>(
     false,
     2000
   );
-  const ref = useRef<SVGSVGElement>(null);
 
   const [showMoreActions, setShowMoreActions] = useState<boolean>(false);
 
@@ -211,49 +216,39 @@ const Panel = () => {
     data && void navigator.clipboard?.writeText(data);
   };
 
-  const handleCopySVG = (
+  const fetchElswaySVG = async () => {
+    const r = await fetch(elswaySrc);
+    return r.text();
+  };
+
+  const handleCopySVG = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.currentTarget.blur();
     if (!entry) return;
-    if (!ref.current) return;
-
-    const fullName = `${entry.name}${weight === "regular" ? "" : `-${weight}`}`;
-    navigator.clipboard?.writeText(
-      `<!-- ${fullName} -->\n${cloneWithSize(ref.current, size).outerHTML}`
-    );
+    const content = await fetchElswaySVG();
+    const fullName = `${entry.name}-${brand}-${weightFolder}`;
+    navigator.clipboard?.writeText(`<!-- ${fullName} -->\n${content}`);
     setCopied(CopyType.SVG);
   };
 
-  const handleCopyDataSVG = (
+  const handleCopyDataSVG = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.currentTarget.blur();
     if (!entry) return;
-    if (!ref.current) return;
-
+    const content = await fetchElswaySVG();
     navigator.clipboard?.writeText(
       "data:image/svg+xml;base64," +
-        btoa(
-          unescape(
-            encodeURIComponent(cloneWithSize(ref.current, size).outerHTML)
-          )
-        )
+        btoa(unescape(encodeURIComponent(content)))
     );
     setCopied(CopyType.SVG_DATA);
   };
 
   const handleCopyRawSVG = async () => {
     if (!entry) return;
-
-    const { name } = entry;
-    const data = await fetch(
-      `${import.meta.env.BASE_URL}raw/${weight}/${name}${
-        weight === "regular" ? "" : `-${weight}`
-      }.svg`
-    );
-    const content = await data.text();
-    const fullName = `${name}${weight === "regular" ? "" : `-${weight}`}`;
+    const content = await fetchElswaySVG();
+    const fullName = `${entry.name}-${brand}-${weightFolder}`;
     navigator.clipboard?.writeText(`<!-- ${fullName} -->\n${content}`);
     setCopied(CopyType.SVG_RAW);
   };
@@ -266,30 +261,28 @@ const Panel = () => {
     setCopied(CopyType.UNICODE);
   };
 
-  const handleDownloadSVG = (
+  const handleDownloadSVG = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.currentTarget.blur();
     if (!entry) return;
-    if (!ref.current) return;
-
-    const blob = new Blob([cloneWithSize(ref.current, size).outerHTML]);
+    const content = await fetchElswaySVG();
     saveAs(
-      blob,
-      `${entry?.name}${weight === "regular" ? "" : `-${weight}`}.svg`
+      new Blob([content], { type: "image/svg+xml" }),
+      `${entry.name}-${brand}-${weightFolder}.svg`
     );
   };
 
   const handleDownloadRawSVG = async () => {
     if (!entry) return;
+    saveAs(elswaySrc, `${entry.name}-${brand}-${weightFolder}.svg`);
+  };
 
-    const { name } = entry;
-    saveAs(
-      `${import.meta.env.BASE_URL}raw/${weight}/${name}${
-        weight === "regular" ? "" : `-${weight}`
-      }.svg`,
-      `${entry?.name}${weight === "regular" ? "" : `-${weight}`}.svg`
-    );
+  const fetchElswaySVGElement = async (): Promise<SVGSVGElement | null> => {
+    const txt = await fetchElswaySVG();
+    const doc = new DOMParser().parseFromString(txt, "image/svg+xml");
+    const svg = doc.documentElement as unknown as SVGSVGElement;
+    return svg && svg.tagName === "svg" ? svg : null;
   };
 
   const handleDownloadPNG = async (
@@ -297,11 +290,11 @@ const Panel = () => {
   ) => {
     event.currentTarget.blur();
     if (!entry) return;
-    if (!ref.current) return;
-
+    const svg = await fetchElswaySVGElement();
+    if (!svg) return;
     Svg2Png.save(
-      cloneWithSize(ref.current, size),
-      `${entry?.name}${weight === "regular" ? "" : `-${weight}`}.png`
+      cloneWithSize(svg, size),
+      `${entry.name}-${brand}-${weightFolder}.png`
     );
   };
 
@@ -310,9 +303,9 @@ const Panel = () => {
   ) => {
     event.currentTarget.blur();
     if (!entry) return;
-    if (!ref.current) return;
-
-    Svg2Png.toDataURL(cloneWithSize(ref.current, size))
+    const svg = await fetchElswaySVGElement();
+    if (!svg) return;
+    Svg2Png.toDataURL(cloneWithSize(svg, size))
       .then((data) => fetch(data))
       .then((res) => res.blob())
       .then((blob) =>
@@ -352,15 +345,17 @@ const Panel = () => {
         >
           <div className="detail-preview">
             <figure>
-              <entry.Icon ref={ref} size={64}></entry.Icon>
+              <img
+                src={elswaySrc}
+                alt={entry.name}
+                width={64}
+                height={64}
+                style={{ display: "block" }}
+              />
               <figcaption>
                 <p>{entry.name}</p>
-                <small className="versioning">
-                  U+{entry.codepoint.toString(16).toUpperCase()}
-                </small>
-                <small className="versioning">
-                  available in v{entry.published_in.toFixed(1)}+
-                </small>
+                <small className="versioning">{brand}</small>
+                <small className="versioning">{weightFolder}</small>
               </figcaption>
             </figure>
             <hr />

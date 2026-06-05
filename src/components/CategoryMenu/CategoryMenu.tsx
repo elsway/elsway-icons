@@ -1,8 +1,13 @@
-import React, { useState } from "react";
-import { useApplicationStore } from "@/state";
+import React from "react";
+import { useApplicationStore, type IconBrand } from "@/state";
 import "./CategoryMenu.css";
 
-const BRANDS = ["Cars24", "TeamBHP", "CarInfo", "VehicleInfo"] as const;
+const BRANDS: { key: IconBrand; label: string }[] = [
+  { key: "cars24", label: "Cars24" },
+  { key: "teambhp", label: "TeamBHP" },
+  { key: "carinfo", label: "CarInfo" },
+  { key: "vehicleinfo", label: "VehicleInfo" },
+];
 
 const CATEGORIES = [
   "arrows",
@@ -28,7 +33,8 @@ const CATEGORIES = [
 const CategoryMenu: React.FC = () => {
   const setSearchQuery = useApplicationStore.use.setSearchQuery();
   const current = useApplicationStore.use.searchQuery();
-  const [brand, setBrand] = useState<(typeof BRANDS)[number]>("Cars24");
+  const brand = useApplicationStore.use.iconBrand();
+  const setBrand = useApplicationStore.use.setIconBrand();
 
   return (
     <nav className="category-menu" aria-label="Icon library">
@@ -39,13 +45,11 @@ const CategoryMenu: React.FC = () => {
         <select
           className="brand-select-control"
           value={brand}
-          onChange={(e) =>
-            setBrand(e.target.value as (typeof BRANDS)[number])
-          }
+          onChange={(e) => setBrand(e.target.value as IconBrand)}
         >
           {BRANDS.map((b) => (
-            <option key={b} value={b}>
-              {b}
+            <option key={b.key} value={b.key}>
+              {b.label}
             </option>
           ))}
         </select>

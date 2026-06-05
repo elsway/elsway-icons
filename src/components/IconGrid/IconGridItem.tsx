@@ -10,6 +10,9 @@ import { useShallow } from "zustand/react/shallow";
 
 import { IconEntry } from "@/lib";
 import { useApplicationStore } from "@/state";
+import { IconStyle } from "@elsway-icons/core";
+
+const BASE = import.meta.env.BASE_URL;
 
 interface IconGridItemProps extends HTMLAttributes<HTMLDivElement> {
   index: number;
@@ -32,13 +35,19 @@ const itemVariants = {
 
 const IconGridItem = (props: IconGridItemProps) => {
   const { index, originOffset, entry, style } = props;
-  const { name, Icon } = entry;
-  const { selection, setSelectionEntry } = useApplicationStore(
-    useShallow((state) => ({
-      selection: state.selectionEntry,
-      setSelectionEntry: state.setSelectionEntry,
-    }))
-  );
+  const { name } = entry;
+  const { selection, setSelectionEntry, brand, weight, size } =
+    useApplicationStore(
+      useShallow((state) => ({
+        selection: state.selectionEntry,
+        setSelectionEntry: state.setSelectionEntry,
+        brand: state.iconBrand,
+        weight: state.iconWeight,
+        size: state.iconSize,
+      }))
+    );
+  const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
+  const svgSrc = `${BASE}raw/elsway/${brand}/${weightFolder}/${name}.svg`;
   const isOpen = selection?.name === name;
   const isNew = entry.tags.includes("*new*");
   const isUpdated = entry.tags.includes("*updated*");
@@ -88,7 +97,17 @@ const IconGridItem = (props: IconGridItemProps) => {
       variants={itemVariants}
       onClick={handleOpen}
     >
-      <Icon />
+      <img
+        src={svgSrc}
+        alt={name}
+        width={size}
+        height={size}
+        loading="lazy"
+        style={{ display: "block" }}
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).style.opacity = "0.15";
+        }}
+      />
       <p>
         <span className="name">{name}</span>
         {isNew && <span className="badge new" />}
