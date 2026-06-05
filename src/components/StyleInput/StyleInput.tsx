@@ -12,34 +12,14 @@ type WeightOption = { key: string; value: IconStyle; icon: JSX.Element };
 
 const options: WeightOption[] = [
   {
-    key: "Thin",
-    value: IconStyle.THIN,
-    icon: <PencilSimpleLineIcon size={24} weight="thin" />,
-  },
-  {
-    key: "Light",
-    value: IconStyle.LIGHT,
-    icon: <PencilSimpleLineIcon size={24} weight="light" />,
-  },
-  {
     key: "Regular",
     value: IconStyle.REGULAR,
     icon: <PencilSimpleLineIcon size={24} weight="regular" />,
   },
   {
-    key: "Bold",
-    value: IconStyle.BOLD,
-    icon: <PencilSimpleLineIcon size={24} weight="bold" />,
-  },
-  {
     key: "Fill",
     value: IconStyle.FILL,
     icon: <PencilSimpleLineIcon size={24} weight="fill" />,
-  },
-  {
-    key: "Duotone",
-    value: IconStyle.DUOTONE,
-    icon: <PencilSimpleLineIcon size={24} weight="duotone" />,
   },
 ];
 

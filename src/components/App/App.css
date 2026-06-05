@@ -100,14 +100,7 @@ a {
     transform 220ms var(--ease-smooth),
     opacity 220ms var(--ease-smooth);
 }
-.grid-item:hover {
-  transform: translateY(-1px);
-}
-.cat-btn:hover,
-.tool-button:hover,
-.action-button:hover {
-  transform: translateY(-1px);
-}
+/* hover lift removed */
 
 @media (prefers-reduced-motion: reduce) {
   *,
