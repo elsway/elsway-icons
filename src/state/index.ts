@@ -9,7 +9,7 @@ import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 import elswayManifest from "../../public/raw/elsway/manifest.json";
 
 const ELSWAY_NAMES = new Set<string>(elswayManifest as string[]);
-const icons = allIcons.filter((i) => ELSWAY_NAMES.has(i.name));
+export const icons = allIcons.filter((i) => ELSWAY_NAMES.has(i.name));
 
 export const STORAGE_KEY = "__elsway_settings__";
 
