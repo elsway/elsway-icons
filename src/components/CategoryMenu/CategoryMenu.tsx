@@ -10,27 +10,6 @@ const BRANDS: { key: IconBrand; label: string }[] = [
   { key: "vehicleinfo", label: "VehicleInfo" },
 ];
 
-const CATEGORIES = [
-  "arrows",
-  "brands",
-  "commerce",
-  "communications",
-  "design",
-  "editor",
-  "finances",
-  "games",
-  "health & wellness",
-  "maps & travel",
-  "media",
-  "nature",
-  "objects",
-  "office",
-  "people",
-  "system",
-  "technology & development",
-  "weather",
-];
-
 const fmt = (n: number) => n.toLocaleString();
 
 const CategoryMenu: React.FC = () => {
@@ -39,15 +18,17 @@ const CategoryMenu: React.FC = () => {
   const brand = useApplicationStore.use.iconBrand();
   const setBrand = useApplicationStore.use.setIconBrand();
 
-  const categoryCounts = useMemo(() => {
+  const { CATEGORIES, categoryCounts } = useMemo(() => {
     const map: Record<string, number> = {};
-    for (const c of CATEGORIES) map[c] = 0;
     for (const i of icons) {
       for (const c of i.categories as unknown as string[]) {
-        if (c in map) map[c] += 1;
+        map[c] = (map[c] || 0) + 1;
       }
     }
-    return map;
+    return {
+      CATEGORIES: Object.keys(map).sort(),
+      categoryCounts: map,
+    };
   }, []);
   const totalIcons = icons.length;
 

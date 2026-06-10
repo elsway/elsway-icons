@@ -9,7 +9,39 @@ import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 import elswayManifest from "../../public/raw/elsway/manifest.json";
 
 const ELSWAY_NAMES = new Set<string>(elswayManifest as string[]);
-export const icons = allIcons.filter((i) => ELSWAY_NAMES.has(i.name));
+const catalogByName = new Map<string, IconEntry>(
+  allIcons.map((i) => [i.name, i])
+);
+
+import elswayCategoriesRaw from "../../public/raw/elsway/categories.json";
+const elswayCategories = elswayCategoriesRaw as Record<string, string[]>;
+
+function toPascal(name: string): string {
+  return name
+    .split(/[-_ ]+/)
+    .map((p) => (p ? p[0].toUpperCase() + p.slice(1) : ""))
+    .join("");
+}
+
+let CODEPOINT_SEED = 0xe000;
+function synthEntry(name: string): IconEntry {
+  const cats = elswayCategories[name] || [];
+  const base = catalogByName.get(name);
+  return {
+    name,
+    pascal_name: base?.pascal_name ?? toPascal(name),
+    categories: cats as unknown as IconEntry["categories"],
+    tags: (base?.tags ?? []) as unknown as IconEntry["tags"],
+    codepoint: base?.codepoint ?? CODEPOINT_SEED++,
+    published_in: base?.published_in ?? 1.0,
+    Icon: base?.Icon ?? ((() => null) as unknown as IconEntry["Icon"]),
+    updated_in: base?.updated_in,
+  } as IconEntry;
+}
+
+export const icons: IconEntry[] = (elswayManifest as string[])
+  .filter((n) => ELSWAY_NAMES.has(n))
+  .map(synthEntry);
 
 export const STORAGE_KEY = "__elsway_settings__";
 
