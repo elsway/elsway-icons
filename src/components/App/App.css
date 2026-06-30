@@ -165,7 +165,7 @@ button:focus-visible {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 16px;
+  padding: 16px 16px 40px;
 }
 
 /* Elsway-style bottom sheet (replaces side rail) */
