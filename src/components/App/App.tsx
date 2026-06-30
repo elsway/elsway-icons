@@ -1,4 +1,5 @@
 import { Fragment, Suspense, useMemo, useRef } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import "./App.css";
 import IconGrid from "@/components/IconGrid";
@@ -42,6 +43,7 @@ const App: React.FC<any> = () => {
 
   return (
     <Fragment>
+      <SpeedInsights />
       <div className="two-col-shell primary">
         <aside className="pane left-rail">
           <CategoryMenu />
