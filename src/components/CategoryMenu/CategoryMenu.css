@@ -18,7 +18,7 @@
   text-transform: lowercase;
 }
 
-.category-menu .brand-select {
+.category-menu .brand-select-wrap {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -36,34 +36,57 @@
   padding-left: 4px;
 }
 
-.category-menu .brand-select-control {
-  width: 100%;
-  height: 40px;
-  padding: 0 32px 0 12px;
+/* Brand dropdown — matches the icon-weight StyleInput dropdown */
+.category-menu .brand-select-control.react-dropdown-select {
+  width: 100% !important;
+  height: 48px !important;
+  justify-content: flex-start !important;
+  padding: 0 24px !important;
+  font-family: "Departure Mono", "IBM Plex Mono", monospace !important;
+  font-size: 16px !important;
+  color: #000 !important;
+  background-color: rgb(0 0 0 / 5%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+}
+.category-menu .brand-select-control:focus-within {
+  background-color: #fff !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.category-menu .brand-select-control .react-dropdown-select-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   font-family: "Departure Mono", "IBM Plex Mono", monospace;
-  font-size: 13px;
-  color: #000;
-  background-color: rgb(0 0 0 / 5%);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M3 5l3 3 3-3' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 12px 12px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
-
-.category-menu .brand-select-control:hover {
-  background-color: rgb(0 0 0 / 8%);
+.category-menu .brand-select-control .react-dropdown-select-dropdown {
+  position: absolute;
+  left: 0;
+  border: none;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px !important;
+  max-height: 300px;
+  overflow: auto;
+  z-index: 9;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
-
-.category-menu .brand-select-control:focus {
-  outline: none;
-  background-color: #fff;
-  border-color: rgb(0 0 0 / 12%);
+.category-menu .brand-select-control .react-dropdown-select-item {
+  color: var(--moss);
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+}
+.category-menu .brand-select-control .react-dropdown-select-item:hover,
+.category-menu .brand-select-control .react-dropdown-select-item.react-dropdown-select-item-selected,
+.category-menu .brand-select-control .react-dropdown-select-item.react-dropdown-select-item-active {
+  color: var(--moss) !important;
+  background-color: var(--acid) !important;
 }
 
 .category-menu .section-label {

@@ -1,13 +1,16 @@
 import React, { useMemo } from "react";
+import Select from "react-dropdown-select";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
 import "./CategoryMenu.css";
 
-const BRANDS: { key: IconBrand; label: string }[] = [
-  { key: "default", label: "Default" },
-  { key: "cars24", label: "Cars24" },
-  { key: "teambhp", label: "TeamBHP" },
-  { key: "carinfo", label: "CarInfo" },
-  { key: "vehicleinfo", label: "VehicleInfo" },
+type BrandOption = { key: string; value: IconBrand };
+
+const BRAND_OPTIONS: BrandOption[] = [
+  { key: "Default", value: "default" },
+  { key: "Cars24", value: "cars24" },
+  { key: "TeamBHP", value: "teambhp" },
+  { key: "CarInfo", value: "carinfo" },
+  { key: "VehicleInfo", value: "vehicleinfo" },
 ];
 
 const fmt = (n: number) => n.toLocaleString();
@@ -32,24 +35,47 @@ const CategoryMenu: React.FC = () => {
   }, []);
   const totalIcons = icons.length;
 
+  const currentBrand = [BRAND_OPTIONS.find((b) => b.value === brand)!];
+  const handleBrandChange = (values: BrandOption[]) =>
+    setBrand(values[0].value);
+
   return (
     <nav className="category-menu" aria-label="Icon library">
       <h1 className="brand">Autonaut Icons</h1>
 
-      <label className="brand-select" aria-label="Brand">
+      <div className="brand-select-wrap" aria-label="Brand">
         <span className="brand-select-label">Brand</span>
-        <select
+        <Select
           className="brand-select-control"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value as IconBrand)}
-        >
-          {BRANDS.map((b) => (
-            <option key={b.key} value={b.key}>
-              {b.label} ({fmt(totalIcons)})
-            </option>
-          ))}
-        </select>
-      </label>
+          options={BRAND_OPTIONS}
+          values={currentBrand}
+          searchable={false}
+          labelField="key"
+          onChange={handleBrandChange}
+          itemRenderer={({
+            item,
+            itemIndex,
+            state: { cursor, values },
+            methods,
+          }) => (
+            <span
+              role="option"
+              aria-selected={item.key === values[0].key}
+              className={`react-dropdown-select-item ${
+                itemIndex === cursor ? "react-dropdown-select-item-active" : ""
+              }`}
+              onClick={() => methods.addItem(item)}
+            >
+              {item.key}
+            </span>
+          )}
+          contentRenderer={({ state: { values } }) => (
+            <div className="react-dropdown-select-content">
+              {values[0].key}
+            </div>
+          )}
+        />
+      </div>
 
       <div className="section-label">Categories</div>
       <ul className="categories" role="list">
