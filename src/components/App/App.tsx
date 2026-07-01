@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useMemo, useRef } from "react";
+import { Fragment, Suspense, useMemo, useRef, useEffect } from "react";
 
 import "./App.css";
 import IconGrid from "@/components/IconGrid";
@@ -19,8 +19,15 @@ const App: React.FC<any> = () => {
     useApplicationStore.use.applicationTheme() === ApplicationTheme.DARK;
   const selectionEntry = useApplicationStore.use.selectionEntry();
   const hasSelection = !!selectionEntry;
+  const searchQuery = useApplicationStore.use.searchQuery();
+  const iconBrand = useApplicationStore.use.iconBrand();
 
   const gridScrollRef = useRef<HTMLDivElement>(null);
+
+  // Reset scroll to top when the visible set changes (or on mount)
+  useEffect(() => {
+    if (gridScrollRef.current) gridScrollRef.current.scrollTop = 0;
+  }, [searchQuery, iconBrand]);
 
   useCSSVariables(
     useMemo(
