@@ -36,59 +36,65 @@
   padding-left: 4px;
 }
 
-/* Brand dropdown — matches the icon-weight StyleInput dropdown */
-.category-menu .brand-select-control.react-dropdown-select {
-  width: 100% !important;
-  height: 48px !important;
-  justify-content: flex-start !important;
-  padding: 0 24px !important;
-  font-family: "Departure Mono", "IBM Plex Mono", monospace !important;
-  font-size: 16px !important;
-  color: #000 !important;
-  background-color: rgb(0 0 0 / 5%) !important;
-  border: none !important;
-  border-radius: 8px !important;
-}
-.category-menu .brand-select-control:focus-within,
-.category-menu .brand-select-control.react-dropdown-select[aria-expanded="true"] {
-  background-color: rgb(0 0 0 / 5%) !important;
-  outline: none !important;
-  box-shadow: none !important;
-  border: 1px solid rgba(0, 0, 0, 0.15) !important;
-}
-.category-menu .brand-select-control .react-dropdown-select-content {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
-}
-.category-menu .brand-select-control .react-dropdown-select-dropdown {
-  position: absolute;
-  left: 0;
-  border: none;
+/* Custom brand dropdown */
+.category-menu .brand-select-control {
+  position: relative;
   width: 100%;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px !important;
-  max-height: 300px;
-  overflow: auto;
-  z-index: 9;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-}
-.category-menu .brand-select-control .react-dropdown-select-item {
-  color: var(--moss);
-  height: 40px !important;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
   font-family: "Departure Mono", "IBM Plex Mono", monospace;
 }
-.category-menu .brand-select-control .react-dropdown-select-item:hover,
-.category-menu .brand-select-control .react-dropdown-select-item.react-dropdown-select-item-selected,
-.category-menu .brand-select-control .react-dropdown-select-item.react-dropdown-select-item-active {
-  color: var(--moss) !important;
-  background-color: var(--acid) !important;
+
+.category-menu .brand-select-trigger {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #000;
+  background-color: rgb(0 0 0 / 5%);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.category-menu .brand-select-control.is-open .brand-select-trigger {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+.category-menu .brand-select-trigger:hover {
+  background-color: rgb(0 0 0 / 8%);
+}
+.category-menu .brand-select-caret {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.category-menu .brand-select-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.category-menu .brand-select-item {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  cursor: pointer;
+}
+.category-menu .brand-select-item:hover,
+.category-menu .brand-select-item.is-selected {
+  background-color: rgb(0 0 0 / 5%);
 }
 
 .category-menu .section-label {

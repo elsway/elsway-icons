@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import Select from "react-dropdown-select";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
 import "./CategoryMenu.css";
 
@@ -14,6 +13,71 @@ const BRAND_OPTIONS: BrandOption[] = [
 ];
 
 const fmt = (n: number) => n.toLocaleString();
+
+const BrandDropdown: React.FC<{
+  value: IconBrand;
+  onChange: (v: IconBrand) => void;
+}> = ({ value, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (
+        wrapRef.current &&
+        e.target instanceof Node &&
+        !wrapRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  const selected = BRAND_OPTIONS.find((o) => o.value === value) ?? BRAND_OPTIONS[0];
+
+  return (
+    <div
+      ref={wrapRef}
+      className={`brand-select-control ${open ? "is-open" : ""}`}
+    >
+      <button
+        type="button"
+        className="brand-select-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span>{selected.key}</span>
+        <span className="brand-select-caret" aria-hidden>
+          {open ? "▲" : "▼"}
+        </span>
+      </button>
+      {open && (
+        <ul className="brand-select-menu" role="listbox">
+          {BRAND_OPTIONS.map((o) => (
+            <li
+              key={o.value}
+              role="option"
+              aria-selected={o.value === value}
+              className={`brand-select-item ${
+                o.value === value ? "is-selected" : ""
+              }`}
+              onClick={() => {
+                onChange(o.value);
+                setOpen(false);
+              }}
+            >
+              {o.key}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 const CategoryMenu: React.FC = () => {
   const setSearchQuery = useApplicationStore.use.setSearchQuery();
@@ -35,46 +99,13 @@ const CategoryMenu: React.FC = () => {
   }, []);
   const totalIcons = icons.length;
 
-  const currentBrand = [BRAND_OPTIONS.find((b) => b.value === brand)!];
-  const handleBrandChange = (values: BrandOption[]) =>
-    setBrand(values[0].value);
-
   return (
     <nav className="category-menu" aria-label="Icon library">
       <h1 className="brand">Autonaut Icons</h1>
 
       <div className="brand-select-wrap" aria-label="Brand">
         <span className="brand-select-label">Brand</span>
-        <Select
-          className="brand-select-control"
-          options={BRAND_OPTIONS}
-          values={currentBrand}
-          searchable={false}
-          labelField="key"
-          onChange={handleBrandChange}
-          itemRenderer={({
-            item,
-            itemIndex,
-            state: { cursor, values },
-            methods,
-          }) => (
-            <span
-              role="option"
-              aria-selected={item.key === values[0].key}
-              className={`react-dropdown-select-item ${
-                itemIndex === cursor ? "react-dropdown-select-item-active" : ""
-              }`}
-              onClick={() => methods.addItem(item)}
-            >
-              {item.key}
-            </span>
-          )}
-          contentRenderer={({ state: { values } }) => (
-            <div className="react-dropdown-select-content">
-              {values[0].key}
-            </div>
-          )}
-        />
+        <BrandDropdown value={brand} onChange={setBrand} />
       </div>
 
       <div className="section-label">Categories</div>
