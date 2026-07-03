@@ -3,45 +3,68 @@ import { useAuth } from "@/lib/auth";
 import {
   BRANDS,
   WEIGHTS,
-  supabase,
-  STORAGE_BUCKET,
-  storagePath,
   iconUrl,
   type Brand,
   type Weight,
 } from "@/lib/supabase";
+import {
+  putSvg,
+  renameFile,
+  batchCommit,
+  svgEntry,
+  updateMeta,
+} from "@/lib/cms-api";
 import "./Admin.css";
 
 type IconRow = {
   name: string;
   categories: string[];
   tags: string[];
-  updated_at?: string;
 };
 
-const emptyRow = (name = ""): IconRow => ({
-  name,
-  categories: [],
-  tags: [],
-});
+const svgPath = (b: Brand, w: Weight, name: string) =>
+  `public/raw/elsway/${b}/${w}/${name}.svg`;
+
+async function fetchJson<T>(url: string): Promise<T | null> {
+  try {
+    const r = await fetch(url + `?t=${Date.now()}`);
+    if (!r.ok) return null;
+    return (await r.json()) as T;
+  } catch {
+    return null;
+  }
+}
 
 const Admin: React.FC = () => {
   const { ready, user, isAllowed, signIn, signOut, configured } = useAuth();
   const [rows, setRows] = useState<IconRow[]>([]);
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
-  const [busy, setBusy] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
+  const [busy, setBusy] = useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
-    if (!supabase || !isAllowed) return;
+    if (!isAllowed) return;
     (async () => {
-      const { data, error } = await supabase
-        .from("icons")
-        .select("*")
-        .order("name");
-      if (error) setStatus(`load error: ${error.message}`);
-      else setRows((data as IconRow[]) ?? []);
+      const base = import.meta.env.BASE_URL;
+      const [manifest, categories, meta] = await Promise.all([
+        fetchJson<string[]>(`${base}raw/elsway/manifest.json`),
+        fetchJson<Record<string, string[]>>(`${base}raw/elsway/categories.json`),
+        fetchJson<Record<string, { categories?: string[]; tags?: string[] }>>(
+          `${base}raw/elsway/metadata.json`
+        ),
+      ]);
+      if (!manifest) {
+        setStatus("Could not load manifest.");
+        return;
+      }
+      const out: IconRow[] = manifest.map((name) => ({
+        name,
+        categories:
+          meta?.[name]?.categories ?? categories?.[name] ?? [],
+        tags: meta?.[name]?.tags ?? [],
+      }));
+      setRows(out);
     })();
   }, [isAllowed]);
 
@@ -58,50 +81,36 @@ const Admin: React.FC = () => {
 
   const current = rows.find((r) => r.name === selected) ?? null;
 
-  // ---- Actions ----
+  // ---- Actions (GitHub-backed) ----
   const saveMeta = async (row: IconRow) => {
-    if (!supabase) return;
-    setBusy("Saving…");
-    const { error } = await supabase
-      .from("icons")
-      .update({ categories: row.categories, tags: row.tags })
-      .eq("name", row.name);
+    setBusy("Saving metadata…");
+    try {
+      await updateMeta(row.name, row.categories, row.tags);
+      setRows((r) => r.map((x) => (x.name === row.name ? row : x)));
+      setStatus("Saved metadata (commit landed).");
+    } catch (e: any) {
+      setStatus(e.message || String(e));
+    }
     setBusy("");
-    if (error) return setStatus(error.message);
-    setRows((r) => r.map((x) => (x.name === row.name ? row : x)));
-    setStatus("Saved.");
   };
 
   const rename = async (oldName: string, newName: string) => {
-    if (!supabase) return;
     if (!/^[a-z0-9-]+$/.test(newName))
       return setStatus("Slug must be [a-z0-9-] only.");
-    setBusy("Renaming…");
-    // 1. Move each of the 10 storage objects
-    for (const b of BRANDS)
-      for (const w of WEIGHTS) {
-        const from = storagePath(b, w, oldName);
-        const to = storagePath(b, w, newName);
-        const { error } = await supabase.storage
-          .from(STORAGE_BUCKET)
-          .move(from, to);
-        if (error && !/not found/i.test(error.message)) {
-          setBusy("");
-          return setStatus(`storage: ${error.message}`);
-        }
-      }
-    // 2. Update the row's primary key
-    const { error } = await supabase
-      .from("icons")
-      .update({ name: newName })
-      .eq("name", oldName);
+    setBusy("Renaming (moving 10 files)…");
+    try {
+      for (const b of BRANDS)
+        for (const w of WEIGHTS)
+          await renameFile(svgPath(b, w, oldName), svgPath(b, w, newName));
+      setRows((r) =>
+        r.map((x) => (x.name === oldName ? { ...x, name: newName } : x))
+      );
+      setSelected(newName);
+      setStatus(`Renamed → ${newName}`);
+    } catch (e: any) {
+      setStatus(e.message || String(e));
+    }
     setBusy("");
-    if (error) return setStatus(error.message);
-    setRows((r) =>
-      r.map((x) => (x.name === oldName ? { ...x, name: newName } : x))
-    );
-    setSelected(newName);
-    setStatus(`Renamed → ${newName}`);
   };
 
   const replaceSvg = async (
@@ -110,35 +119,33 @@ const Admin: React.FC = () => {
     weight: Weight,
     file: File
   ) => {
-    if (!supabase) return;
     if (file.type !== "image/svg+xml" && !file.name.endsWith(".svg"))
       return setStatus("Only SVG files.");
     setBusy(`Uploading ${brand}/${weight}…`);
-    const { error } = await supabase.storage
-      .from(STORAGE_BUCKET)
-      .upload(storagePath(brand, weight, name), file, {
-        upsert: true,
-        contentType: "image/svg+xml",
-      });
+    try {
+      await putSvg(svgPath(brand, weight, name), file);
+      setStatus(`Replaced ${brand}/${weight}/${name}.svg`);
+    } catch (e: any) {
+      setStatus(e.message || String(e));
+    }
     setBusy("");
-    if (error) return setStatus(error.message);
-    setStatus(`Replaced ${brand}/${weight}/${name}.svg`);
   };
 
   const deleteIcon = async (name: string) => {
-    if (!supabase) return;
     if (!confirm(`Delete "${name}" from all brands and weights?`)) return;
     setBusy("Deleting…");
-    const paths = BRANDS.flatMap((b) =>
-      WEIGHTS.map((w) => storagePath(b, w, name))
-    );
-    await supabase.storage.from(STORAGE_BUCKET).remove(paths);
-    const { error } = await supabase.from("icons").delete().eq("name", name);
+    try {
+      const changes = BRANDS.flatMap((b) =>
+        WEIGHTS.map((w) => ({ path: svgPath(b, w, name), contentBase64: null }))
+      );
+      await batchCommit(changes, `cms: delete ${name}`);
+      setRows((r) => r.filter((x) => x.name !== name));
+      if (selected === name) setSelected(null);
+      setStatus(`Deleted ${name}`);
+    } catch (e: any) {
+      setStatus(e.message || String(e));
+    }
     setBusy("");
-    if (error) return setStatus(error.message);
-    setRows((r) => r.filter((x) => x.name !== name));
-    if (selected === name) setSelected(null);
-    setStatus(`Deleted ${name}`);
   };
 
   const [newIcon, setNewIcon] = useState<{
@@ -149,13 +156,11 @@ const Admin: React.FC = () => {
   }>({ name: "", categories: "", tags: "", files: {} });
 
   const addNew = async () => {
-    if (!supabase) return;
     const name = newIcon.name.trim().toLowerCase();
     if (!/^[a-z0-9-]+$/.test(name))
       return setStatus("Slug must be [a-z0-9-] only.");
     if (rows.some((r) => r.name === name))
       return setStatus("Name already exists.");
-    // MANDATE: every brand × weight must have a file.
     const missing: string[] = [];
     for (const b of BRANDS)
       for (const w of WEIGHTS)
@@ -164,37 +169,36 @@ const Admin: React.FC = () => {
       return setStatus(
         `Provide SVGs for all ${BRANDS.length * WEIGHTS.length} combos. Missing: ${missing.join(", ")}`
       );
-    setBusy("Uploading new icon…");
-    for (const b of BRANDS)
-      for (const w of WEIGHTS) {
-        const file = newIcon.files[`${b}__${w}`]!;
-        const { error } = await supabase.storage
-          .from(STORAGE_BUCKET)
-          .upload(storagePath(b, w, name), file, {
-            upsert: false,
-            contentType: "image/svg+xml",
-          });
-        if (error) {
-          setBusy("");
-          return setStatus(`upload ${b}/${w}: ${error.message}`);
+    setBusy("Uploading new icon (single commit)…");
+    try {
+      const changes: { path: string; contentBase64: string }[] = [];
+      for (const b of BRANDS)
+        for (const w of WEIGHTS) {
+          const f = newIcon.files[`${b}__${w}`]!;
+          changes.push(await svgEntry(svgPath(b, w, name), f));
         }
-      }
-    const row: IconRow = {
-      name,
-      categories: newIcon.categories.split(",").map((s) => s.trim()).filter(Boolean),
-      tags: newIcon.tags.split(",").map((s) => s.trim()).filter(Boolean),
-    };
-    const { error } = await supabase.from("icons").insert(row);
+      await batchCommit(changes, `cms: add icon ${name}`);
+      await updateMeta(
+        name,
+        newIcon.categories.split(",").map((s) => s.trim()).filter(Boolean),
+        newIcon.tags.split(",").map((s) => s.trim()).filter(Boolean)
+      );
+      const row: IconRow = {
+        name,
+        categories: newIcon.categories.split(",").map((s) => s.trim()).filter(Boolean),
+        tags: newIcon.tags.split(",").map((s) => s.trim()).filter(Boolean),
+      };
+      setRows((r) => [...r, row].sort((a, b) => a.name.localeCompare(b.name)));
+      setNewIcon({ name: "", categories: "", tags: "", files: {} });
+      setStatus(`Added ${name}`);
+    } catch (e: any) {
+      setStatus(e.message || String(e));
+    }
     setBusy("");
-    if (error) return setStatus(error.message);
-    setRows((r) => [...r, row].sort((a, b) => a.name.localeCompare(b.name)));
-    setNewIcon({ name: "", categories: "", tags: "", files: {} });
-    setStatus(`Added ${name}`);
   };
 
   // ---- Render ----
-  if (!ready)
-    return <div className="admin-shell admin-msg">Loading…</div>;
+  if (!ready) return <div className="admin-shell admin-msg">Loading…</div>;
 
   if (!configured)
     return (
@@ -202,8 +206,10 @@ const Admin: React.FC = () => {
         <h1>CMS not configured</h1>
         <p>
           Set <code>VITE_SUPABASE_URL</code> and{" "}
-          <code>VITE_SUPABASE_ANON_KEY</code> in your environment. See{" "}
-          <code>supabase/schema.sql</code> and the setup checklist.
+          <code>VITE_SUPABASE_ANON_KEY</code> for auth, and on the server side{" "}
+          <code>GITHUB_TOKEN</code>, <code>GITHUB_REPO</code>,{" "}
+          <code>SUPABASE_URL</code>, <code>SUPABASE_ANON_KEY</code>. See{" "}
+          <code>supabase/SETUP.md</code>.
         </p>
       </div>
     );
@@ -238,7 +244,7 @@ const Admin: React.FC = () => {
       <header className="admin-header">
         <div>
           <strong>Elsway CMS</strong>
-          <span className="admin-muted"> · {user.email}</span>
+          <span className="admin-muted"> · {user.email} · GitHub-backed</span>
         </div>
         <div className="admin-tools">
           <input
@@ -294,6 +300,10 @@ const Admin: React.FC = () => {
           {!current ? (
             <div className="admin-empty">
               Select an icon on the left, or scroll down to add a new one.
+              <br />
+              <span className="admin-muted">
+                Every change makes a git commit. Vercel rebuilds automatically.
+              </span>
             </div>
           ) : (
             <IconEditor
@@ -308,8 +318,12 @@ const Admin: React.FC = () => {
           <section className="admin-new">
             <h2>Add new icon</h2>
             <p className="admin-muted">
-              You must upload SVGs for <strong>all {BRANDS.length} brands ×{" "}
-              {WEIGHTS.length} weights = {BRANDS.length * WEIGHTS.length} files</strong>.
+              You must upload SVGs for{" "}
+              <strong>
+                all {BRANDS.length} brands × {WEIGHTS.length} weights ={" "}
+                {BRANDS.length * WEIGHTS.length} files
+              </strong>
+              . All uploaded in a single commit.
             </p>
             <div className="admin-field">
               <label>Slug</label>
@@ -348,7 +362,9 @@ const Admin: React.FC = () => {
                       newIcon.files[`${b}__${w}`] ? "filled" : ""
                     }`}
                   >
-                    <span>{b}/{w}</span>
+                    <span>
+                      {b}/{w}
+                    </span>
                     <input
                       type="file"
                       accept=".svg,image/svg+xml"
@@ -440,7 +456,9 @@ const IconEditor: React.FC<{
                 height={40}
                 loading="lazy"
               />
-              <span>{b}/{w}</span>
+              <span>
+                {b}/{w}
+              </span>
               <label className="admin-file-label">
                 Replace
                 <input
@@ -457,10 +475,7 @@ const IconEditor: React.FC<{
         )}
       </div>
 
-      <button
-        className="admin-btn danger"
-        onClick={() => onDelete(row.name)}
-      >
+      <button className="admin-btn danger" onClick={() => onDelete(row.name)}>
         Delete icon
       </button>
     </section>

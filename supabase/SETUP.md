@@ -1,61 +1,70 @@
 # Elsway Icons CMS — Setup Checklist
 
-## 1. Supabase project (free tier)
+Architecture: icons stay in this **GitHub repo** as SVG files (single source of truth). The CMS mutates them by calling a Vercel serverless function (`/api/cms`) that commits changes through the GitHub API. Auth is Google SSO via Supabase (free tier — used only for auth).
+
+```
+Browser  →  Supabase Auth (Google SSO)  →  session JWT
+Browser  →  /api/cms  (Vercel Edge Function)
+                       │ verifies JWT + @cars24.com email
+                       ▼
+             GitHub API  →  commits SVG changes  →  main branch
+                                                    │
+                                                    ▼
+                                             Vercel auto-deploy
+```
+
+## 1. Supabase project (auth only, free tier)
 
 1. Go to https://supabase.com → **New project**.
-2. Copy the **Project URL** and **anon public key** from Project Settings → API.
-3. Also copy the **service_role secret** (used only by the migration script; never expose to the client).
+2. Project Settings → API → copy **Project URL** and **anon public key**.
 
-## 2. Storage bucket
+## 2. Google SSO
 
-Storage → Create bucket:
-- Name: **`elsway-icons`**
-- Public: **yes** (icons are served from the CDN URL)
-- File size limit: 1 MB
-
-Storage → Policies → New policy on `elsway-icons`:
-- **Read**: for all — `bucket_id = 'elsway-icons'`
-- **Insert / Update / Delete**: role `authenticated` — `bucket_id = 'elsway-icons' AND auth.jwt() ->> 'email' LIKE '%@cars24.com'`
-  (or use the SQL blocks in `supabase/schema.sql`).
-
-## 3. Database schema
-
-Open SQL Editor → paste and run `supabase/schema.sql`. Creates the `icons` table with RLS policies restricting writes to `@cars24.com` accounts.
-
-## 4. Google SSO
-
-Authentication → Providers → Google → Enable.
-- In Google Cloud Console, create an OAuth 2.0 Client ID (Web application).
+Supabase → Authentication → Providers → Google → **Enable**.
+- In Google Cloud Console, create an OAuth 2.0 Web Client.
 - Authorized redirect URI: `https://<PROJECT_REF>.supabase.co/auth/v1/callback`
-- Optional: set **allowed hosted domain = cars24.com** in the Supabase provider settings (or leave the client-side hint alone — the app also checks the email domain).
-- Paste the Google client ID + secret into Supabase.
+- Paste client ID + secret into Supabase.
+- The app also checks the caller's email domain — only `@cars24.com` accounts can write.
+
+## 3. GitHub PAT (for the write proxy)
+
+Create a **fine-grained** personal access token on the elsway account:
+- Repository access: **elsway/elsway-icons** only.
+- Permissions: **Contents = read/write**.
+- Expiration: whatever you're comfortable with.
+
+## 4. Vercel env vars
+
+Project Settings → Environment Variables (Production + Preview):
+
+| Name | Example |
+|---|---|
+| `VITE_SUPABASE_URL` | `https://xyz.supabase.co` |
+| `VITE_SUPABASE_ANON_KEY` | `eyJ…` (anon public) |
+| `SUPABASE_URL` | same as above (server side) |
+| `SUPABASE_ANON_KEY` | same as above (server side) |
+| `GITHUB_TOKEN` | `github_pat_…` (fine-grained PAT) |
+| `GITHUB_REPO` | `elsway/elsway-icons` |
+| `GITHUB_BRANCH` | `main` |
+| `ALLOWED_EMAIL_DOMAIN` | `cars24.com` |
+
+Redeploy.
 
 ## 5. Local dev
 
-1. Copy `.env.example` → `.env.local`.
-2. Fill `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
-3. `pnpm dev` → visit `/elsway-icons/` → sidebar shows a working **Sign in** button; visit `/elsway-icons/admin` for the CMS.
+1. Copy `.env.example` → `.env.local`. Fill `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY`.
+2. `pnpm dev` → sidebar shows a working **Sign in** button.
+3. Local dev does **not** hit the Vercel function; the CMS write ops will 404 locally. Point local testing at a preview deployment (or run `vercel dev`).
 
-## 6. Vercel
+## 6. Try it
 
-Project Settings → Environment Variables → add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` for Production & Preview. Redeploy.
+- Visit `/elsway-icons/` → click **Sign in** in the sidebar → complete Google flow → sidebar switches to "Open CMS".
+- `/elsway-icons/admin` → search, edit tags/categories, replace SVGs, add new icons.
+- Every mutation lands as a git commit authored by your email — auditable in the repo history. Vercel picks it up and redeploys the site in ~1 min.
 
-## 7. One-time migration: upload existing 14k SVGs
+## Notes
 
-```
-export SUPABASE_URL="https://<project>.supabase.co"
-export SUPABASE_SERVICE_ROLE_KEY="<service_role>"
-node scripts/supabase-migrate.mjs
-```
-
-The script uploads every existing SVG to the bucket and populates the `icons` metadata rows with the categories extracted from Figma. ~14,020 objects; runs in ~5 min on a decent connection.
-
-## 8. Point the icon grid at Supabase (optional)
-
-The frontend currently loads SVGs from the static Vercel build (`/raw/elsway/...`). To switch it to Supabase (so CMS edits appear immediately without redeploying):
-
-1. Open `src/components/IconGrid/IconGridItem.tsx` and `src/components/IconGrid/Panel.tsx`.
-2. Replace the hardcoded `` `${BASE}raw/elsway/${brand}/${weightFolder}/${name}.svg` `` with `iconUrl(brand, weight, name)` imported from `@/lib/supabase`.
-3. Same for the manifest — instead of the bundled JSON, fetch the current icon list from the `icons` table on mount.
-
-Alternatively, leave the public grid pointing at the static bundle and only use Supabase for edits — the next Vercel deploy picks up any repo-synced changes.
+- **Metadata** (categories, tags) lives in `public/raw/elsway/metadata.json` — a single JSON keyed by icon slug — kept versioned alongside the SVGs. It's created on first edit.
+- **Add-new mandates** all 5 brands × 2 weights = 10 SVGs before the button unlocks. All 10 land in a single commit.
+- **Renames** move 10 objects in individual commits (one per file, since GitHub Contents API rewrites atomically per path).
+- **Deletes** land in one commit (batch).
