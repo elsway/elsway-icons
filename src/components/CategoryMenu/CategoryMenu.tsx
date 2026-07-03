@@ -109,30 +109,44 @@ const CategoryMenu: React.FC = () => {
       </div>
 
       <div className="section-label">Categories</div>
-      <ul className="categories" role="list">
-        <li>
-          <button
-            className={`cat-btn ${current === "" ? "active" : ""}`}
-            aria-pressed={current === ""}
-            onClick={() => setSearchQuery("")}
-          >
-            <span className="cat-name">All</span>
-            <span className="cat-count">{fmt(totalIcons)}</span>
-          </button>
-        </li>
-        {CATEGORIES.map((c) => (
-          <li key={c}>
+      <div className="categories-scroll">
+        <ul className="categories" role="list">
+          <li>
             <button
-              className={`cat-btn ${current === c ? "active" : ""}`}
-              aria-pressed={current === c}
-              onClick={() => setSearchQuery(c)}
+              className={`cat-btn ${current === "" ? "active" : ""}`}
+              aria-pressed={current === ""}
+              onClick={() => setSearchQuery("")}
             >
-              <span className="cat-name">{c}</span>
-              <span className="cat-count">{fmt(categoryCounts[c] || 0)}</span>
+              <span className="cat-name">All</span>
+              <span className="cat-count">{fmt(totalIcons)}</span>
             </button>
           </li>
-        ))}
-      </ul>
+          {CATEGORIES.map((c) => (
+            <li key={c}>
+              <button
+                className={`cat-btn ${current === c ? "active" : ""}`}
+                aria-pressed={current === c}
+                onClick={() => setSearchQuery(c)}
+              >
+                <span className="cat-name">{c}</span>
+                <span className="cat-count">
+                  {fmt(categoryCounts[c] || 0)}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="sidebar-footer">
+        <button className="login-btn" type="button" disabled>
+          <span className="login-btn-icon" aria-hidden>
+            ⌂
+          </span>
+          <span>Sign in</span>
+        </button>
+        <span className="login-hint">CMS access — coming soon</span>
+      </div>
     </nav>
   );
 };
