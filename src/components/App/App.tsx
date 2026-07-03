@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useMemo, useRef, useEffect } from "react";
+import { Fragment, Suspense, useMemo, useRef, useEffect, useState } from "react";
 
 import "./App.css";
 import IconGrid from "@/components/IconGrid";
@@ -7,6 +7,7 @@ import CategoryMenu from "@/components/CategoryMenu";
 import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
+import Admin from "@/components/Admin/Admin";
 // import Recipes from "@/components/Recipes";
 import { useCSSVariables } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
@@ -21,6 +22,20 @@ const App: React.FC<any> = () => {
   const hasSelection = !!selectionEntry;
   const searchQuery = useApplicationStore.use.searchQuery();
   const iconBrand = useApplicationStore.use.iconBrand();
+
+  // Extremely lightweight routing: /admin or ?admin=1 renders the CMS.
+  const [route, setRoute] = useState<string>(() =>
+    typeof window === "undefined" ? "/" : window.location.pathname
+  );
+  useEffect(() => {
+    const onPop = () => setRoute(window.location.pathname);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+  const isAdmin =
+    route.endsWith("/admin") ||
+    (typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).has("admin"));
 
   const gridScrollRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +61,8 @@ const App: React.FC<any> = () => {
       [isDark]
     )
   );
+
+  if (isAdmin) return <Admin />;
 
   return (
     <Fragment>

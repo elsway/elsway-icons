@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
+import { useAuth } from "@/lib/auth";
 import "./CategoryMenu.css";
 
 type BrandOption = { key: string; value: IconBrand };
@@ -138,6 +139,20 @@ const CategoryMenu: React.FC = () => {
         </ul>
       </div>
 
+      <SidebarFooter />
+    </nav>
+  );
+};
+
+const SidebarFooter: React.FC = () => {
+  const { user, isAllowed, signIn, signOut, configured } = useAuth();
+  const go = (path: string) => {
+    window.history.pushState({}, "", path);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+  const adminHref = `${import.meta.env.BASE_URL || "/"}admin`;
+  if (!configured) {
+    return (
       <div className="sidebar-footer">
         <button className="login-btn" type="button" disabled>
           <span className="login-btn-icon" aria-hidden>
@@ -145,9 +160,50 @@ const CategoryMenu: React.FC = () => {
           </span>
           <span>Sign in</span>
         </button>
-        <span className="login-hint">CMS access — coming soon</span>
+        <span className="login-hint">CMS setup pending</span>
       </div>
-    </nav>
+    );
+  }
+  if (!user) {
+    return (
+      <div className="sidebar-footer">
+        <button className="login-btn" type="button" onClick={signIn}>
+          <span className="login-btn-icon" aria-hidden>
+            ⌂
+          </span>
+          <span>Sign in</span>
+        </button>
+        <span className="login-hint">CMS access — cars24.com only</span>
+      </div>
+    );
+  }
+  return (
+    <div className="sidebar-footer">
+      <button
+        className="login-btn"
+        type="button"
+        onClick={() => go(adminHref)}
+      >
+        <span className="login-btn-icon" aria-hidden>
+          ⚙
+        </span>
+        <span>Open CMS</span>
+      </button>
+      <div className="login-meta">
+        <span
+          className="login-email"
+          title={user.email || ""}
+        >
+          {user.email}
+        </span>
+        <button type="button" className="login-signout" onClick={signOut}>
+          sign out
+        </button>
+      </div>
+      {!isAllowed && (
+        <span className="login-hint warn">not authorized</span>
+      )}
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import App from "./components/App";
 import ReactGA from "react-ga4";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Notice from "./components/Notice";
+import { AuthProvider } from "./lib/auth";
 
 const GA_MEASUREMENT_ID = "G-1C1REQCLFB";
 ReactGA.initialize(GA_MEASUREMENT_ID);
@@ -25,7 +26,9 @@ root.render(
         />
       }
     >
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ErrorBoundary>
   </StrictMode>
 );
