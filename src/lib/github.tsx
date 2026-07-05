@@ -74,7 +74,7 @@ export async function startDeviceFlow(): Promise<DeviceStart> {
     client_id: GITHUB_CLIENT_ID,
     scope: "repo",
   });
-  return github<DeviceStart>("https://github.com/login/device/code", {
+  return github<DeviceStart>("/api/github-proxy?target=device", {
     method: "POST",
     body,
   });
@@ -90,7 +90,7 @@ export async function pollDeviceFlow(device_code: string): Promise<DevicePoll> {
     device_code,
     grant_type: "urn:ietf:params:oauth:grant-type:device_code",
   });
-  return github<DevicePoll>("https://github.com/login/oauth/access_token", {
+  return github<DevicePoll>("/api/github-proxy?target=token", {
     method: "POST",
     body,
   });
