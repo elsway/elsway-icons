@@ -1,19 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useAuth } from "@/lib/auth";
 import {
   BRANDS,
   WEIGHTS,
   iconUrl,
+  useAuth,
+  putFile,
+  batchCommit,
+  renameFile,
+  writeMeta,
+  readMeta,
+  b64FromAny,
   type Brand,
   type Weight,
-} from "@/lib/supabase";
-import {
-  putSvg,
-  renameFile,
-  batchCommit,
-  svgEntry,
-  updateMeta,
-} from "@/lib/cms-api";
+  GITHUB_REPO,
+} from "@/lib/github";
 import "./Admin.css";
 
 type IconRow = {
@@ -36,7 +36,17 @@ async function fetchJson<T>(url: string): Promise<T | null> {
 }
 
 const Admin: React.FC = () => {
-  const { ready, user, isAllowed, signIn, signOut, configured } = useAuth();
+  const {
+    ready,
+    configured,
+    user,
+    canWrite,
+    token,
+    device,
+    signIn,
+    signOut,
+    cancelSignIn,
+  } = useAuth();
   const [rows, setRows] = useState<IconRow[]>([]);
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
@@ -44,29 +54,25 @@ const Admin: React.FC = () => {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    if (!isAllowed) return;
+    if (!canWrite || !token) return;
     (async () => {
       const base = import.meta.env.BASE_URL;
       const [manifest, categories, meta] = await Promise.all([
         fetchJson<string[]>(`${base}raw/elsway/manifest.json`),
-        fetchJson<Record<string, string[]>>(`${base}raw/elsway/categories.json`),
-        fetchJson<Record<string, { categories?: string[]; tags?: string[] }>>(
-          `${base}raw/elsway/metadata.json`
+        fetchJson<Record<string, string[]>>(
+          `${base}raw/elsway/categories.json`
         ),
+        readMeta(token).catch(() => ({}) as any),
       ]);
-      if (!manifest) {
-        setStatus("Could not load manifest.");
-        return;
-      }
+      if (!manifest) return setStatus("Could not load manifest.");
       const out: IconRow[] = manifest.map((name) => ({
         name,
-        categories:
-          meta?.[name]?.categories ?? categories?.[name] ?? [],
+        categories: meta?.[name]?.categories ?? categories?.[name] ?? [],
         tags: meta?.[name]?.tags ?? [],
       }));
       setRows(out);
     })();
-  }, [isAllowed]);
+  }, [canWrite, token]);
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -81,13 +87,20 @@ const Admin: React.FC = () => {
 
   const current = rows.find((r) => r.name === selected) ?? null;
 
-  // ---- Actions (GitHub-backed) ----
   const saveMeta = async (row: IconRow) => {
-    setBusy("Saving metadata…");
+    if (!token) return;
+    setBusy("Committing metadata…");
     try {
-      await updateMeta(row.name, row.categories, row.tags);
+      await writeMeta(
+        (m) => {
+          m[row.name] = { categories: row.categories, tags: row.tags };
+          return m;
+        },
+        `cms: meta ${row.name}`,
+        token
+      );
       setRows((r) => r.map((x) => (x.name === row.name ? row : x)));
-      setStatus("Saved metadata (commit landed).");
+      setStatus("Saved.");
     } catch (e: any) {
       setStatus(e.message || String(e));
     }
@@ -95,13 +108,30 @@ const Admin: React.FC = () => {
   };
 
   const rename = async (oldName: string, newName: string) => {
+    if (!token) return;
     if (!/^[a-z0-9-]+$/.test(newName))
       return setStatus("Slug must be [a-z0-9-] only.");
-    setBusy("Renaming (moving 10 files)…");
+    setBusy("Renaming (10 files)…");
     try {
       for (const b of BRANDS)
         for (const w of WEIGHTS)
-          await renameFile(svgPath(b, w, oldName), svgPath(b, w, newName));
+          await renameFile(
+            svgPath(b, w, oldName),
+            svgPath(b, w, newName),
+            token
+          );
+      // update metadata key
+      await writeMeta(
+        (m) => {
+          if (m[oldName]) {
+            m[newName] = m[oldName];
+            delete m[oldName];
+          }
+          return m;
+        },
+        `cms: rename meta ${oldName} → ${newName}`,
+        token
+      );
       setRows((r) =>
         r.map((x) => (x.name === oldName ? { ...x, name: newName } : x))
       );
@@ -119,11 +149,18 @@ const Admin: React.FC = () => {
     weight: Weight,
     file: File
   ) => {
+    if (!token) return;
     if (file.type !== "image/svg+xml" && !file.name.endsWith(".svg"))
       return setStatus("Only SVG files.");
     setBusy(`Uploading ${brand}/${weight}…`);
     try {
-      await putSvg(svgPath(brand, weight, name), file);
+      const b64 = await b64FromAny(file);
+      await putFile(
+        svgPath(brand, weight, name),
+        b64,
+        `cms: replace ${brand}/${weight}/${name}`,
+        token
+      );
       setStatus(`Replaced ${brand}/${weight}/${name}.svg`);
     } catch (e: any) {
       setStatus(e.message || String(e));
@@ -132,13 +169,22 @@ const Admin: React.FC = () => {
   };
 
   const deleteIcon = async (name: string) => {
+    if (!token) return;
     if (!confirm(`Delete "${name}" from all brands and weights?`)) return;
-    setBusy("Deleting…");
+    setBusy("Deleting (single commit)…");
     try {
       const changes = BRANDS.flatMap((b) =>
         WEIGHTS.map((w) => ({ path: svgPath(b, w, name), contentBase64: null }))
       );
-      await batchCommit(changes, `cms: delete ${name}`);
+      await batchCommit(changes, `cms: delete ${name}`, token);
+      await writeMeta(
+        (m) => {
+          delete m[name];
+          return m;
+        },
+        `cms: meta drop ${name}`,
+        token
+      );
       setRows((r) => r.filter((x) => x.name !== name));
       if (selected === name) setSelected(null);
       setStatus(`Deleted ${name}`);
@@ -156,6 +202,7 @@ const Admin: React.FC = () => {
   }>({ name: "", categories: "", tags: "", files: {} });
 
   const addNew = async () => {
+    if (!token) return;
     const name = newIcon.name.trim().toLowerCase();
     if (!/^[a-z0-9-]+$/.test(name))
       return setStatus("Slug must be [a-z0-9-] only.");
@@ -167,7 +214,9 @@ const Admin: React.FC = () => {
         if (!newIcon.files[`${b}__${w}`]) missing.push(`${b}/${w}`);
     if (missing.length)
       return setStatus(
-        `Provide SVGs for all ${BRANDS.length * WEIGHTS.length} combos. Missing: ${missing.join(", ")}`
+        `Provide SVGs for all ${BRANDS.length * WEIGHTS.length} combos. Missing: ${missing.join(
+          ", "
+        )}`
       );
     setBusy("Uploading new icon (single commit)…");
     try {
@@ -175,20 +224,33 @@ const Admin: React.FC = () => {
       for (const b of BRANDS)
         for (const w of WEIGHTS) {
           const f = newIcon.files[`${b}__${w}`]!;
-          changes.push(await svgEntry(svgPath(b, w, name), f));
+          changes.push({
+            path: svgPath(b, w, name),
+            contentBase64: await b64FromAny(f),
+          });
         }
-      await batchCommit(changes, `cms: add icon ${name}`);
-      await updateMeta(
-        name,
-        newIcon.categories.split(",").map((s) => s.trim()).filter(Boolean),
-        newIcon.tags.split(",").map((s) => s.trim()).filter(Boolean)
+      await batchCommit(changes, `cms: add icon ${name}`, token);
+      const cats = newIcon.categories
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const tags = newIcon.tags
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      await writeMeta(
+        (m) => {
+          m[name] = { categories: cats, tags };
+          return m;
+        },
+        `cms: meta ${name}`,
+        token
       );
-      const row: IconRow = {
-        name,
-        categories: newIcon.categories.split(",").map((s) => s.trim()).filter(Boolean),
-        tags: newIcon.tags.split(",").map((s) => s.trim()).filter(Boolean),
-      };
-      setRows((r) => [...r, row].sort((a, b) => a.name.localeCompare(b.name)));
+      setRows((r) =>
+        [...r, { name, categories: cats, tags }].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )
+      );
       setNewIcon({ name: "", categories: "", tags: "", files: {} });
       setStatus(`Added ${name}`);
     } catch (e: any) {
@@ -205,12 +267,29 @@ const Admin: React.FC = () => {
       <div className="admin-shell admin-msg">
         <h1>CMS not configured</h1>
         <p>
-          Set <code>VITE_SUPABASE_URL</code> and{" "}
-          <code>VITE_SUPABASE_ANON_KEY</code> for auth, and on the server side{" "}
-          <code>GITHUB_TOKEN</code>, <code>GITHUB_REPO</code>,{" "}
-          <code>SUPABASE_URL</code>, <code>SUPABASE_ANON_KEY</code>. See{" "}
-          <code>supabase/SETUP.md</code>.
+          Set <code>VITE_GITHUB_CLIENT_ID</code> in your environment. See{" "}
+          <code>CMS-SETUP.md</code>.
         </p>
+      </div>
+    );
+
+  if (device)
+    return (
+      <div className="admin-shell admin-msg">
+        <h1>Sign in with GitHub</h1>
+        <p>
+          Open <a href={device.verification_uri} target="_blank" rel="noreferrer">
+            {device.verification_uri}
+          </a>{" "}
+          and enter this code:
+        </p>
+        <div className="device-code">{device.user_code}</div>
+        <p className="admin-muted">
+          Waiting for authorization… (this window will refresh automatically).
+        </p>
+        <button className="admin-btn" onClick={cancelSignIn}>
+          Cancel
+        </button>
       </div>
     );
 
@@ -218,20 +297,20 @@ const Admin: React.FC = () => {
     return (
       <div className="admin-shell admin-msg">
         <h1>Sign in required</h1>
-        <p>Use your @cars24.com Google account.</p>
+        <p>You need write access to <code>{GITHUB_REPO}</code>.</p>
         <button className="admin-btn primary" onClick={signIn}>
-          Sign in with Google
+          Sign in with GitHub
         </button>
       </div>
     );
 
-  if (!isAllowed)
+  if (!canWrite)
     return (
       <div className="admin-shell admin-msg">
         <h1>Not authorized</h1>
         <p>
-          Signed in as <code>{user.email}</code>. Only @cars24.com accounts can
-          use the CMS.
+          Signed in as <code>@{user.login}</code>, but you don't have write
+          access to <code>{GITHUB_REPO}</code>.
         </p>
         <button className="admin-btn" onClick={signOut}>
           Sign out
@@ -244,7 +323,10 @@ const Admin: React.FC = () => {
       <header className="admin-header">
         <div>
           <strong>Elsway CMS</strong>
-          <span className="admin-muted"> · {user.email} · GitHub-backed</span>
+          <span className="admin-muted">
+            {" "}
+            · @{user.login} · {GITHUB_REPO}
+          </span>
         </div>
         <div className="admin-tools">
           <input
@@ -302,7 +384,8 @@ const Admin: React.FC = () => {
               Select an icon on the left, or scroll down to add a new one.
               <br />
               <span className="admin-muted">
-                Every change makes a git commit. Vercel rebuilds automatically.
+                Every change is a git commit authored by @{user.login}. Vercel
+                rebuilds automatically.
               </span>
             </div>
           ) : (

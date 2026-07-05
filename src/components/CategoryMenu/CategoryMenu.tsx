@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
-import { useAuth } from "@/lib/auth";
+import { useAuth } from "@/lib/github";
 import "./CategoryMenu.css";
 
 type BrandOption = { key: string; value: IconBrand };
@@ -145,7 +145,7 @@ const CategoryMenu: React.FC = () => {
 };
 
 const SidebarFooter: React.FC = () => {
-  const { user, isAllowed, signIn, signOut, configured } = useAuth();
+  const { user, canWrite, signIn, signOut, configured } = useAuth();
   const go = (path: string) => {
     window.history.pushState({}, "", path);
     window.dispatchEvent(new PopStateEvent("popstate"));
@@ -171,9 +171,9 @@ const SidebarFooter: React.FC = () => {
           <span className="login-btn-icon" aria-hidden>
             ⌂
           </span>
-          <span>Sign in</span>
+          <span>Sign in with GitHub</span>
         </button>
-        <span className="login-hint">CMS access — cars24.com only</span>
+        <span className="login-hint">CMS access — repo collaborators only</span>
       </div>
     );
   }
@@ -190,19 +190,14 @@ const SidebarFooter: React.FC = () => {
         <span>Open CMS</span>
       </button>
       <div className="login-meta">
-        <span
-          className="login-email"
-          title={user.email || ""}
-        >
-          {user.email}
+        <span className="login-email" title={user.login}>
+          @{user.login}
         </span>
         <button type="button" className="login-signout" onClick={signOut}>
           sign out
         </button>
       </div>
-      {!isAllowed && (
-        <span className="login-hint warn">not authorized</span>
-      )}
+      {!canWrite && <span className="login-hint warn">not a collaborator</span>}
     </div>
   );
 };
