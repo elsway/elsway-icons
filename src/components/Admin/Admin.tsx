@@ -42,10 +42,9 @@ const Admin: React.FC = () => {
     user,
     canWrite,
     token,
-    device,
+    signingIn,
     signIn,
     signOut,
-    cancelSignIn,
   } = useAuth();
   const [rows, setRows] = useState<IconRow[]>([]);
   const [q, setQ] = useState("");
@@ -273,33 +272,19 @@ const Admin: React.FC = () => {
       </div>
     );
 
-  if (device)
-    return (
-      <div className="admin-shell admin-msg">
-        <h1>Sign in with GitHub</h1>
-        <p>
-          Open <a href={device.verification_uri} target="_blank" rel="noreferrer">
-            {device.verification_uri}
-          </a>{" "}
-          and enter this code:
-        </p>
-        <div className="device-code">{device.user_code}</div>
-        <p className="admin-muted">
-          Waiting for authorization… (this window will refresh automatically).
-        </p>
-        <button className="admin-btn" onClick={cancelSignIn}>
-          Cancel
-        </button>
-      </div>
-    );
-
   if (!user)
     return (
       <div className="admin-shell admin-msg">
         <h1>Sign in required</h1>
-        <p>You need write access to <code>{GITHUB_REPO}</code>.</p>
-        <button className="admin-btn primary" onClick={signIn}>
-          Sign in with GitHub
+        <p>
+          You need write access to <code>{GITHUB_REPO}</code>.
+        </p>
+        <button
+          className="admin-btn primary"
+          onClick={signIn}
+          disabled={signingIn}
+        >
+          {signingIn ? "Waiting for GitHub…" : "Sign in with GitHub"}
         </button>
       </div>
     );

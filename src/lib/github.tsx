@@ -60,39 +60,75 @@ async function github<T = unknown>(
   }
 }
 
-type DeviceStart = {
-  device_code: string;
-  user_code: string;
-  verification_uri: string;
-  expires_in: number;
-  interval: number;
-};
+// OAuth Web App flow — popup-based, no code to copy.
+// Redirects to github.com/login/oauth/authorize → user authorizes →
+// GitHub redirects popup to /api/github-callback → callback exchanges the
+// code for a token (server-side, using GITHUB_CLIENT_SECRET) → postMessages
+// the token back to this window → we save it in localStorage.
 
-export async function startDeviceFlow(): Promise<DeviceStart> {
-  if (!GITHUB_CLIENT_ID) throw new Error("VITE_GITHUB_CLIENT_ID not set");
-  const body = new URLSearchParams({
-    client_id: GITHUB_CLIENT_ID,
-    scope: "repo",
-  });
-  return github<DeviceStart>("/api/github-proxy?target=device", {
-    method: "POST",
-    body,
-  });
+function randomState(): string {
+  const a = new Uint8Array(16);
+  crypto.getRandomValues(a);
+  return Array.from(a, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-type DevicePoll =
-  | { access_token: string; token_type: string; scope: string }
-  | { error: string; error_description?: string; interval?: number };
+export function openOAuthPopup(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (!GITHUB_CLIENT_ID) {
+      reject(new Error("VITE_GITHUB_CLIENT_ID not set"));
+      return;
+    }
+    const state = randomState();
+    const redirect = `${window.location.origin}/api/github-callback`;
+    const url =
+      "https://github.com/login/oauth/authorize" +
+      `?client_id=${encodeURIComponent(GITHUB_CLIENT_ID)}` +
+      `&scope=repo` +
+      `&state=${state}` +
+      `&redirect_uri=${encodeURIComponent(redirect)}`;
 
-export async function pollDeviceFlow(device_code: string): Promise<DevicePoll> {
-  const body = new URLSearchParams({
-    client_id: GITHUB_CLIENT_ID!,
-    device_code,
-    grant_type: "urn:ietf:params:oauth:grant-type:device_code",
-  });
-  return github<DevicePoll>("/api/github-proxy?target=token", {
-    method: "POST",
-    body,
+    const popup = window.open(
+      url,
+      "elsway-cms-oauth",
+      "width=640,height=760,menubar=no,toolbar=no"
+    );
+    if (!popup) {
+      reject(new Error("Popup blocked — allow popups for this site"));
+      return;
+    }
+
+    const onMsg = (e: MessageEvent) => {
+      const d = e.data as {
+        source?: string;
+        token?: string;
+        error?: string;
+        state?: string;
+      };
+      if (!d || d.source !== "elsway-cms-oauth") return;
+      window.removeEventListener("message", onMsg);
+      window.clearInterval(watch);
+      if (d.error) {
+        reject(new Error(d.error));
+      } else if (d.token) {
+        if (d.state && d.state !== state) {
+          reject(new Error("state mismatch"));
+        } else {
+          resolve(d.token);
+        }
+      } else {
+        reject(new Error("no token"));
+      }
+    };
+    window.addEventListener("message", onMsg);
+
+    // Detect user closing the popup without completing.
+    const watch = window.setInterval(() => {
+      if (popup.closed) {
+        window.removeEventListener("message", onMsg);
+        window.clearInterval(watch);
+        reject(new Error("Sign-in cancelled"));
+      }
+    }, 500);
   });
 }
 
@@ -108,10 +144,9 @@ type AuthState = {
   token: string | null;
   user: GhUser | null;
   canWrite: boolean;
-  device: DeviceStart | null;
+  signingIn: boolean;
   signIn: () => Promise<void>;
   signOut: () => void;
-  cancelSignIn: () => void;
 };
 
 const AuthContext = createContext<AuthState>({
@@ -120,10 +155,9 @@ const AuthContext = createContext<AuthState>({
   token: null,
   user: null,
   canWrite: false,
-  device: null,
+  signingIn: false,
   signIn: async () => {},
   signOut: () => {},
-  cancelSignIn: () => {},
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -141,8 +175,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   });
   const [canWrite, setCanWrite] = useState(false);
   const [ready, setReady] = useState(false);
-  const [device, setDevice] = useState<DeviceStart | null>(null);
-  const [pollTimer, setPollTimer] = useState<number | null>(null);
+  const [signingIn, setSigningIn] = useState(false);
 
   // Validate token on mount: fetch /user and repo permission.
   useEffect(() => {
@@ -192,59 +225,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setToken(null);
     setUser(null);
     setCanWrite(false);
-    setDevice(null);
-    if (pollTimer) window.clearInterval(pollTimer);
-    setPollTimer(null);
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
-  }, [pollTimer]);
-
-  const cancelSignIn = useCallback(() => {
-    if (pollTimer) window.clearInterval(pollTimer);
-    setPollTimer(null);
-    setDevice(null);
-  }, [pollTimer]);
+  }, []);
 
   const signIn = useCallback(async () => {
     if (!CMS_CONFIGURED) {
-      alert("VITE_GITHUB_CLIENT_ID not set. See CMS setup instructions.");
+      alert("VITE_GITHUB_CLIENT_ID not set. See CMS-SETUP.md.");
       return;
     }
-    const d = await startDeviceFlow();
-    setDevice(d);
-    // Auto-open verification URL for convenience.
-    window.open(d.verification_uri, "_blank");
-    let interval = Math.max(d.interval || 5, 5) * 1000;
-    const id = window.setInterval(async () => {
-      try {
-        const r = await pollDeviceFlow(d.device_code);
-        if ("access_token" in r && r.access_token) {
-          window.clearInterval(id);
-          setPollTimer(null);
-          setDevice(null);
-          localStorage.setItem(TOKEN_KEY, r.access_token);
-          setToken(r.access_token);
-        } else if ("error" in r) {
-          if (r.error === "authorization_pending") return;
-          if (r.error === "slow_down") {
-            window.clearInterval(id);
-            interval += 5000;
-            const id2 = window.setInterval(() => void 0, interval);
-            setPollTimer(id2);
-            return;
-          }
-          if (r.error === "expired_token" || r.error === "access_denied") {
-            window.clearInterval(id);
-            setPollTimer(null);
-            setDevice(null);
-            alert(`Sign-in ${r.error}`);
-          }
-        }
-      } catch (e) {
-        console.error("device poll", e);
-      }
-    }, interval);
-    setPollTimer(id);
+    setSigningIn(true);
+    try {
+      const t = await openOAuthPopup();
+      localStorage.setItem(TOKEN_KEY, t);
+      setToken(t);
+    } catch (e: any) {
+      alert(`Sign-in failed: ${e?.message || e}`);
+    } finally {
+      setSigningIn(false);
+    }
   }, []);
 
   const value = useMemo<AuthState>(
@@ -254,12 +253,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       token,
       user,
       canWrite,
-      device,
+      signingIn,
       signIn,
       signOut,
-      cancelSignIn,
     }),
-    [ready, token, user, canWrite, device, signIn, signOut, cancelSignIn]
+    [ready, token, user, canWrite, signingIn, signIn, signOut]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
