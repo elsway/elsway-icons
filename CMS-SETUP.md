@@ -68,3 +68,5 @@ Redeploy.
 - **Add-new mandates** all 5 brands × 2 weights = 10 SVGs before the button unlocks. All 10 land in a single commit.
 - **Renames** move 10 objects in individual commits (one per file, since GitHub Contents API rewrites atomically per path).
 - **Deletes** land in one commit (batch).
+
+<!-- cms env bump 2026-07-05T14:31:40Z -->
