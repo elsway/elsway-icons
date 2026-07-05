@@ -31,10 +31,22 @@ export default async function handler(req: Request) {
   }
   if (!code) return new Response("missing code", { status: 400 });
 
-  const CLIENT_ID = process.env.VITE_GITHUB_CLIENT_ID;
+  const CLIENT_ID =
+    process.env.GITHUB_CLIENT_ID || process.env.VITE_GITHUB_CLIENT_ID;
   const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
   if (!CLIENT_ID || !CLIENT_SECRET) {
-    return new Response("missing GitHub env vars", { status: 500 });
+    const missing = [
+      !CLIENT_ID && "GITHUB_CLIENT_ID (or VITE_GITHUB_CLIENT_ID)",
+      !CLIENT_SECRET && "GITHUB_CLIENT_SECRET",
+    ]
+      .filter(Boolean)
+      .join(", ");
+    return new Response(
+      `Missing env var(s) on the Vercel server: ${missing}. ` +
+        `Add them in Project Settings → Environment Variables ` +
+        `(scope: Production + Preview), then redeploy.`,
+      { status: 500 }
+    );
   }
 
   const r = await fetch("https://github.com/login/oauth/access_token", {
