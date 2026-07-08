@@ -145,12 +145,7 @@ const CategoryMenu: React.FC = () => {
 };
 
 const SidebarFooter: React.FC = () => {
-  const { user, canWrite, signIn, signOut, configured } = useAuth();
-  const go = (path: string) => {
-    window.history.pushState({}, "", path);
-    window.dispatchEvent(new PopStateEvent("popstate"));
-  };
-  const adminHref = `${import.meta.env.BASE_URL || "/"}admin`;
+  const { user, canWrite, signIn, signOut, configured, signingIn } = useAuth();
   if (!configured) {
     return (
       <div className="sidebar-footer">
@@ -167,11 +162,16 @@ const SidebarFooter: React.FC = () => {
   if (!user) {
     return (
       <div className="sidebar-footer">
-        <button className="login-btn" type="button" onClick={signIn}>
+        <button
+          className="login-btn"
+          type="button"
+          onClick={signIn}
+          disabled={signingIn}
+        >
           <span className="login-btn-icon" aria-hidden>
             ⌂
           </span>
-          <span>Sign in with GitHub</span>
+          <span>{signingIn ? "Waiting for GitHub…" : "Sign in with GitHub"}</span>
         </button>
         <span className="login-hint">CMS access — repo collaborators only</span>
       </div>
@@ -179,16 +179,6 @@ const SidebarFooter: React.FC = () => {
   }
   return (
     <div className="sidebar-footer">
-      <button
-        className="login-btn"
-        type="button"
-        onClick={() => go(adminHref)}
-      >
-        <span className="login-btn-icon" aria-hidden>
-          ⚙
-        </span>
-        <span>Open CMS</span>
-      </button>
       <div className="login-meta">
         <span className="login-email" title={user.login}>
           @{user.login}
@@ -197,7 +187,11 @@ const SidebarFooter: React.FC = () => {
           sign out
         </button>
       </div>
-      {!canWrite && <span className="login-hint warn">not a collaborator</span>}
+      <span className={`login-hint ${canWrite ? "" : "warn"}`}>
+        {canWrite
+          ? "CMS active — edit icons in place"
+          : "not a collaborator"}
+      </span>
     </div>
   );
 };

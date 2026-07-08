@@ -1,10 +1,14 @@
 .app-header {
   padding: 16px 16px 0px;
   display: grid;
-  grid-template-columns: 1fr 300px 300px;
+  grid-template-columns: 1fr 300px 300px auto;
   gap: 12px;
   align-items: center;
   background: var(--background);
+}
+.app-header .app-header-new {
+  display: flex;
+  align-items: center;
 }
 
 .app-header > * {

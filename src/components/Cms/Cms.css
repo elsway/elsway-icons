@@ -1,0 +1,199 @@
+/* CMS panel inside the icon detail popover */
+.cms-panel {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+.cms-panel > summary {
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.55);
+  padding: 4px 0;
+  user-select: none;
+}
+.cms-panel[open] > summary {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+}
+
+.cms-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.cms-row label {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cms-row input {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  font-family: inherit;
+  font-size: 12px;
+}
+.cms-inline {
+  display: flex;
+  gap: 8px;
+}
+.cms-inline input {
+  flex: 1;
+}
+
+.cms-btn {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+.cms-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+}
+.cms-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.cms-btn.primary {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+.cms-btn.danger {
+  color: #b83232;
+  border-color: #b83232;
+  margin-top: 12px;
+}
+.cms-btn.big {
+  width: 100%;
+  height: 42px;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.cms-panel h4 {
+  margin: 16px 0 8px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.55);
+  font-weight: 400;
+}
+.cms-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cms-matrix-cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 11px;
+}
+.cms-matrix-cell.filled {
+  border-color: #1a1a1a;
+  background: #f5f5f5;
+}
+.cms-slot {
+  color: rgba(0, 0, 0, 0.65);
+}
+.cms-file-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  color: #1a1a1a;
+  background: #fff;
+}
+.cms-file-btn input {
+  display: none;
+}
+
+.cms-status {
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: #fff5d0;
+  font-size: 11px;
+}
+.cms-status.busy {
+  background: #d9ecff;
+}
+.cms-hint {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 11px;
+  margin: 0 0 12px;
+}
+
+/* "+ New icon" trigger + modal */
+.cms-newicon-trigger {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+.cms-newicon-trigger:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+.cms-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.cms-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 540px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  color: #1a1a1a;
+}
+.cms-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.cms-modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+}

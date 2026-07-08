@@ -24,6 +24,7 @@ import { useMediaQuery, useTransientState, useSessionStorage } from "@/hooks";
 import { SnippetType } from "@/lib";
 import { useApplicationStore } from "@/state";
 import { getCodeSnippets, supportsWeight } from "@/utils";
+import CmsPanel from "@/components/Cms/CmsPanel";
 
 import TagCloud from "./TagCloud";
 
@@ -448,6 +449,15 @@ const Panel = () => {
           </div>
 
           <Tabs tabs={tabs} initialIndex={i} onTabChange={setInitialTab} />
+
+          <CmsPanel
+            iconName={entry.name}
+            initialCategories={entry.categories as unknown as string[]}
+            onNameChanged={(newName) => {
+              setSelectionEntry({ ...entry, name: newName } as any);
+            }}
+            onDeleted={() => setSelectionEntry(null)}
+          />
 
           <button
             tabIndex={0}
