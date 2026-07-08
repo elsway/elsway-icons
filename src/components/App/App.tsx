@@ -7,6 +7,7 @@ import CategoryMenu from "@/components/CategoryMenu";
 import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
+import EditIconModal from "@/components/Cms/EditIconModal";
 // import Recipes from "@/components/Recipes";
 import { useCSSVariables } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
@@ -19,6 +20,8 @@ const App: React.FC<any> = () => {
     useApplicationStore.use.applicationTheme() === ApplicationTheme.DARK;
   const selectionEntry = useApplicationStore.use.selectionEntry();
   const hasSelection = !!selectionEntry;
+  const editingEntry = useApplicationStore.use.editingEntry();
+  const setEditingEntry = useApplicationStore.use.setEditingEntry();
   const searchQuery = useApplicationStore.use.searchQuery();
   const iconBrand = useApplicationStore.use.iconBrand();
 
@@ -65,7 +68,7 @@ const App: React.FC<any> = () => {
         </main>
       </div>
 
-      {hasSelection && (
+      {hasSelection && !editingEntry && (
         <div
           className="elsway-popover"
           role="dialog"
@@ -75,6 +78,17 @@ const App: React.FC<any> = () => {
             <Panel />
           </div>
         </div>
+      )}
+
+      {editingEntry && (
+        <EditIconModal
+          iconName={editingEntry.name}
+          initialCategories={editingEntry.categories as unknown as string[]}
+          onClose={() => setEditingEntry(null)}
+          onNameChanged={(newName) =>
+            setEditingEntry({ ...editingEntry, name: newName } as any)
+          }
+        />
       )}
     </Fragment>
   );

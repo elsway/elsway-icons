@@ -24,7 +24,7 @@ import { useMediaQuery, useTransientState, useSessionStorage } from "@/hooks";
 import { SnippetType } from "@/lib";
 import { useApplicationStore } from "@/state";
 import { getCodeSnippets, supportsWeight } from "@/utils";
-import CmsPanel from "@/components/Cms/CmsPanel";
+import { useAuth } from "@/lib/github";
 
 import TagCloud from "./TagCloud";
 
@@ -450,14 +450,7 @@ const Panel = () => {
 
           <Tabs tabs={tabs} initialIndex={i} onTabChange={setInitialTab} />
 
-          <CmsPanel
-            iconName={entry.name}
-            initialCategories={entry.categories as unknown as string[]}
-            onNameChanged={(newName) => {
-              setSelectionEntry({ ...entry, name: newName } as any);
-            }}
-            onDeleted={() => setSelectionEntry(null)}
-          />
+          <EditThisIconButton entry={entry} />
 
           <button
             tabIndex={0}
@@ -474,6 +467,28 @@ const Panel = () => {
         </motion.aside>
       )}
     </AnimatePresence>
+  );
+};
+
+const EditThisIconButton: React.FC<{ entry: any }> = ({ entry }) => {
+  const { canWrite } = useAuth();
+  const setSelectionEntry = useApplicationStore.use.setSelectionEntry();
+  const setEditingEntry = useApplicationStore.use.setEditingEntry();
+  if (!canWrite) return null;
+  return (
+    <div style={{ margin: "16px 0 0", textAlign: "center" }}>
+      <button
+        type="button"
+        className="cms-btn primary big"
+        onClick={() => {
+          // Close the preview popover, open the edit modal.
+          setEditingEntry(entry);
+          setSelectionEntry(null);
+        }}
+      >
+        Edit this icon
+      </button>
+    </div>
   );
 };
 

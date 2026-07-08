@@ -61,6 +61,7 @@ interface ApplicationFields {
   iconColor: string;
   iconPreviewOpen: string | false;
   selectionEntry: IconEntry | null;
+  editingEntry: IconEntry | null;
   filteredQueryResults: ReadonlyArray<IconEntry>;
   iconBrand: IconBrand;
 }
@@ -79,6 +80,7 @@ export interface ApplicationState extends ApplicationFields {
   setIconColor: (color: string) => void;
   setIconPreviewOpen: (open: string | false) => void;
   setSelectionEntry: (entry: IconEntry | null) => void;
+  setEditingEntry: (entry: IconEntry | null) => void;
   setIconBrand: (brand: IconBrand) => void;
   resetApplicationState: () => void;
 }
@@ -220,6 +222,8 @@ export const useApplicationStore = createSelectors(
             set({ iconPreviewOpen: open }),
           setSelectionEntry: (entry: IconEntry | null) =>
             set({ selectionEntry: entry }),
+          setEditingEntry: (entry: IconEntry | null) =>
+            set({ editingEntry: entry }),
           setIconBrand: (brand: IconBrand) => set({ iconBrand: brand }),
           resetApplicationState: () => {
             set({
@@ -262,6 +266,7 @@ function initialState(): ApplicationFields {
     iconColor,
     iconPreviewOpen: false,
     selectionEntry: null,
+    editingEntry: null,
     iconBrand: "cars24" as IconBrand,
     filteredQueryResults:
       searchQuery.trim() === ""

@@ -9,6 +9,7 @@ import {
   writeMeta,
   readMeta,
   b64FromAny,
+  iconUrl,
   type Brand,
   type Weight,
 } from "@/lib/github";
@@ -18,24 +19,25 @@ const svgPath = (b: Brand, w: Weight, name: string) =>
   `public/raw/elsway/${b}/${w}/${name}.svg`;
 
 /**
- * CmsPanel — embedded inside the icon detail popover when the user is signed
- * in with write access. Shows Rename / Replace SVG / Edit tags & categories /
- * Delete controls for the currently-selected icon.
+ * Full edit modal. Opened when the user clicks "Edit this icon" from the
+ * detail popover. Replaces the popover — never both open at once.
  */
-const CmsPanel: React.FC<{
+const EditIconModal: React.FC<{
   iconName: string;
   initialCategories?: string[];
+  onClose: () => void;
   onNameChanged?: (newName: string) => void;
   onDeleted?: () => void;
-}> = ({ iconName, initialCategories, onNameChanged, onDeleted }) => {
+}> = ({ iconName, initialCategories, onClose, onNameChanged, onDeleted }) => {
   const { canWrite, token } = useAuth();
   const [busy, setBusy] = useState("");
   const [status, setStatus] = useState("");
   const [name, setName] = useState(iconName);
-  const [categories, setCategories] = useState((initialCategories ?? []).join(", "));
+  const [categories, setCategories] = useState(
+    (initialCategories ?? []).join(", ")
+  );
   const [tags, setTags] = useState("");
 
-  // Load metadata (tags/categories overrides) once we know we can write.
   useEffect(() => {
     if (!canWrite || !token) return;
     let alive = true;
@@ -44,8 +46,7 @@ const CmsPanel: React.FC<{
         if (!alive) return;
         const entry = m[iconName];
         if (entry?.tags) setTags(entry.tags.join(", "));
-        if (entry?.categories)
-          setCategories(entry.categories.join(", "));
+        if (entry?.categories) setCategories(entry.categories.join(", "));
       })
       .catch(() => {});
     return () => {
@@ -53,14 +54,10 @@ const CmsPanel: React.FC<{
     };
   }, [iconName, canWrite, token]);
 
-  useEffect(() => {
-    setName(iconName);
-  }, [iconName]);
-
   if (!canWrite || !token) return null;
 
   const saveMeta = async () => {
-    setBusy("Committing…");
+    setBusy("Committing metadata…");
     try {
       await writeMeta(
         (m) => {
@@ -157,6 +154,7 @@ const CmsPanel: React.FC<{
       );
       setStatus(`Deleted.`);
       onDeleted?.();
+      onClose();
     } catch (e: any) {
       setStatus(e.message || String(e));
     }
@@ -164,82 +162,97 @@ const CmsPanel: React.FC<{
   };
 
   return (
-    <details className="cms-panel">
-      <summary>CMS · Edit this icon</summary>
-      {(busy || status) && (
-        <div className={`cms-status ${busy ? "busy" : ""}`}>
-          {busy || status}
-        </div>
-      )}
-
-      <div className="cms-row">
-        <label>Slug</label>
-        <div className="cms-inline">
-          <input value={name} onChange={(e) => setName(e.target.value)} />
-          <button
-            type="button"
-            className="cms-btn"
-            onClick={rename}
-            disabled={name === iconName || !!busy}
-          >
-            Rename
+    <div className="cms-modal-backdrop" onClick={onClose}>
+      <div className="cms-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="cms-modal-header">
+          <h2>Edit · {iconName}</h2>
+          <button className="cms-btn" onClick={onClose}>
+            Close
           </button>
         </div>
-      </div>
-      <div className="cms-row">
-        <label>Categories (comma-separated)</label>
-        <input
-          value={categories}
-          onChange={(e) => setCategories(e.target.value)}
-        />
-      </div>
-      <div className="cms-row">
-        <label>Tags (comma-separated)</label>
-        <input value={tags} onChange={(e) => setTags(e.target.value)} />
-      </div>
-      <button
-        type="button"
-        className="cms-btn primary"
-        onClick={saveMeta}
-        disabled={!!busy}
-      >
-        Save metadata
-      </button>
 
-      <h4>Replace SVG per brand × weight</h4>
-      <div className="cms-matrix">
-        {BRANDS.map((b) =>
-          WEIGHTS.map((w) => (
-            <label key={`${b}-${w}`} className="cms-matrix-cell">
-              <span className="cms-slot">
-                {b}/{w}
-              </span>
-              <span className="cms-file-btn">
-                Choose file
-                <input
-                  type="file"
-                  accept=".svg,image/svg+xml"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    if (f) replace(b, w, f);
-                  }}
-                />
-              </span>
-            </label>
-          ))
+        {(busy || status) && (
+          <div className={`cms-status ${busy ? "busy" : ""}`}>
+            {busy || status}
+          </div>
         )}
-      </div>
 
-      <button
-        type="button"
-        className="cms-btn danger"
-        onClick={del}
-        disabled={!!busy}
-      >
-        Delete icon
-      </button>
-    </details>
+        <div className="cms-row">
+          <label>Slug</label>
+          <div className="cms-inline">
+            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <button
+              type="button"
+              className="cms-btn"
+              onClick={rename}
+              disabled={name === iconName || !!busy}
+            >
+              Rename
+            </button>
+          </div>
+        </div>
+        <div className="cms-row">
+          <label>Categories (comma-separated)</label>
+          <input
+            value={categories}
+            onChange={(e) => setCategories(e.target.value)}
+          />
+        </div>
+        <div className="cms-row">
+          <label>Tags (comma-separated)</label>
+          <input value={tags} onChange={(e) => setTags(e.target.value)} />
+        </div>
+        <button
+          type="button"
+          className="cms-btn primary"
+          onClick={saveMeta}
+          disabled={!!busy}
+        >
+          Save metadata
+        </button>
+
+        <h4>Replace SVG per brand × weight</h4>
+        <div className="cms-matrix">
+          {BRANDS.map((b) =>
+            WEIGHTS.map((w) => (
+              <div key={`${b}-${w}`} className="cms-matrix-cell">
+                <img
+                  src={`${iconUrl(b, w, iconName)}?t=${Date.now()}`}
+                  alt=""
+                  width={22}
+                  height={22}
+                  loading="lazy"
+                />
+                <span className="cms-slot">
+                  {b}/{w}
+                </span>
+                <label className="cms-file-btn">
+                  Replace
+                  <input
+                    type="file"
+                    accept=".svg,image/svg+xml"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) replace(b, w, f);
+                    }}
+                  />
+                </label>
+              </div>
+            ))
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="cms-btn danger"
+          onClick={del}
+          disabled={!!busy}
+        >
+          Delete icon
+        </button>
+      </div>
+    </div>
   );
 };
 
-export default CmsPanel;
+export default EditIconModal;
