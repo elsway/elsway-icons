@@ -74,3 +74,5 @@ Redeploy.
 <!-- oauth secret env 2026-07-05T14:52:45Z -->
 
 <!-- redeploy for GITHUB_CLIENT_SECRET 2026-07-05T15:00:09Z -->
+
+<!-- force-redeploy for missing 4k svgs 2026-07-09T06:39:43Z -->
