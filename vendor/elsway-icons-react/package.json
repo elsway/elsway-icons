@@ -9,8 +9,7 @@
     "url": "https://tobiasfried.com"
   },
   "license": "MIT",
-  "repository": "phosphor-icons/react",
-  "homepage": "https://phosphoricons.com",
+  "repository": "elsway/elsway-icons",
   "sideEffects": false,
   "private": false,
   "main": "./dist/index.cjs.js",
@@ -76,7 +75,7 @@
     "react",
     "icons",
     "svg",
-    "phosphor",
+    "elsway",
     "design",
     "interface",
     "UI",

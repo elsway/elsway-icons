@@ -8,7 +8,6 @@ import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 import EditIconModal from "@/components/Cms/EditIconModal";
-// import Recipes from "@/components/Recipes";
 import { useCSSVariables } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
 

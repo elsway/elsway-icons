@@ -1,9 +1,9 @@
 {
   "name": "@elsway-icons/core",
   "version": "2.1.1",
-  "description": "Icon catalog and assets for Phosphor",
+  "description": "Icon catalog and assets for Elsway",
   "license": "MIT",
-  "repository": "https://github.com/phosphor-icons/phosphor-core.git",
+  "repository": "https://github.com/elsway/elsway-icons.git",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -36,7 +36,7 @@
     "url": "https://tobiasfried.com"
   },
   "keywords": [
-    "phosphor",
+    "elsway",
     "icons",
     "svg",
     "design",

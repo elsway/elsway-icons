@@ -4,14 +4,11 @@ import { persist, PersistStorage } from "zustand/middleware";
 
 import TinyColor from "tinycolor2";
 import { IconStyle } from "@elsway-icons/core";
-import { type IconEntry, icons as allIcons } from "@/lib";
+import { type IconEntry } from "@/lib";
 import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 import elswayManifest from "../../public/raw/elsway/manifest.json";
 
 const ELSWAY_NAMES = new Set<string>(elswayManifest as string[]);
-const catalogByName = new Map<string, IconEntry>(
-  allIcons.map((i) => [i.name, i])
-);
 
 import elswayCategoriesRaw from "../../public/raw/elsway/categories.json";
 const elswayCategories = elswayCategoriesRaw as Record<string, string[]>;
@@ -26,17 +23,16 @@ function toPascal(name: string): string {
 let CODEPOINT_SEED = 0xe000;
 function synthEntry(name: string): IconEntry {
   const cats = elswayCategories[name] || [];
-  const base = catalogByName.get(name);
   return {
     name,
-    pascal_name: base?.pascal_name ?? toPascal(name),
+    pascal_name: toPascal(name),
     categories: cats as unknown as IconEntry["categories"],
-    tags: (base?.tags ?? []) as unknown as IconEntry["tags"],
-    codepoint: base?.codepoint ?? CODEPOINT_SEED++,
-    published_in: base?.published_in ?? 1.0,
-    Icon: base?.Icon ?? ((() => null) as unknown as IconEntry["Icon"]),
-    updated_in: base?.updated_in,
-  } as IconEntry;
+    tags: [] as unknown as IconEntry["tags"],
+    codepoint: CODEPOINT_SEED++,
+    published_in: 1.0,
+    Icon: (() => null) as unknown as IconEntry["Icon"],
+    updated_in: undefined,
+  } as unknown as IconEntry;
 }
 
 export const icons: IconEntry[] = (elswayManifest as string[])
