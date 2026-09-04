@@ -8,6 +8,7 @@ import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 import EditIconModal from "@/components/Cms/EditIconModal";
+import GuideFab from "@/components/GuideFab/GuideFab";
 import { useCSSVariables } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
 
@@ -66,6 +67,8 @@ const App: React.FC<any> = () => {
           </div>
         </main>
       </div>
+
+      <GuideFab />
 
       {hasSelection && !editingEntry && (
         <div

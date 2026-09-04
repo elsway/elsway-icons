@@ -1,0 +1,51 @@
+.guide-fab {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 40;
+
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--red);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.22),
+    0 2px 4px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.guide-fab:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.26),
+    0 3px 6px rgba(0, 0, 0, 0.14);
+}
+
+.guide-fab:active {
+  transform: translateY(0);
+}
+
+.guide-fab:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 3px;
+}
+
+.guide-fab img {
+  display: block;
+  /* the icon SVGs ship with a fixed dark fill; invert to read on the accent background */
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 620px) {
+  .guide-fab {
+    right: 16px;
+    bottom: 16px;
+  }
+}
