@@ -42,8 +42,8 @@ const SizeInput = (_: SizeInputProps) => {
         name="size-input"
         value={size}
         type="range"
-        min={16}
-        max={96}
+        min={10}
+        max={56}
         onChange={handleSizeChange}
         onTouchStart={handleFocus}
         onTouchEnd={handleBlur}

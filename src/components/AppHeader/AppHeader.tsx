@@ -14,10 +14,8 @@ const AppHeader: React.FC = () => {
       <div className="app-header-search">
         <SearchInput />
       </div>
-      <div className="app-header-weight">
+      <div className="app-header-controls">
         <StyleInput />
-      </div>
-      <div className="app-header-size">
         <SizeInput />
       </div>
       {canWrite && (
