@@ -156,6 +156,9 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  /* grid items default to min-width:auto, which would let the header's
+     content force the track wider than the viewport */
+  min-width: 0;
   padding: 0px;
   box-sizing: border-box;
 }

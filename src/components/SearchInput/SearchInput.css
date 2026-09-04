@@ -24,6 +24,7 @@
 .search-bar input {
   height: 100%;
   flex: 1;
+  min-width: 0;
   border: none;
   margin: 0 12px;
   padding: 0;

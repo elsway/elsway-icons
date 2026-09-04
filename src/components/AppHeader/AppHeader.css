@@ -1,35 +1,68 @@
 .app-header {
-  padding: 16px 16px 0px;
-  display: grid;
-  grid-template-columns: 1fr auto auto;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  align-items: center;
+  padding: 16px 16px 0;
   background: var(--background);
 }
-.app-header .app-header-new {
+
+/* Row 1 — wordmark left, search right */
+.app-header-top {
   display: flex;
   align-items: center;
+  gap: 12px;
+  min-width: 0;
 }
+
+.app-wordmark {
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--foreground);
+  margin: 0;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.app-wordmark:hover {
+  opacity: 0.7;
+}
+.app-wordmark:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.app-header-search {
+  margin-left: auto;
+  width: min(420px, 100%);
+  min-width: 0;
+}
+
+/* Row 2 — brand + icon type + size */
 .app-header-controls {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.app-header > * {
   min-width: 0;
 }
 
-.app-header .search-bar {
-  width: auto;
-}
+.app-header-controls > .brand-select-control,
 .app-header .react-dropdown-select,
 .app-header .size-bar {
-  width: 300px !important;
+  width: 260px !important;
+  flex: 0 0 auto;
 }
 
-/* Visually identical pill for all three header controls */
+.app-header .cms-newicon-trigger {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+/* Visually identical pill for every header control */
 .app-header .search-bar,
+.app-header .brand-select-trigger,
 .app-header .react-dropdown-select,
 .app-header .size-bar {
   height: 48px !important;
@@ -37,7 +70,6 @@
   border-radius: 8px !important;
   background-color: rgb(0 0 0 / 5%) !important;
   color: #000 !important;
-  font-family: Manrope, sans-serif !important;
   font-size: 16px !important;
   border: 1px solid transparent !important;
   box-shadow: none !important;
@@ -46,7 +78,12 @@
   align-items: center !important;
 }
 
-/* Disable the white focus background on search/dropdown so they stay consistent */
+.app-header .search-bar {
+  width: 100%;
+  font-family: Manrope, sans-serif !important;
+}
+
+/* Keep search/dropdown from flipping to a white focus background */
 .app-header .search-bar:focus-within,
 .app-header .react-dropdown-select:focus-within {
   background-color: rgb(0 0 0 / 5%) !important;
@@ -78,8 +115,6 @@
 
 @media (max-width: 900px) {
   .app-header {
-    /* toggle | search, with the weight+size controls wrapping below */
-    grid-template-columns: auto 1fr;
     padding: 12px 12px 0;
     gap: 8px;
   }
@@ -89,11 +124,11 @@
   }
 
   .app-header-controls {
-    grid-column: 1 / -1;
     gap: 8px;
   }
 
-  /* Let the pills share the row instead of holding a fixed 300px each */
+  /* Controls share the row instead of holding a fixed width each */
+  .app-header-controls > .brand-select-control,
   .app-header .react-dropdown-select,
   .app-header .size-bar {
     width: auto !important;
@@ -102,6 +137,7 @@
   }
 
   .app-header .search-bar,
+  .app-header .brand-select-trigger,
   .app-header .react-dropdown-select,
   .app-header .size-bar {
     height: 44px !important;
@@ -109,7 +145,26 @@
     font-size: 14px !important;
   }
 
-  .app-header .app-header-new {
-    grid-column: 1 / -1;
+  .app-header .cms-newicon-trigger {
+    margin-left: 0;
+  }
+}
+
+/* Phone — wordmark and search stack so neither gets squeezed */
+@media (max-width: 620px) {
+  .app-header-top {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .app-wordmark {
+    font-size: 18px;
+  }
+
+  .app-header-search {
+    order: 3;
+    flex: 1 0 100%;
+    width: 100%;
+    margin-left: 0;
   }
 }
