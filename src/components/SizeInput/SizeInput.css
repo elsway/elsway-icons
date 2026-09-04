@@ -22,9 +22,6 @@
 
 .size-bar input {
   flex: 1;
-  /* range inputs carry an intrinsic width (~129px) and won't shrink below
-     it without this, spilling out of the pill on narrow screens */
-  min-width: 0;
   border: none;
   margin: 0 0 0 12px;
   -webkit-appearance: none;

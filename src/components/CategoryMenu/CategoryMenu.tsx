@@ -1,13 +1,90 @@
-import React, { useMemo } from "react";
-import { icons, useApplicationStore } from "@/state";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { useAuth } from "@/lib/github";
 import "./CategoryMenu.css";
 
+type BrandOption = { key: string; value: IconBrand };
+
+const BRAND_OPTIONS: BrandOption[] = [
+  { key: "Default", value: "default" },
+  { key: "Cars24", value: "cars24" },
+  { key: "TeamBHP", value: "teambhp" },
+  { key: "CarInfo", value: "carinfo" },
+  { key: "VehicleInfo", value: "vehicleinfo" },
+];
+
 const fmt = (n: number) => n.toLocaleString();
+
+const BrandDropdown: React.FC<{
+  value: IconBrand;
+  onChange: (v: IconBrand) => void;
+}> = ({ value, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (
+        wrapRef.current &&
+        e.target instanceof Node &&
+        !wrapRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  const selected = BRAND_OPTIONS.find((o) => o.value === value) ?? BRAND_OPTIONS[0];
+
+  return (
+    <div
+      ref={wrapRef}
+      className={`brand-select-control ${open ? "is-open" : ""}`}
+    >
+      <button
+        type="button"
+        className="brand-select-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span>{selected.key}</span>
+        <span className="brand-select-caret" aria-hidden>
+          {open ? "▲" : "▼"}
+        </span>
+      </button>
+      {open && (
+        <ul className="brand-select-menu" role="listbox">
+          {BRAND_OPTIONS.map((o) => (
+            <li
+              key={o.value}
+              role="option"
+              aria-selected={o.value === value}
+              className={`brand-select-item ${
+                o.value === value ? "is-selected" : ""
+              }`}
+              onClick={() => {
+                onChange(o.value);
+                setOpen(false);
+              }}
+            >
+              {o.key}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 const CategoryMenu: React.FC<{ onSelect?: () => void }> = ({ onSelect }) => {
   const setSearchQuery = useApplicationStore.use.setSearchQuery();
   const current = useApplicationStore.use.searchQuery();
+  const brand = useApplicationStore.use.iconBrand();
+  const setBrand = useApplicationStore.use.setIconBrand();
 
   const { CATEGORIES, categoryCounts } = useMemo(() => {
     const map: Record<string, number> = {};
@@ -25,6 +102,23 @@ const CategoryMenu: React.FC<{ onSelect?: () => void }> = ({ onSelect }) => {
 
   return (
     <nav className="category-menu" aria-label="Icon library">
+      <h1
+        className="brand"
+        role="button"
+        tabIndex={0}
+        onClick={() => window.location.reload()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") window.location.reload();
+        }}
+      >
+        Autonaut Icons
+      </h1>
+
+      <div className="brand-select-wrap" aria-label="Brand">
+        <span className="brand-select-label">Brand</span>
+        <BrandDropdown value={brand} onChange={setBrand} />
+      </div>
+
       <div className="section-label">Categories</div>
       <div className="categories-scroll">
         <ul className="categories" role="list">

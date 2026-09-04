@@ -89,6 +89,100 @@
   text-decoration: underline;
 }
 
+.category-menu .brand {
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.category-menu .brand:hover {
+  opacity: 0.7;
+}
+
+.category-menu .brand-select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0 12px;
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+  margin-bottom: 4px;
+}
+
+.category-menu .brand-select-label {
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(0 0 0 / 50%);
+  padding-left: 4px;
+}
+
+/* Custom brand dropdown */
+.category-menu .brand-select-control {
+  position: relative;
+  width: 100%;
+  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+}
+
+.category-menu .brand-select-trigger {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #000;
+  background-color: rgb(0 0 0 / 5%);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.category-menu .brand-select-control.is-open .brand-select-trigger {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+.category-menu .brand-select-trigger:hover {
+  background-color: rgb(0 0 0 / 8%);
+}
+.category-menu .brand-select-caret {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.category-menu .brand-select-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.category-menu .brand-select-item {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  cursor: pointer;
+}
+.category-menu .brand-select-item:hover,
+.category-menu .brand-select-item.is-selected {
+  background-color: rgb(0 0 0 / 5%);
+}
+
 .category-menu .section-label {
   font-family: "Departure Mono", "IBM Plex Mono", monospace;
   font-size: 10px;
