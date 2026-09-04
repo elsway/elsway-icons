@@ -91,7 +91,7 @@ export function parseQuery(query: string | null | undefined): string {
 export function parseSize(size: string | null | undefined): number {
   const sizeAsNumber = parseInt(stripWrappingQuotes(size) || "32", 10);
   return Number.isFinite(sizeAsNumber)
-    ? Math.min(Math.max(sizeAsNumber, 10), 56)
+    ? Math.min(Math.max(sizeAsNumber, 16), 56)
     : 32;
 }
 
