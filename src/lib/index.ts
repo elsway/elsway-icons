@@ -10,7 +10,7 @@ export enum SnippetType {
   REACT = "React",
   VUE = "Vue",
   HTML = "Web",
-  FLUTTER = "Flutter",
+  CDN = "CDN",
   ELM = "Elm",
   SWIFT = "Swift",
 }

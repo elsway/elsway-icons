@@ -23,7 +23,7 @@ import Tabs, { Tab } from "@/components/Tabs";
 import { useMediaQuery, useTransientState, useSessionStorage } from "@/hooks";
 import { SnippetType } from "@/lib";
 import { useApplicationStore } from "@/state";
-import { getCodeSnippets, supportsWeight } from "@/utils";
+import { getCodeSnippets } from "@/utils";
 import { useAuth } from "@/lib/github";
 
 import TagCloud from "./TagCloud";
@@ -45,7 +45,7 @@ const RENDERED_SNIPPETS = [
   SnippetType.REACT,
   SnippetType.HTML,
   SnippetType.VUE,
-  SnippetType.FLUTTER,
+  SnippetType.CDN,
   SnippetType.ELM,
   SnippetType.SWIFT,
 ];
@@ -128,6 +128,7 @@ const Panel = () => {
     const snippets = getCodeSnippets({
       displayName: entry?.pascal_name!,
       name: entry.name,
+      brand,
       weight,
       size,
       color,
@@ -150,49 +151,35 @@ const Panel = () => {
         ),
       },
     ].concat(
-      RENDERED_SNIPPETS.map((type) => {
-        const isWeightSupported = supportsWeight({ type, weight });
-
-        return {
-          header: type,
-          content: (
-            <div className="snippet" key={type}>
-              <pre className={!isWeightSupported ? "disabled" : undefined}>
-                <span className={!isWeightSupported ? "disabled" : undefined}>
-                  {isWeightSupported
-                    ? snippets[type]
-                    : "This weight is not yet supported"}
-                </span>
-                {isWeightSupported && (
-                  <button
-                    title="Copy snippet"
-                    className="action-button"
-                    onClick={(e) => handleCopySnippet(e, type)}
-                  >
-                    {copied === type ? (
-                      <CheckCircleIcon
-                        size={20}
-                        color="var(--olive)"
-                        weight="fill"
-                      />
-                    ) : (
-                      <CopyIcon
-                        size={20}
-                        color="var(--foreground)"
-                        weight="fill"
-                      />
-                    )}
-                  </button>
+      RENDERED_SNIPPETS.map((type) => ({
+        header: type,
+        content: (
+          <div className="snippet" key={type}>
+            <pre>
+              <span>{snippets[type]}</span>
+              <button
+                title="Copy snippet"
+                className="action-button"
+                onClick={(e) => handleCopySnippet(e, type)}
+              >
+                {copied === type ? (
+                  <CheckCircleIcon
+                    size={20}
+                    color="var(--olive)"
+                    weight="fill"
+                  />
+                ) : (
+                  <CopyIcon size={20} color="var(--foreground)" weight="fill" />
                 )}
-              </pre>
-            </div>
-          ),
-        };
-      })
+              </button>
+            </pre>
+          </div>
+        ),
+      }))
     );
 
     return [snippets, tabs];
-  }, [entry, weight, size, color, copied]);
+  }, [entry, brand, weight, size, color, copied]);
 
   useHotkeys("esc", () => setSelectionEntry(null));
 

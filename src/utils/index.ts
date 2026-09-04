@@ -10,15 +10,19 @@ function u8ToCGFloatStr(value: number): string {
   });
 }
 
+const CDN_TAG = "v2";
+
 export function getCodeSnippets({
   name,
   displayName,
+  brand,
   weight,
   size,
   color,
 }: {
   name: string;
   displayName: string;
+  brand: string;
   weight: IconStyle;
   size: number;
   color: string;
@@ -26,29 +30,22 @@ export function getCodeSnippets({
   const isDefaultWeight = weight === "regular";
   const isDefaultColor = color === "#000000";
   const camelName = displayName.replace(/^\w/, (c) => c.toLowerCase());
-  const pascalWeight = weight.replace(/^\w/, (c) => c.toUpperCase());
+  const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
   const { r, g, b } = TinyColor(color).toRgb();
 
   return {
-    [SnippetType.HTML]: `<i class="ph${
+    [SnippetType.HTML]: `<i class="ai${
       isDefaultWeight ? "" : `-${weight}`
-    } ph-${name}"></i>`,
+    } ai-${name}"></i>`,
     [SnippetType.REACT]: `<${displayName}Icon size={${size}} ${
       !isDefaultColor ? `color="${color}" ` : ""
     }${isDefaultWeight ? "" : `weight="${weight}" `}/>`,
     [SnippetType.VUE]: `<Ph${displayName} :size="${size}" ${
       !isDefaultColor ? `color="${color}" ` : ""
     }${isDefaultWeight ? "" : `weight="${weight}" `}/>`,
-    [SnippetType.FLUTTER]: `Icon(\n  ElswayIcons.${displayName.replace(
-      /^\w/,
-      (c) => c.toLowerCase()
-    )}${
-      isDefaultWeight ? "" : weight.replace(/^\w/, (c) => c.toUpperCase())
-    },\n  size: ${size.toFixed(1)},\n${
-      !isDefaultColor ? `  color: Color(0xff${color.replace("#", "")}),\n` : ""
-    })`,
+    [SnippetType.CDN]: `https://cdn.jsdelivr.net/gh/elsway/elsway-icons@${CDN_TAG}/public/raw/elsway/${brand}/${weightFolder}/${name}.svg`,
     [SnippetType.ELM]: `Elsway.${camelName}${
-      isDefaultWeight ? "" : " " + pascalWeight
+      isDefaultWeight ? "" : " " + weight.replace(/^\w/, (c) => c.toUpperCase())
     }
     |> withSize ${size}
     |> withSizeUnit "px"
@@ -63,17 +60,6 @@ export function getCodeSnippets({
     .frame(width: ${size}, height: ${size})
     `,
   };
-}
-
-export function supportsWeight({
-  type,
-  weight,
-}: {
-  type: SnippetType;
-  weight: IconStyle;
-}): boolean {
-  if (type !== SnippetType.FLUTTER) return true;
-  return weight !== IconStyle.DUOTONE;
 }
 
 export function stripWrappingQuotes(value: string | null | undefined): string {
