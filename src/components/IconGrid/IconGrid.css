@@ -34,6 +34,15 @@
   cursor: pointer;
 }
 
+.grid-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
 .grid-item:hover {
   background-color: var(--background-layer);
 }

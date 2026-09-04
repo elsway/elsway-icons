@@ -97,17 +97,19 @@ const IconGridItem = (props: IconGridItemProps) => {
       variants={itemVariants}
       onClick={handleOpen}
     >
-      <img
-        src={svgSrc}
-        alt={name}
-        width={size}
-        height={size}
-        loading="lazy"
-        style={{ display: "block" }}
-        onError={(e) => {
-          (e.currentTarget as HTMLImageElement).style.opacity = "0.15";
-        }}
-      />
+      <div className="grid-item-icon">
+        <img
+          src={svgSrc}
+          alt={name}
+          width={size}
+          height={size}
+          loading="lazy"
+          style={{ display: "block" }}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).style.opacity = "0.15";
+          }}
+        />
+      </div>
       <p>
         <span className="name">{name}</span>
         {isNew && <span className="badge new" />}
