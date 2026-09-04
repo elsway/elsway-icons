@@ -28,6 +28,17 @@ https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v1/public/raw/elsway/{brand}/{we
 
 `@v1` is a pinned git tag — stable and cache-friendly. Use `@main` only if you deliberately want to always track the newest icons.
 
+**FontAwesome-style, no JS at all:** link one class-based stylesheet, then use `<i class="ai ai-{name}">` anywhere — pick one brand+weight file, same as choosing `fa-solid` vs `fa-regular`:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/cdn/{brand}-{weight}.css">
+
+<i class="ai ai-4k"></i>
+<i class="ai ai-heart" style="color:#e8612b; font-size:32px"></i>
+```
+
+Color comes from `color` (via `currentColor`), size from `font-size` — ordinary CSS, no data attributes. Each file is every icon for that one brand+weight (~2–3.8 MB uncompressed, ~400–700 KB gzipped — jsDelivr serves it compressed). Under the hood each `.ai-{name}` is a CSS `mask-image`, not a real webfont — same DX, no font-building step, no PUA codepoints to manage. `@v2` is required — `@v1` predates this file existing.
+
 **In a React app:** `npm install @autonaut-icons/react` — see its own README for the `<Icon>` component API.
 
 Full walkthrough with live examples: [Using Autonaut Icons](https://claude.ai/code/artifact/60bacca4-2f34-47de-8439-891545037f0f).
