@@ -1,11 +1,7 @@
 import {
   ArrowCircleUpRightIcon,
   ArrowCircleDownIcon,
-  MegaphoneSimpleIcon,
-  HandHeartIcon,
 } from "@elsway-icons/react";
-
-import Banner from "@/components/Banner";
 
 import ElswayLogo from "@/assets/elsway-logo.svg?react";
 import PaperClipsTwo from "@/assets/paperclips-2.svg?react";
@@ -26,7 +22,7 @@ type HeaderProps = {};
 
 const handleGetStarted = () =>
   window.open(
-    "https://github.com/elsway-icons/homepage#elsway-icons",
+    "https://github.com/elsway/elsway-icons",
     "_blank",
     "noopener noreferrer"
   );
@@ -39,41 +35,6 @@ const handleScrollToIcons = () =>
 const Header = (_: HeaderProps) => {
   return (
     <header>
-      <Banner.Container>
-        <Banner id={"rename-notice"}>
-          <div className="message">
-            <MegaphoneSimpleIcon size={32} mirrored />
-            <small>
-              Some packages may be renaming icons in coming versions, and
-              deprecating older names. Existing names will continue to work, but
-              we recommend upgrading at your convenience. See{" "}
-              <a href="https://github.com/elsway-icons/react/releases/tag/v2.1.8">
-                release notes
-              </a>{" "}
-              for details.
-            </small>
-          </div>
-        </Banner>
-        <Banner id={"buymeacoffee2"}>
-          <div className="message">
-            <HandHeartIcon size={32} mirrored />
-            <small>
-              We are now processing donations via{" "}
-              <a href="https://www.buymeacoffee.com/elswayicons">
-                Buy Me a Coffee
-              </a>
-              {", "}
-              <a href="https://ko-fi.com/elswayicons">Ko-fi</a>
-              {", and "}
-              <a href="https://opencollective.com/elswayicons">
-                Open Collective
-              </a>
-              ! Your one-time or recurring contribution does a lot to keep us
-              going. Please show us some support if you can!
-            </small>
-          </div>
-        </Banner>
-      </Banner.Container>
       <div className="header-contents">
         <div className="illustrations-top">
           <ElswayLogo id="logo" />

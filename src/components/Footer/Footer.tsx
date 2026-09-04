@@ -1,9 +1,5 @@
 import { motion, AnimatePresence, Variants } from "motion/react";
-import {
-  ArrowULeftUpIcon,
-  CoffeeIcon,
-  HandHeartIcon,
-} from "@elsway-icons/react";
+import { ArrowULeftUpIcon } from "@elsway-icons/react";
 
 import Links from "@/components/Links/Links";
 
@@ -52,111 +48,15 @@ const Footer = (_: FooterProps) => {
         <div className="outro">
           <Links />
           <p>
-            Elsway is a passion project by{" "}
-            <a className="main-link" href="https://helenazhang.com">
-              Helena Zhang
-            </a>{" "}
-            and{" "}
-            <a className="main-link" href="https://tobiasfried.com">
-              Tobias Fried
-            </a>
-            .
-          </p>
-          <p>
-            It’s used by companies and creatives like{" "}
-            <a className="main-link" href="https://alltrails.com">
-              AllTrails
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://www.anthropic.com">
-              Anthropic
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://www.babbel.com/">
-              Babbel
-            </a>
-            ,{" "}
+            Autonaut Icons is licensed under{" "}
             <a
               className="main-link"
-              href="https://www.dive.club/course/figma-academy"
-            >
-              Figma Academy
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://www.framer.com/">
-              Framer
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://www.khanacademy.org/">
-              Khan Academy
-            </a>
-            ,{" "}
-            <a
-              className="main-link"
-              href="https://twitter.com/pablostanley/status/1520222483949015041"
-            >
-              Pablo Stanley
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://qatalog.com/">
-              Qatalog
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://remarkable.com/">
-              reMarkable
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://www.spacedrive.com/">
-              Spacedrive
-            </a>
-            ,{" "}
-            <a className="main-link" href="https://www.stash.com/">
-              Stash
-            </a>
-            , and{" "}
-            <a className="main-link" href="https://threads.com/">
-              Threads
-            </a>
-            .
-          </p>
-          <p>
-            Elsway is free and open-source, licensed under{" "}
-            <a
-              className="main-link"
-              href="https://raw.githubusercontent.com/elsway-icons/homepage/master/LICENSE"
+              href="https://github.com/elsway/elsway-icons/blob/main/LICENSE"
             >
               MIT
             </a>
-            . If you enjoy these icons, please support us with a donation.
+            .
           </p>
-          <div className="button-container">
-            <button
-              className="main-button"
-              onClick={() =>
-                window.open(
-                  "https://www.buymeacoffee.com/elswayicons",
-                  "_blank",
-                  "noopener noreferrer"
-                )
-              }
-            >
-              <CoffeeIcon size={24} />
-              Buy us a coffee
-            </button>
-            <button
-              className="main-button"
-              onClick={() =>
-                window.open(
-                  "https://patreon.com/elswayicons",
-                  "_blank",
-                  "noopener noreferrer"
-                )
-              }
-            >
-              <HandHeartIcon size={24} />
-              Become a patron
-            </button>
-          </div>
           <div className="fine-print">
             <p>
               Type set in{" "}
@@ -167,16 +67,7 @@ const Footer = (_: FooterProps) => {
               <a className="main-link" href="https://www.ibm.com/plex/">
                 IBM Plex Mono
               </a>
-              . Contact us at{" "}
-              <a className="main-link" href="mailto:hello@elswayicons.com">
-                hello@elswayicons.com
-              </a>{" "}
-              <span
-                role="img"
-                aria-label="Emoji of woman technologist, man technologist, and cat"
-              >
-                🙇🏻‍♀️👨‍💻🐈
-              </span>
+              .
             </p>
           </div>
           <div className="illustrations-footer">

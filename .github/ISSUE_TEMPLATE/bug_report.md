@@ -3,12 +3,10 @@ name: Bug report
 about: Create a report to help us improve
 title: ""
 labels: bug
-assignees: rektdeckard
 ---
 
 <!-- BEFORE YOU REPORT -->
 <!-- 1. Search for existing issues! If the issue has already been reported, add a 👍 or a comment to help show your interest. -->
-<!-- 2. If your issue pertains to a specific library, please leave it on the relevant repository! -->
 
 **Describe the bug**
 

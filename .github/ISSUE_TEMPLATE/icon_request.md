@@ -3,13 +3,11 @@ name: Icon request
 about: Request one or more related icons you'd like to see added to our set
 title: ""
 labels: icon
-assignees: rektdeckard
 ---
 
 <!-- BEFORE YOU REQUEST -->
 <!-- 1. Search for existing issues! If the icon has already been requested, add a 👍 or a comment to help show your interest. -->
-<!-- 2. If requesting a brand icon, check this discussion to see if it meets the criteria: https://github.com/orgs/elsway-icons/discussions/392 -->
-<!-- 3. If requesting a visual change to an existing icon, make sure it is based on clarity, consistency, or readability -->
+<!-- 2. If requesting a visual change to an existing icon, make sure it is based on clarity, consistency, or readability -->
 
 **Describe the requested icon(s)**
 

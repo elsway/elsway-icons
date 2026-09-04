@@ -2,13 +2,8 @@
   "name": "@elsway-icons/homepage",
   "version": "2.1.1",
   "license": "MIT",
-  "homepage": "https://elswayicons.com",
-  "author": {
-    "name": "Tobias Fried",
-    "email": "friedtm@gmail.com",
-    "url": "https://tobiasfried.com"
-  },
-  "description": "A flexible icon family for interfaces, diagrams, presentations — whatever, really.",
+  "homepage": "https://autonaut-icons.vercel.app",
+  "description": "Autonaut Icons — a 1,402-icon design system library with a GitHub-backed CMS.",
   "keywords": [
     "elsway",
     "icons",
@@ -18,7 +13,7 @@
     "UI",
     "UX"
   ],
-  "repository": "github:elsway-icons/homepage",
+  "repository": "github:elsway/elsway-icons",
   "private": true,
   "packageManager": "pnpm@10.6.3",
   "scripts": {

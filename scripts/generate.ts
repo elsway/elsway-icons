@@ -7,7 +7,8 @@ import IconJar, { IconGroup, IconSet, Icon, License } from "iconjar-exporter";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const LICENSE_URL = "https://elswayicons.com/LICENSE";
+const LICENSE_URL =
+  "https://github.com/elsway/elsway-icons/blob/main/LICENSE";
 const OUT_DIR = path.join(__dirname, "../public/assets");
 const CORE_DIR = path.join(
   __dirname,
