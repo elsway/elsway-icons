@@ -19,20 +19,17 @@
   background: transparent;
   box-sizing: border-box;
   width: 100px;
-  height: 100px;
+  min-height: 100px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 4px;
+  padding: 8px 4px;
   border-radius: 8px;
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
-}
-
-.grid-item p {
-  display: none;
 }
 
 .grid-item:hover {
@@ -45,6 +42,9 @@
 }
 
 .grid-item p {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-wrap: nowrap;
   font-size: 12px;
   line-height: 16px;
