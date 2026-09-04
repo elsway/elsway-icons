@@ -2,15 +2,14 @@ import { iconUrl } from "@/lib/github";
 import { useApplicationStore } from "@/state";
 import "./GuideFab.css";
 
-const GUIDE_URL = "https://claude.ai/code/artifact/60bacca4-2f34-47de-8439-891545037f0f";
-
 const GuideFab: React.FC = () => {
   const iconBrand = useApplicationStore.use.iconBrand();
+  const guideUrl = `${import.meta.env.BASE_URL}guide.html`;
 
   return (
     <a
       className="guide-fab"
-      href={GUIDE_URL}
+      href={guideUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Open the usage guide"

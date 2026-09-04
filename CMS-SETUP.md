@@ -41,7 +41,7 @@ Color comes from `color` (via `currentColor`), size from `font-size` — ordinar
 
 **In a React app:** `npm install @autonaut-icons/react` — see its own README for the `<Icon>` component API.
 
-Full walkthrough with live examples: [Using Autonaut Icons](https://claude.ai/code/artifact/60bacca4-2f34-47de-8439-891545037f0f).
+Full walkthrough with live examples: [Using Autonaut Icons](https://autonaut-icons.vercel.app/guide.html) — self-hosted on the site itself, also reachable from the book icon (bottom-right FAB) on every page.
 
 ## Part 2 — Getting edit access (CMS)
 
