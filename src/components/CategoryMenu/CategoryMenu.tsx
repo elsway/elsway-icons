@@ -183,7 +183,6 @@ const SidebarFooter: React.FC = () => {
           </span>
           <span>{signingIn ? "Waiting for GitHub…" : "Sign in with GitHub"}</span>
         </button>
-        <span className="login-hint">CMS access — repo collaborators only</span>
       </div>
     );
   }
