@@ -80,7 +80,7 @@ const BrandDropdown: React.FC<{
   );
 };
 
-const CategoryMenu: React.FC = () => {
+const CategoryMenu: React.FC<{ onSelect?: () => void }> = ({ onSelect }) => {
   const setSearchQuery = useApplicationStore.use.setSearchQuery();
   const current = useApplicationStore.use.searchQuery();
   const brand = useApplicationStore.use.iconBrand();
@@ -126,7 +126,10 @@ const CategoryMenu: React.FC = () => {
             <button
               className={`cat-btn ${current === "" ? "active" : ""}`}
               aria-pressed={current === ""}
-              onClick={() => setSearchQuery("")}
+              onClick={() => {
+                setSearchQuery("");
+                onSelect?.();
+              }}
             >
               <span className="cat-name">All</span>
               <span className="cat-count">{fmt(totalIcons)}</span>
@@ -137,7 +140,10 @@ const CategoryMenu: React.FC = () => {
               <button
                 className={`cat-btn ${current === c ? "active" : ""}`}
                 aria-pressed={current === c}
-                onClick={() => setSearchQuery(c)}
+                onClick={() => {
+                  setSearchQuery(c);
+                  onSelect?.();
+                }}
               >
                 <span className="cat-name">{c}</span>
                 <span className="cat-count">

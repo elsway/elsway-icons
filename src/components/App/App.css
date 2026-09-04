@@ -184,6 +184,9 @@ button:focus-visible {
   transform: translateX(-50%);
   width: calc(100vw - 32px);
   max-width: 1120px;
+  /* padding + border must stay inside the 100vw budget, or the sheet
+     overflows the viewport on narrow screens */
+  box-sizing: border-box;
   z-index: 50;
   display: flex;
   flex-direction: column;
@@ -244,6 +247,14 @@ button:focus-visible {
 }
 
 @media (max-width: 720px) {
+  .elsway-popover {
+    width: calc(100vw - 16px);
+    bottom: 8px;
+    padding: 12px 14px;
+    gap: 8px;
+    max-height: calc(100vh - 16px);
+  }
+
   .elsway-popover .elsway-popover-panel aside.detail-footer {
     grid-template-columns: 1fr !important;
   }
@@ -353,6 +364,57 @@ button:focus-visible {
 
 @media screen and (max-width: 1100px) {
   .three-col-shell { grid-template-columns: 240px 1fr 340px; }
+}
+
+/* ------------------------------------------------------------------
+   Mobile / tablet: the category rail becomes an off-canvas drawer and
+   the grid takes the full width.
+   ------------------------------------------------------------------ */
+.rail-backdrop {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .two-col-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .two-col-shell .left-rail {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(300px, 86vw);
+    z-index: 60;
+    transform: translateX(-100%);
+    transition: transform 220ms var(--ease-smooth, ease);
+    background: var(--background);
+    border-right: 1px solid var(--border-secondary);
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.18);
+    overflow-y: auto;
+  }
+
+  .two-col-shell .left-rail.is-open {
+    transform: translateX(0);
+  }
+
+  .rail-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .two-col-shell .middle-pane .grid-scroll {
+    padding: 12px 12px 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .two-col-shell .left-rail {
+    transition: none;
+  }
 }
 
 @media screen and (max-width: 860px) {

@@ -32,12 +32,19 @@
 }
 
 @media screen and (max-width: 558px) {
-  .size-bar input {
-    margin: 0 auto;
+  .size-bar {
+    padding: 8px 14px;
   }
 
+  /* Keep the px readout — a slider with no value is hard to use on touch */
   .size-bar label {
-    display: none;
+    width: auto;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  .size-bar input {
+    margin: 0 0 0 10px;
   }
 }
 
