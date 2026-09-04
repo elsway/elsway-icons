@@ -97,6 +97,11 @@
   letter-spacing: 0.02em;
   color: var(--foreground);
   text-transform: lowercase;
+  cursor: pointer;
+}
+
+.category-menu .brand:hover {
+  opacity: 0.7;
 }
 
 .category-menu .brand-select-wrap {

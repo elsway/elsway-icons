@@ -102,7 +102,17 @@ const CategoryMenu: React.FC = () => {
 
   return (
     <nav className="category-menu" aria-label="Icon library">
-      <h1 className="brand">Autonaut Icons</h1>
+      <h1
+        className="brand"
+        role="button"
+        tabIndex={0}
+        onClick={() => window.location.reload()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") window.location.reload();
+        }}
+      >
+        Autonaut Icons
+      </h1>
 
       <div className="brand-select-wrap" aria-label="Brand">
         <span className="brand-select-label">Brand</span>
