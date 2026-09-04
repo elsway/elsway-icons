@@ -19,6 +19,19 @@ No account or setup needed to browse.
 
 That's the whole read path. 1,402 icons × 5 brands × 2 weights, all static files, nothing to configure.
 
+**Without visiting the site:** every icon is a static file, servable straight from Vercel or from jsDelivr's free CDN mirror of this public repo — no npm, no build step:
+
+```
+https://autonaut-icons.vercel.app/raw/elsway/{brand}/{weight}/{name}.svg
+https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v1/public/raw/elsway/{brand}/{weight}/{name}.svg
+```
+
+`@v1` is a pinned git tag — stable and cache-friendly. Use `@main` only if you deliberately want to always track the newest icons.
+
+**In a React app:** `npm install @autonaut-icons/react` — see its own README for the `<Icon>` component API.
+
+Full walkthrough with live examples: [Using Autonaut Icons](https://claude.ai/code/artifact/60bacca4-2f34-47de-8439-891545037f0f).
+
 ## Part 2 — Getting edit access (CMS)
 
 Editing (renaming an icon, changing its tags/categories, replacing its SVGs, adding a new icon, or deleting one) requires being a **collaborator with write access** on the `elsway/elsway-icons` GitHub repo. There is no separate CMS login or password — your GitHub identity *is* the CMS identity.
@@ -107,3 +120,7 @@ The OAuth callback (`/api/github-callback`) is a Vercel Edge Function — it won
 - **Add-new** requires all 10 brand × weight SVGs before the button unlocks; they land in a single commit.
 - **Rename** moves each of the 10 files individually (GitHub's Contents API rewrites one path per call).
 - **Delete** removes all 10 files in a single batch commit.
+
+### CDN tags
+
+The `@v1` git tag referenced in Part 1 is what pins the jsDelivr CDN URLs. It does not move on its own — after a batch of CMS edits you want the CDN to reflect, cut a new tag (`git tag v2 && git push origin v2`) and update the version referenced in the public docs. Consumers hardcoded to `@v1` keep seeing the old files until they bump their own reference, which is the point of pinning.
