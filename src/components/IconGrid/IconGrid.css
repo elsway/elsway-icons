@@ -23,6 +23,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   margin: 4px;
   padding: 8px 4px;
   border-radius: 8px;
