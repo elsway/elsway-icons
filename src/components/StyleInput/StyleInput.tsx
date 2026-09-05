@@ -13,12 +13,12 @@ const options: WeightOption[] = [
   {
     key: "Regular",
     value: IconStyle.REGULAR,
-    icon: <i className="ai ai-pencil-line style-input-icon" aria-hidden />,
+    icon: <i className="ai ai-write-1 style-input-icon" aria-hidden />,
   },
   {
     key: "Fill",
     value: IconStyle.FILL,
-    icon: <i className="ai-fill ai-pencil-line style-input-icon" aria-hidden />,
+    icon: <i className="ai-fill ai-write-1 style-input-icon" aria-hidden />,
   },
 ];
 
