@@ -1,19 +1,26 @@
 :root {
   --red: #e8612b;
   --mustard: #d6971e;
-  --sand: #bcadaf;
-  --vellum: #eeeae3;
   --moss: #3c402b;
-  --slate: #3e3d3a;
-  --stone: #343330;
   --acid: #c4e456;
   --olive: #a4b55b;
   --moss-shadow: rgba(60, 64, 43, 0.2);
-  --slate-sheer: rgba(62, 61, 58, 0.5);
   --pewter: #c9c5bf;
-  --shadow: rgba(0, 0, 0, 0.15);
-  --scrim: rgba(255, 255, 255, 0.05);
   --translucent: rgba(255, 255, 255, 0.5);
+
+  /* Semantic tokens. Components reference only these, never the palette
+     above. Previously assigned at runtime to support a dark theme; the app
+     is light-only, so they are plain CSS. */
+  --foreground: #1a1a1a;
+  --foreground-card: #1a1a1a;
+  --foreground-secondary: #6a6a6a;
+  --background: #ededed;
+  --background-card: #ffffff;
+  --background-layer: var(--translucent);
+  --border-card: rgba(0, 0, 0, 0.08);
+  --border-secondary: rgba(0, 0, 0, 0.06);
+  --hover-tabs: rgba(0, 0, 0, 0.04);
+  --hover-buttons: rgba(0, 0, 0, 0.06);
 }
 
 @font-face {

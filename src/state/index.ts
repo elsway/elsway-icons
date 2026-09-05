@@ -47,7 +47,6 @@ export type IconBrand =
 
 interface ApplicationFields {
   // Fields
-  applicationTheme: ApplicationTheme;
   searchQuery: string;
   iconWeight: IconStyle;
   iconSize: number;
@@ -76,11 +75,6 @@ export interface ApplicationState extends ApplicationFields {
   setEditingEntry: (entry: IconEntry | null) => void;
   setIconBrand: (brand: IconBrand) => void;
   resetApplicationState: () => void;
-}
-
-export enum ApplicationTheme {
-  LIGHT = "light",
-  DARK = "dark",
 }
 
 const fuse = new Fuse(icons, {
@@ -203,12 +197,7 @@ export const useApplicationStore = createSelectors(
           setIconColor: (color: string) => {
             const normalizedColor = TinyColor(color);
             if (normalizedColor.isValid()) {
-              set({
-                iconColor: normalizedColor.toHexString(),
-                applicationTheme: normalizedColor.isLight()
-                  ? ApplicationTheme.DARK
-                  : ApplicationTheme.LIGHT,
-              });
+              set({ iconColor: normalizedColor.toHexString() });
             }
           },
           setIconPreviewOpen: (open: string | false) =>
@@ -220,7 +209,6 @@ export const useApplicationStore = createSelectors(
           setIconBrand: (brand: IconBrand) => set({ iconBrand: brand }),
           resetApplicationState: () => {
             set({
-              applicationTheme: ApplicationTheme.LIGHT,
               iconWeight: IconStyle.REGULAR,
               iconSize: 32,
               iconColor: "#000000",
@@ -250,9 +238,6 @@ function initialState(): ApplicationFields {
   const iconColor = parseColor(params.get("color"));
 
   return {
-    applicationTheme: TinyColor(iconColor).isLight()
-      ? ApplicationTheme.DARK
-      : ApplicationTheme.LIGHT,
     searchQuery,
     iconWeight,
     iconSize,

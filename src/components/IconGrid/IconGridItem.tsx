@@ -16,7 +16,6 @@ const BASE = import.meta.env.BASE_URL;
 
 interface IconGridItemProps extends HTMLAttributes<HTMLDivElement> {
   index: number;
-  isDark: boolean;
   entry: IconEntry;
   originOffset: RefObject<{ top: number; left: number }>;
 }

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { motion, useAnimation } from "motion/react";
 
-import { ApplicationTheme, useApplicationStore } from "@/state";
+import { useApplicationStore } from "@/state";
 import Notice from "@/components/Notice";
 
 import IconGridItem from "./IconGridItem";
@@ -21,8 +21,7 @@ const defaultSearchTags = [
 type IconGridProps = {};
 
 const IconGrid = (_: IconGridProps) => {
-  const { applicationTheme, filteredQueryResults, searchQuery: query } =
-    useApplicationStore();
+  const { filteredQueryResults, searchQuery: query } = useApplicationStore();
 
   const originOffset = useRef({ top: 0, left: 0 });
   const controls = useAnimation();
@@ -60,7 +59,6 @@ const IconGrid = (_: IconGridProps) => {
             <IconGridItem
               key={iconEntry.name}
               index={index}
-              isDark={applicationTheme === ApplicationTheme.DARK}
               entry={iconEntry}
               originOffset={originOffset}
             />
