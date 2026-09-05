@@ -85,36 +85,9 @@
   cursor: pointer;
 }
 
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.button-row button {
-  background-color: transparent;
-  font-size: 16px;
-  line-height: 24px;
-  margin: 0 48px 0 0;
-  padding: 0;
-  height: 48px;
-  cursor: pointer;
-}
-
-.button-row button svg {
-  margin-right: 8px;
-}
-
 .disabled {
   color: var(--pewter);
   user-select: none;
-}
-
-.close-icon {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  text-align: end;
-  cursor: pointer;
 }
 
 .close-button {

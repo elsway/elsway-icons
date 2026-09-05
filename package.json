@@ -3,7 +3,7 @@
   "version": "2.1.1",
   "license": "MIT",
   "homepage": "https://autonaut-icons.vercel.app",
-  "description": "Autonaut Icons — a 1,402-icon design system library with a GitHub-backed CMS.",
+  "description": "Autonaut Icons \u2014 a 1,402-icon design system library with a GitHub-backed CMS.",
   "keywords": [
     "elsway",
     "icons",
@@ -20,9 +20,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,vue}\"",
-    "generate": "tsx scripts/generate.ts",
-    "sync-docs": "tsx scripts/sync-docs.ts"
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,vue}\""
   },
   "dependencies": {
     "file-saver": "^2.0.5",
@@ -45,12 +43,10 @@
     "@types/react-dom": "^19.2.3",
     "@types/tinycolor2": "^1.4.6",
     "@vitejs/plugin-react": "^5.1.3",
-    "iconjar-exporter": "^1.0.10",
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
     "typescript": "^4.9.5",
-    "vite": "^7.3.1",
-    "vite-plugin-svgr": "^4.5.0"
+    "vite": "^7.3.1"
   },
   "eslintConfig": {
     "extends": "react-app"

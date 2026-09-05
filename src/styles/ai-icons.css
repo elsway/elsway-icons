@@ -87,14 +87,6 @@
   --ai-icon: var(--ai-fill-cross-small);
 }
 
-.ai-emoji-sad {
-  --ai-icon: var(--ai-regular-emoji-sad);
-}
-
-.ai-fill.ai-emoji-sad {
-  --ai-icon: var(--ai-fill-emoji-sad);
-}
-
 .ai-hourglass {
   --ai-icon: var(--ai-regular-hourglass);
 }

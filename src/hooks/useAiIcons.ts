@@ -13,7 +13,6 @@ const AI_ICONS = [
   "circle-x",
   "clipboard",
   "cross-small",
-  "emoji-sad",
   "hourglass",
   "import",
   "quick-search",

@@ -73,18 +73,15 @@ html.lenis body {
 /* Globally smooth UI transitions — easeOutCubic */
 :root {
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
-}
-button,
+}button,
 .cat-btn,
 .tool-button,
 .action-button,
 .grid-item,
-.chip,
 input,
 .search-bar,
 .style-input,
 .size-input,
-.color-input,
 a {
   transition:
     background-color 220ms var(--ease-smooth),
@@ -133,24 +130,12 @@ button:focus-visible {
   overflow: hidden;
 }
 
-.three-col-shell.no-selection {
-  grid-template-columns: 260px 1fr;
-}
-
 .two-col-shell .middle-pane {
   display: flex;
   flex-direction: column;
   min-height: 0;
   padding: 0px;
   box-sizing: border-box;
-}
-
-.two-col-shell .middle-pane .middle-search {
-  position: static;
-  flex: 0 0 auto;
-  padding: 0 0 12px;
-  background: transparent;
-  backdrop-filter: none;
 }
 
 .two-col-shell .middle-pane .grid-scroll {
@@ -188,24 +173,6 @@ button:focus-visible {
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* Toolbar inside popover stays horizontal like elsway's top bar */
-.elsway-popover .elsway-popover-toolbar .toolbar,
-.elsway-popover .elsway-popover-toolbar .toolbar-contents {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  flex-wrap: wrap;
-  gap: 12px;
-  width: 100%;
-  position: static !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-.elsway-popover .elsway-popover-toolbar .toolbar-contents > * {
-  margin: 0 !important;
-}
-
 /* Reposition close-button inside the popover (it pokes out of the panel by default) */
 .elsway-popover .close-button {
   position: absolute !important;
@@ -234,47 +201,6 @@ button:focus-visible {
   }
 }
 
-.three-col-shell .right-rail {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 0 !important;
-  background: transparent !important;
-  border: none !important;
-}
-
-.three-col-shell .right-rail .right-stack-top,
-.three-col-shell .right-rail .right-stack-bottom {
-  background: var(--background-card);
-  border: 1px solid var(--border-card);
-  border-radius: 8px;
-  padding: 16px;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
-
-.three-col-shell .right-rail .right-stack-top {
-  flex: 0 0 auto;
-}
-
-.three-col-shell .right-rail .right-stack-bottom {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.three-col-shell .right-rail .right-stack-top .toolbar,
-.three-col-shell .right-rail .right-stack-top .toolbar-contents {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: stretch !important;
-  gap: 12px;
-  width: 100%;
-  position: static !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
 .three-col-shell .pane {
   overflow-y: auto;
   overflow-x: hidden;
@@ -294,15 +220,6 @@ button:focus-visible {
   position: relative;
 }
 
-.three-col-shell .middle-pane .middle-search {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  padding: 0 0 12px;
-  background: var(--background);
-  backdrop-filter: blur(6px);
-}
-
 .three-col-shell .left-rail .toolbar,
 .three-col-shell .left-rail .toolbar-contents {
   display: flex !important;
@@ -314,26 +231,6 @@ button:focus-visible {
   background: transparent !important;
   box-shadow: none !important;
   padding: 0 !important;
-}
-
-.three-col-shell .right-rail aside.detail-footer {
-  position: static !important;
-  margin: 0 !important;
-  max-width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  height: auto !important;
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-  gap: 16px;
-  transform: none !important;
-}
-
-.three-col-shell .right-rail .detail-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
 @media screen and (max-width: 1100px) {
@@ -413,48 +310,6 @@ button {
 
 button:disabled {
   cursor: not-allowed !important;
-}
-
-button.main-button {
-  height: 56px;
-  padding: 0 32px 0 28px;
-  background-color: white;
-  border-radius: 8px;
-  font-family: "Departure Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
-    "Courier New", monospace;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 30px;
-  box-sizing: border-box;
-  color: var(--moss);
-  border: 1px solid var(--moss);
-  box-shadow: 2px 2px 0 0 var(--moss-shadow);
-  transform: translate(0, 0);
-  transition: all 0.2s ease;
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -webkit-user-drag: none;
-  user-select: none;
-  margin: 0 24px 24px 0;
-}
-
-button.main-button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0 0 0 0 var(--moss);
-}
-
-button.main-button svg {
-  margin-right: 8px;
-}
-
-.button-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-a.main-link {
-  color: var(--moss);
 }
 
 .name {

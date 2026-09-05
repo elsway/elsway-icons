@@ -1,28 +1,4 @@
-/* CMS panel inside the icon detail popover */
-.cms-panel {
-  margin-top: 16px;
-  padding: 12px;
-  border: 1px dashed rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.02);
-  font-family: "Departure Mono", ui-monospace, monospace;
-  font-size: 12px;
-  color: #1a1a1a;
-}
-.cms-panel > summary {
-  cursor: pointer;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.55);
-  padding: 4px 0;
-  user-select: none;
-}
-.cms-panel[open] > summary {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-}
+
 
 .cms-row {
   display: flex;
@@ -86,15 +62,6 @@
   height: 42px;
   font-size: 13px;
   margin-top: 8px;
-}
-
-.cms-panel h4 {
-  margin: 16px 0 8px;
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.55);
-  font-weight: 400;
 }
 .cms-matrix {
   display: grid;
