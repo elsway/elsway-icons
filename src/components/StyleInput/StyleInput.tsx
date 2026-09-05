@@ -1,7 +1,6 @@
 import type { JSX } from "react";
 import { useShallow } from "zustand/react/shallow";
 import Select from "react-dropdown-select";
-import { PencilSimpleLineIcon } from "@elsway-icons/react";
 import { IconStyle } from "@elsway-icons/core";
 
 import { useApplicationStore } from "@/state";
@@ -14,12 +13,12 @@ const options: WeightOption[] = [
   {
     key: "Regular",
     value: IconStyle.REGULAR,
-    icon: <PencilSimpleLineIcon size={24} weight="regular" />,
+    icon: <i className="ai ai-pencil-line style-input-icon" aria-hidden />,
   },
   {
     key: "Fill",
     value: IconStyle.FILL,
-    icon: <PencilSimpleLineIcon size={24} weight="fill" />,
+    icon: <i className="ai-fill ai-pencil-line style-input-icon" aria-hidden />,
   },
 ];
 

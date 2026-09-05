@@ -4,7 +4,7 @@ import { useApplicationStore } from "@/state";
 import useCSSVariables from "./useCSSVariables";
 
 /** Icons the site's own UI renders through the `ai-{name}` classes. */
-const AI_ICONS = ["chevron-bottom", "quick-search"] as const;
+const AI_ICONS = ["chevron-bottom", "pencil-line", "quick-search"] as const;
 
 const WEIGHTS: Weight[] = ["regular", "fill"];
 

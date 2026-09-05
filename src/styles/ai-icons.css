@@ -31,6 +31,14 @@
   --ai-icon: var(--ai-fill-chevron-bottom);
 }
 
+.ai-pencil-line {
+  --ai-icon: var(--ai-regular-pencil-line);
+}
+
+.ai-fill.ai-pencil-line {
+  --ai-icon: var(--ai-fill-pencil-line);
+}
+
 .ai-quick-search {
   --ai-icon: var(--ai-regular-quick-search);
 }

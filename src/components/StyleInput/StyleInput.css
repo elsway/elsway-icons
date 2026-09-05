@@ -22,7 +22,14 @@
   justify-content: flex-start;
 }
 
-.react-dropdown-select-content svg {
+/* `.ai` icons size off font-size (1em square); match the 24px the
+   previous inline SVGs rendered at. */
+.style-input-icon {
+  font-size: 24px;
+}
+
+.react-dropdown-select-content svg,
+.react-dropdown-select-content .style-input-icon {
   margin: 0 12px 0 0;
 }
 
@@ -40,7 +47,8 @@
   align-items: center;
 }
 
-.react-dropdown-select-item svg {
+.react-dropdown-select-item svg,
+.react-dropdown-select-item .style-input-icon {
   margin: 0 12px 0 24px;
 }
 
