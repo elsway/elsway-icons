@@ -4,7 +4,13 @@
   grid-template-columns: 1fr auto auto;
   gap: 12px;
   align-items: center;
-  background: var(--background);
+  /* white at the top, fading out at the bottom, so the grid reads as
+     sliding underneath the controls */
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 100%) 0%,
+    rgb(255 255 255 / 0%) 100%
+  );
 }
 .app-header .app-header-new {
   display: flex;
