@@ -158,9 +158,7 @@ const SidebarFooter: React.FC = () => {
     return (
       <div className="sidebar-footer">
         <button className="login-btn" type="button" disabled>
-          <span className="login-btn-icon" aria-hidden>
-            ⌂
-          </span>
+          <i className="ai-fill ai-shield-keyhole login-btn-icon" aria-hidden />
           <span>Login as Admin</span>
         </button>
         <span className="login-hint">CMS setup pending</span>
@@ -176,9 +174,7 @@ const SidebarFooter: React.FC = () => {
           onClick={signIn}
           disabled={signingIn}
         >
-          <span className="login-btn-icon" aria-hidden>
-            ⌂
-          </span>
+          <i className="ai-fill ai-shield-keyhole login-btn-icon" aria-hidden />
           <span>{signingIn ? "Waiting for GitHub…" : "Login as Admin"}</span>
         </button>
       </div>

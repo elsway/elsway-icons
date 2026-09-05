@@ -328,7 +328,7 @@
       <li><span class="num">2</span><p>Pick a <strong>brand</strong> from the sidebar dropdown — <code>Default</code>, <code>Cars24</code>, <code>CarInfo</code>, <code>TeamBHP</code>, <code>VehicleInfo</code>. Same 1,402 icons, five corner treatments.</p></li>
       <li><span class="num">3</span><p>Pick a <strong>weight</strong> (<code>Regular</code> outline or <code>Fill</code> solid) and drag the size slider at the top.</p></li>
       <li><span class="num">4</span><p>Search by name, or browse categories in the left rail — counts update live.</p></li>
-      <li><span class="num">5</span><p>Click any icon to open its detail panel. Copy the raw SVG, or grab a ready snippet from the React / Web / Vue / Flutter / Elm / Swift tabs.</p></li>
+      <li><span class="num">5</span><p>Click any icon to open its detail panel. Copy the raw SVG, or grab a ready snippet from the React / Web / Vue / CDN / Elm / Swift tabs.</p></li>
     </ol>
 
     <div class="url-panel">
@@ -418,50 +418,190 @@
 
   <section>
     <p class="eyebrow">Using it in code</p>
-    <h2>Install the React package<span class="badge-new">npm</span></h2>
-    <p class="lede">One component covers every icon, brand, and weight — no per-icon imports.</p>
+    <h2>One URL powers every framework</h2>
+    <p class="lede">There is no npm package. Every icon is a plain SVG at a stable URL, so
+      integration is the same everywhere: build the URL, render it. Nothing to install,
+      nothing to keep in sync when icons change.</p>
 
-    <pre class="code"><span class="cmd">npm install @autonaut-icons/react</span></pre>
+    <div class="url-panel">
+      <p class="label">The only thing to remember</p>
+      <p class="url">https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/raw/elsway/<b>{brand}</b>/<b>{weight}</b>/<b>{name}</b>.svg</p>
+      <p class="example"><b>brand</b> default · cars24 · carinfo · teambhp · vehicleinfo &nbsp;—&nbsp;
+        <b>weight</b> regular · fill</p>
+    </div>
+  </section>
 
-    <p class="lede" style="margin-top: 24px;">Then:</p>
+  <section>
+    <p class="eyebrow">React</p>
+    <h2>A ten-line component<span class="badge-new">no dependency</span></h2>
+    <p class="lede">Copy this once and you have every icon, brand and weight.</p>
 
-    <pre class="code">import { Icon } from <span class="str">"@autonaut-icons/react"</span>;
+    <pre class="code"><span class="com">// Icon.jsx</span>
+const BASE = <span class="str">"https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/raw/elsway"</span>;
 
-function Toolbar() {
+export function Icon({ name, brand = <span class="str">"default"</span>, weight = <span class="str">"regular"</span>, size = 24, ...rest }) {
   return (
-    &lt;<span class="tag">Icon</span> <span class="attr">name</span>=<span class="str">"4k"</span> /&gt;
-    &lt;<span class="tag">Icon</span>
-      <span class="attr">name</span>=<span class="str">"heart"</span>
-      <span class="attr">brand</span>=<span class="str">"cars24"</span>
-      <span class="attr">weight</span>=<span class="str">"fill"</span>
-      <span class="attr">size</span>={32}
-      <span class="attr">color</span>=<span class="str">"#1a1a1a"</span>
+    &lt;<span class="tag">img</span>
+      <span class="attr">src</span>={`${BASE}/${brand}/${weight}/${name}.svg`}
+      <span class="attr">width</span>={size}
+      <span class="attr">height</span>={size}
+      <span class="attr">alt</span>=<span class="str">""</span>
+      {...rest}
     /&gt;
   );
 }</pre>
 
-    <div class="two-col" style="margin-top: 24px;">
-      <table class="ref">
-        <caption>Icon props</caption>
-        <thead><tr><th>Prop</th><th>Values</th></tr></thead>
-        <tbody>
-          <tr><td><code>name</code></td><td>any of 1,402 names</td></tr>
-          <tr><td><code>brand</code></td><td>default · cars24 · carinfo · teambhp · vehicleinfo</td></tr>
-          <tr><td><code>weight</code></td><td>regular · fill</td></tr>
-          <tr><td><code>size</code></td><td>number, default 24</td></tr>
-          <tr><td><code>color</code></td><td>any CSS color</td></tr>
-        </tbody>
-      </table>
-      <table class="ref">
-        <caption>Also exported</caption>
-        <thead><tr><th>Name</th><th>What it is</th></tr></thead>
-        <tbody>
-          <tr><td><code>ICON_NAMES</code></td><td>all 1,402 slugs</td></tr>
-          <tr><td><code>ICON_CATEGORIES</code></td><td>name → categories</td></tr>
-          <tr><td><code>preloadIcons()</code></td><td>warm a brand/weight ahead of render</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <p class="lede" style="margin-top: 24px;">Then anywhere:</p>
+    <pre class="code">&lt;<span class="tag">Icon</span> <span class="attr">name</span>=<span class="str">"heart"</span> <span class="attr">brand</span>=<span class="str">"cars24"</span> <span class="attr">weight</span>=<span class="str">"fill"</span> <span class="attr">size</span>={32} /&gt;</pre>
+
+    <p class="lede" style="margin-top: 24px;">An <code>&lt;img&gt;</code> cannot be recoloured with CSS. If you
+      need the icon to follow <code>currentColor</code>, mask it instead:</p>
+
+    <pre class="code">export function Icon({ name, brand = <span class="str">"default"</span>, weight = <span class="str">"regular"</span>, size = 24 }) {
+  const url = `${BASE}/${brand}/${weight}/${name}.svg`;
+  return (
+    &lt;<span class="tag">span</span>
+      <span class="attr">aria-hidden</span>
+      <span class="attr">style</span>={{
+        display: <span class="str">"inline-block"</span>,
+        width: size, height: size,
+        backgroundColor: <span class="str">"currentColor"</span>,
+        WebkitMask: `url(${url}) center / contain no-repeat`,
+        mask: `url(${url}) center / contain no-repeat`,
+      }}
+    /&gt;
+  );
+}</pre>
+  </section>
+
+  <section>
+    <p class="eyebrow">React Native</p>
+    <h2>Render through react-native-svg</h2>
+    <p class="lede">React Native has no SVG renderer of its own, so this is the one platform
+      that needs a real dependency.</p>
+
+    <pre class="code"><span class="cmd">npm install react-native-svg</span></pre>
+
+    <pre class="code" style="margin-top: 16px;">import { SvgUri } from <span class="str">"react-native-svg"</span>;
+
+const BASE = <span class="str">"https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/raw/elsway"</span>;
+
+export function Icon({ name, brand = <span class="str">"default"</span>, weight = <span class="str">"regular"</span>, size = 24, color }) {
+  return (
+    &lt;<span class="tag">SvgUri</span>
+      <span class="attr">width</span>={size}
+      <span class="attr">height</span>={size}
+      <span class="attr">color</span>={color}
+      <span class="attr">uri</span>={`${BASE}/${brand}/${weight}/${name}.svg`}
+    /&gt;
+  );
+}</pre>
+
+    <p class="lede" style="margin-top: 24px;">Shipping icons inside the app instead of fetching them?
+      Drop the <code>.svg</code> files into your project and swap <code>SvgUri</code> for
+      <code>react-native-svg-transformer</code>, which lets you <code>import Heart from "./heart.svg"</code>.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Vue 3</p>
+    <h2>A single-file component</h2>
+
+    <pre class="code"><span class="com">&lt;!-- Icon.vue --&gt;</span>
+&lt;<span class="tag">script</span> <span class="attr">setup</span>&gt;
+const props = defineProps({
+  name:   { type: String, required: <span class="str">true</span> },
+  brand:  { type: String, default: <span class="str">"default"</span> },
+  weight: { type: String, default: <span class="str">"regular"</span> },
+  size:   { type: Number, default: 24 },
+});
+
+const BASE = <span class="str">"https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/raw/elsway"</span>;
+const src = computed(() =&gt; `${BASE}/${props.brand}/${props.weight}/${props.name}.svg`);
+&lt;/<span class="tag">script</span>&gt;
+
+&lt;<span class="tag">template</span>&gt;
+  &lt;<span class="tag">img</span> <span class="attr">:src</span>=<span class="str">"src"</span> <span class="attr">:width</span>=<span class="str">"size"</span> <span class="attr">:height</span>=<span class="str">"size"</span> <span class="attr">alt</span>=<span class="str">""</span> /&gt;
+&lt;/<span class="tag">template</span>&gt;</pre>
+
+    <p class="lede" style="margin-top: 24px;">Used as:</p>
+    <pre class="code">&lt;<span class="tag">Icon</span> <span class="attr">name</span>=<span class="str">"heart"</span> <span class="attr">brand</span>=<span class="str">"cars24"</span> <span class="attr">weight</span>=<span class="str">"fill"</span> <span class="attr">:size</span>=<span class="str">"32"</span> /&gt;</pre>
+  </section>
+
+  <section>
+    <p class="eyebrow">Elm</p>
+    <h2>A helper function</h2>
+    <p class="lede">No package needed — the icon is just an image node.</p>
+
+    <pre class="code">module Autonaut exposing (icon)
+
+import Html exposing (Html, img)
+import Html.Attributes exposing (src, width, height, alt)
+
+
+base : String
+base =
+    <span class="str">"https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/raw/elsway"</span>
+
+
+icon : String -&gt; String -&gt; String -&gt; Int -&gt; Html msg
+icon brand weight name size =
+    img
+        [ src (base ++ <span class="str">"/"</span> ++ brand ++ <span class="str">"/"</span> ++ weight ++ <span class="str">"/"</span> ++ name ++ <span class="str">".svg"</span>)
+        , width size
+        , height size
+        , alt <span class="str">""</span>
+        ]
+        []</pre>
+
+    <p class="lede" style="margin-top: 24px;">Called as:</p>
+    <pre class="code">Autonaut.icon <span class="str">"cars24"</span> <span class="str">"fill"</span> <span class="str">"heart"</span> 32</pre>
+  </section>
+
+  <section>
+    <p class="eyebrow">Swift · SwiftUI</p>
+    <h2>Add the SVGs to your asset catalog</h2>
+    <p class="lede">SwiftUI cannot decode SVG at runtime, so remote loading needs a third-party
+      decoder. The reliable route is to bundle the icons you use.</p>
+
+    <table class="ref">
+      <caption>Bundling an icon</caption>
+      <thead><tr><th>Step</th><th>What to do</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Download the <code>.svg</code> from the site or the CDN URL</td></tr>
+        <tr><td>2</td><td>Drag it into <code>Assets.xcassets</code> — Xcode keeps it as a vector</td></tr>
+        <tr><td>3</td><td>Set the asset's <b>Render As</b> to <b>Template Image</b> so it takes your tint</td></tr>
+      </tbody>
+    </table>
+
+    <pre class="code" style="margin-top: 24px;">Image(<span class="str">"heart"</span>)
+    .renderable()
+    .resizable()
+    .renderingMode(.template)
+    .frame(width: 32, height: 32)
+    .foregroundStyle(.primary)</pre>
+
+    <p class="lede" style="margin-top: 24px;">To load straight from the CDN instead, add an SVG decoder
+      such as <code>SDWebImageSVGCoder</code> or <code>SVGKit</code> — <code>AsyncImage</code> alone
+      will not render these files.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Every platform</p>
+    <h2>Which approach to reach for</h2>
+    <table class="ref">
+      <thead><tr><th>Platform</th><th>Approach</th><th>Dependency</th></tr></thead>
+      <tbody>
+        <tr><td>Web — plain HTML</td><td><code>&lt;img&gt;</code>, or the <code>ai-*</code> stylesheet</td><td>none</td></tr>
+        <tr><td>React</td><td><code>&lt;img&gt;</code>, or CSS mask to inherit colour</td><td>none</td></tr>
+        <tr><td>React Native</td><td><code>SvgUri</code></td><td>react-native-svg</td></tr>
+        <tr><td>Vue 3</td><td><code>&lt;img :src&gt;</code></td><td>none</td></tr>
+        <tr><td>Elm</td><td><code>Html.img</code></td><td>none</td></tr>
+        <tr><td>SwiftUI</td><td>asset catalog, template image</td><td>none (bundled)</td></tr>
+      </tbody>
+    </table>
+    <p class="lede" style="margin-top: 20px;">Colour: an <code>&lt;img&gt;</code> renders the icon as
+      drawn. To tint it with your own colour, use the CSS-mask technique on the web, the
+      <code>color</code> prop in React Native, or a template image in SwiftUI.</p>
   </section>
 
   <footer class="end">

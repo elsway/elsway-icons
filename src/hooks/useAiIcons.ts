@@ -15,6 +15,7 @@ const AI_ICONS = [
   "cross-small",
   "hourglass",
   "quick-search",
+  "shield-keyhole",
   "square-behind-square-6",
   "write-1",
 ] as const;
