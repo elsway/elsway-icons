@@ -1,38 +1,18 @@
 :root {
   --red: #e8612b;
-  --orange: #ff8e51;
-  --yellow: #f8c666;
   --mustard: #d6971e;
-  --rust: #92543b;
-  --earth: #825b61;
   --sand: #bcadaf;
-  --blush: #f2cbd1;
-  --pale: #ffe8dc;
   --vellum: #eeeae3;
-  --ghost: #f7f5f1;
-  --foam: #e9ebe2;
-  --lichen: #d2d6c5;
   --moss: #3c402b;
   --slate: #3e3d3a;
   --stone: #343330;
-  --dark-grey: #656461;
   --acid: #c4e456;
   --olive: #a4b55b;
-  --green: #1fa647;
-  --darkgreen: #2e321f;
-  --deepgreen: #1f2310;
-  --blue: #1f7fea;
-  --purple: #925bff;
-  --eggplant: #35313d;
   --moss-shadow: rgba(60, 64, 43, 0.2);
   --slate-sheer: rgba(62, 61, 58, 0.5);
-  --ghost-sheer: rgba(247, 245, 241, 0.5);
-  --elephant: #656461;
   --pewter: #c9c5bf;
   --shadow: rgba(0, 0, 0, 0.15);
   --scrim: rgba(255, 255, 255, 0.05);
-  --sheer: rgba(194, 186, 196, 0.25);
-  --soft: rgba(194, 186, 196, 0.7);
   --translucent: rgba(255, 255, 255, 0.5);
 }
 

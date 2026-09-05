@@ -158,6 +158,18 @@
   margin: auto;
 }
 
+.notice-icon {
+  font-size: 128px;
+  color: var(--foreground-secondary);
+}
+
+/* Voxel art for the no-results state — sized to the box, not the viewport. */
+.notice-art {
+  width: min(320px, 70%);
+  height: auto;
+  display: block;
+}
+
 .empty-list-box p {
   margin-bottom: 0;
 }
@@ -294,4 +306,23 @@ figcaption > p {
   .grid-item p {
     padding: 0 4px;
   }
+}
+
+/* Sizes for the class-based icons inside the detail panel. `.ai` icons are
+   1em square, so font-size is the size knob. */
+.panel-icon {
+  font-size: 20px;
+}
+
+.panel-icon.is-active {
+  color: var(--olive);
+}
+
+.panel-caret {
+  font-size: 16px;
+  color: var(--foreground);
+}
+
+.panel-close {
+  font-size: 28px;
 }

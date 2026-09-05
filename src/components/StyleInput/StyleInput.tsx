@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import { useShallow } from "zustand/react/shallow";
 import Select from "react-dropdown-select";
-import { IconStyle } from "@elsway-icons/core";
+import { IconStyle } from "@/lib/types";
 
 import { useApplicationStore } from "@/state";
 

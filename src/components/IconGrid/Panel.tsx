@@ -8,15 +8,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { Svg2Png } from "svg2png-converter";
 import { saveAs } from "file-saver";
-import {
-  CopyIcon,
-  CheckCircleIcon,
-  ArrowFatLinesDownIcon,
-  XCircleIcon,
-  CaretDoubleLeftIcon,
-  CaretDoubleRightIcon,
-} from "@elsway-icons/react";
-import { IconStyle } from "@elsway-icons/core";
+import { IconStyle } from "@/lib/types";
 import ReactGA from "react-ga4";
 
 import Tabs, { Tab } from "@/components/Tabs";
@@ -75,7 +67,7 @@ const ActionButton = (
   } & HTMLAttributes<HTMLButtonElement>
 ) => {
   const { active, download, label, ...rest } = props;
-  const Icon = download ? ArrowFatLinesDownIcon : CopyIcon;
+  const iconClass = download ? "ai-import" : "ai-clipboard";
   return (
     <button
       {...rest}
@@ -84,9 +76,9 @@ const ActionButton = (
       tabIndex={0}
     >
       {active ? (
-        <CheckCircleIcon size={20} color="var(--olive)" weight="fill" />
+        <i className="ai-fill ai-circle-check panel-icon is-active" aria-hidden />
       ) : (
-        <Icon size={20} color="currentColor" weight="fill" />
+        <i className={`ai-fill ${iconClass} panel-icon`} aria-hidden />
       )}
       {label}
     </button>
@@ -163,13 +155,9 @@ const Panel = () => {
                 onClick={(e) => handleCopySnippet(e, type)}
               >
                 {copied === type ? (
-                  <CheckCircleIcon
-                    size={20}
-                    color="var(--olive)"
-                    weight="fill"
-                  />
+                  <i className="ai-fill ai-circle-check panel-icon is-active" aria-hidden />
                 ) : (
-                  <CopyIcon size={20} color="var(--foreground)" weight="fill" />
+                  <i className="ai-fill ai-clipboard panel-icon" aria-hidden />
                 )}
               </button>
             </pre>
@@ -406,7 +394,6 @@ const Panel = () => {
                       label="Unicode"
                       title="Copy Unicode character (v2.1.0 or newer)"
                       active={copied === CopyType.UNICODE}
-                      disabled={weight === IconStyle.DUOTONE}
                       onClick={handleCopyUnicode}
                     />
                   </>
@@ -419,17 +406,9 @@ const Panel = () => {
                 onClick={() => setShowMoreActions((s) => !s)}
               >
                 {!showMoreActions ? (
-                  <CaretDoubleRightIcon
-                    size={16}
-                    weight="bold"
-                    color="var(--foreground)"
-                  />
+                  <i className="ai ai-chevron-double-right panel-caret" aria-hidden />
                 ) : (
-                  <CaretDoubleLeftIcon
-                    size={16}
-                    weight="bold"
-                    color="var(--foreground)"
-                  />
+                  <i className="ai ai-chevron-double-left panel-caret" aria-hidden />
                 )}
               </button>
             </div>
@@ -449,7 +428,7 @@ const Panel = () => {
               e.key === "Enter" && setSelectionEntry(null);
             }}
           >
-            <XCircleIcon color="currentColor" size={28} weight="fill" />
+            <i className="ai-fill ai-circle-x panel-close" aria-hidden />
           </button>
         </motion.aside>
       )}

@@ -1,10 +1,5 @@
-import { Icon } from "@elsway-icons/react";
-import { IconEntry as CoreEntry } from "@elsway-icons/core";
 export * from "./icons";
-
-export interface IconEntry extends CoreEntry {
-  Icon: Icon;
-}
+export * from "./types";
 
 export enum SnippetType {
   REACT = "React",

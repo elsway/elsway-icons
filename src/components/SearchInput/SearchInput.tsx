@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useHotkeys } from "react-hotkeys-hook";
-import { XIcon, HourglassHighIcon } from "@elsway-icons/react";
 import ReactGA from "react-ga4";
 
 import { useDebounce } from "@/hooks";
@@ -87,13 +86,14 @@ const SearchInput = (_: SearchInputProps) => {
       />
       {value ? (
         value === query ? (
-          <XIcon
-            className="clear-icon"
-            size={18}
+          <i
+            className="ai ai-cross-small clear-icon"
+            role="button"
+            aria-label="Clear search"
             onClick={handleCancelSearch}
           />
         ) : (
-          <HourglassHighIcon className="wait-icon" weight="fill" size={18} />
+          <i className="ai-fill ai-hourglass wait-icon" aria-hidden />
         )
       ) : null}
     </div>

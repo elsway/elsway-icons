@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { motion, useAnimation } from "motion/react";
-import { IconContext } from "@elsway-icons/react";
 
 import { ApplicationTheme, useApplicationStore } from "@/state";
 import Notice from "@/components/Notice";
@@ -22,14 +21,8 @@ const defaultSearchTags = [
 type IconGridProps = {};
 
 const IconGrid = (_: IconGridProps) => {
-  const {
-    iconWeight: weight,
-    iconSize: size,
-    iconColor: color,
-    applicationTheme,
-    filteredQueryResults,
-    searchQuery: query,
-  } = useApplicationStore();
+  const { applicationTheme, filteredQueryResults, searchQuery: query } =
+    useApplicationStore();
 
   const originOffset = useRef({ top: 0, left: 0 });
   const controls = useAnimation();
@@ -54,7 +47,7 @@ const IconGrid = (_: IconGridProps) => {
     );
 
   return (
-    <IconContext.Provider value={{ weight, size, color, mirrored: false }}>
+    <>
       <div className="grid-container">
         <i id="beacon" className="beacon" />
         <motion.div
@@ -74,7 +67,7 @@ const IconGrid = (_: IconGridProps) => {
           ))}
         </motion.div>
       </div>
-    </IconContext.Provider>
+    </>
   );
 };
 

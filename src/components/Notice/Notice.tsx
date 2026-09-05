@@ -1,10 +1,5 @@
 import { ReactNode } from "react";
 import { motion } from "motion/react";
-import {
-  HourglassMediumIcon,
-  QuestionIcon,
-  SmileyXEyesIcon,
-} from "@elsway-icons/react";
 
 interface NoticeProps {
   message?: ReactNode;
@@ -26,9 +21,17 @@ const Notice = ({
         transition={{ duration: 0.5 }}
       >
         <div className="empty-list-box">
-          {type === "wait" && <HourglassMediumIcon size={128} weight="fill" />}
-          {type === "help" && <QuestionIcon size={128} weight="fill" />}
-          {type === "warn" && <SmileyXEyesIcon size={128} weight="fill" />}
+          {type === "wait" && <i className="ai-fill ai-hourglass notice-icon" aria-hidden />}
+          {type === "help" && <i className="ai-fill ai-circle-questionmark notice-icon" aria-hidden />}
+          {type === "warn" && (
+            <img
+              className="notice-art"
+              src={`${import.meta.env.BASE_URL}img/empty-state.svg`}
+              alt=""
+              width={320}
+              height={200}
+            />
+          )}
           <p>{message}</p>
           {children}
         </div>

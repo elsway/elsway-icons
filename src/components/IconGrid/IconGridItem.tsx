@@ -10,7 +10,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { IconEntry } from "@/lib";
 import { useApplicationStore } from "@/state";
-import { IconStyle } from "@elsway-icons/core";
+import { IconStyle } from "@/lib/types";
 
 const BASE = import.meta.env.BASE_URL;
 

@@ -45,10 +45,12 @@
 }
 
 .clear-icon {
+  font-size: 18px;
   cursor: pointer;
 }
 
 .wait-icon {
+  font-size: 18px;
   cursor: wait;
 }
 

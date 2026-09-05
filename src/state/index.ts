@@ -3,7 +3,7 @@ import { create, type UseBoundStore, type StoreApi } from "zustand";
 import { persist, PersistStorage } from "zustand/middleware";
 
 import TinyColor from "tinycolor2";
-import { IconStyle } from "@elsway-icons/core";
+import { IconStyle } from "@/lib/types";
 import { type IconEntry } from "@/lib";
 import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 import elswayManifest from "../../public/raw/elsway/manifest.json";
@@ -26,13 +26,10 @@ function synthEntry(name: string): IconEntry {
   return {
     name,
     pascal_name: toPascal(name),
-    categories: cats as unknown as IconEntry["categories"],
-    tags: [] as unknown as IconEntry["tags"],
+    categories: cats,
+    tags: [],
     codepoint: CODEPOINT_SEED++,
-    published_in: 1.0,
-    Icon: (() => null) as unknown as IconEntry["Icon"],
-    updated_in: undefined,
-  } as unknown as IconEntry;
+  };
 }
 
 export const icons: IconEntry[] = (elswayManifest as string[])

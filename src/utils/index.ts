@@ -1,4 +1,4 @@
-import { IconStyle } from "@elsway-icons/core";
+import { IconStyle } from "@/lib/types";
 import TinyColor from "tinycolor2";
 
 import { SnippetType } from "@/lib";
@@ -68,16 +68,8 @@ export function stripWrappingQuotes(value: string | null | undefined): string {
 
 export function parseWeight(weight: string | null | undefined): IconStyle {
   switch (stripWrappingQuotes(weight).toLowerCase()) {
-    case "thin":
-      return IconStyle.THIN;
-    case "light":
-      return IconStyle.LIGHT;
-    case "bold":
-      return IconStyle.BOLD;
     case "fill":
       return IconStyle.FILL;
-    case "duotone":
-      return IconStyle.DUOTONE;
     case "regular":
     default:
       return IconStyle.REGULAR;

@@ -31,6 +31,86 @@
   --ai-icon: var(--ai-fill-chevron-bottom);
 }
 
+.ai-chevron-double-left {
+  --ai-icon: var(--ai-regular-chevron-double-left);
+}
+
+.ai-fill.ai-chevron-double-left {
+  --ai-icon: var(--ai-fill-chevron-double-left);
+}
+
+.ai-chevron-double-right {
+  --ai-icon: var(--ai-regular-chevron-double-right);
+}
+
+.ai-fill.ai-chevron-double-right {
+  --ai-icon: var(--ai-fill-chevron-double-right);
+}
+
+.ai-circle-check {
+  --ai-icon: var(--ai-regular-circle-check);
+}
+
+.ai-fill.ai-circle-check {
+  --ai-icon: var(--ai-fill-circle-check);
+}
+
+.ai-circle-questionmark {
+  --ai-icon: var(--ai-regular-circle-questionmark);
+}
+
+.ai-fill.ai-circle-questionmark {
+  --ai-icon: var(--ai-fill-circle-questionmark);
+}
+
+.ai-circle-x {
+  --ai-icon: var(--ai-regular-circle-x);
+}
+
+.ai-fill.ai-circle-x {
+  --ai-icon: var(--ai-fill-circle-x);
+}
+
+.ai-clipboard {
+  --ai-icon: var(--ai-regular-clipboard);
+}
+
+.ai-fill.ai-clipboard {
+  --ai-icon: var(--ai-fill-clipboard);
+}
+
+.ai-cross-small {
+  --ai-icon: var(--ai-regular-cross-small);
+}
+
+.ai-fill.ai-cross-small {
+  --ai-icon: var(--ai-fill-cross-small);
+}
+
+.ai-emoji-sad {
+  --ai-icon: var(--ai-regular-emoji-sad);
+}
+
+.ai-fill.ai-emoji-sad {
+  --ai-icon: var(--ai-fill-emoji-sad);
+}
+
+.ai-hourglass {
+  --ai-icon: var(--ai-regular-hourglass);
+}
+
+.ai-fill.ai-hourglass {
+  --ai-icon: var(--ai-fill-hourglass);
+}
+
+.ai-import {
+  --ai-icon: var(--ai-regular-import);
+}
+
+.ai-fill.ai-import {
+  --ai-icon: var(--ai-fill-import);
+}
+
 .ai-quick-search {
   --ai-icon: var(--ai-regular-quick-search);
 }
