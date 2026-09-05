@@ -11,11 +11,11 @@ const AI_ICONS = [
   "circle-check",
   "circle-questionmark",
   "circle-x",
-  "clipboard",
+  "cloud-download",
   "cross-small",
   "hourglass",
-  "import",
   "quick-search",
+  "square-behind-square-6",
   "write-1",
 ] as const;
 

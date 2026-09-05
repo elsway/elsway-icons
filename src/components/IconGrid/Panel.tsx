@@ -67,7 +67,9 @@ const ActionButton = (
   } & HTMLAttributes<HTMLButtonElement>
 ) => {
   const { active, download, label, ...rest } = props;
-  const iconClass = download ? "ai-import" : "ai-clipboard";
+  const iconClass = download
+    ? "ai ai-cloud-download"
+    : "ai ai-square-behind-square-6";
   return (
     <button
       {...rest}
@@ -78,7 +80,7 @@ const ActionButton = (
       {active ? (
         <i className="ai-fill ai-circle-check panel-icon is-active" aria-hidden />
       ) : (
-        <i className={`ai-fill ${iconClass} panel-icon`} aria-hidden />
+        <i className={`${iconClass} panel-icon`} aria-hidden />
       )}
       {label}
     </button>
@@ -157,7 +159,7 @@ const Panel = () => {
                 {copied === type ? (
                   <i className="ai-fill ai-circle-check panel-icon is-active" aria-hidden />
                 ) : (
-                  <i className="ai-fill ai-clipboard panel-icon" aria-hidden />
+                  <i className="ai ai-square-behind-square-6 panel-icon" aria-hidden />
                 )}
               </button>
             </pre>

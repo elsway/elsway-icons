@@ -71,12 +71,12 @@
   --ai-icon: var(--ai-fill-circle-x);
 }
 
-.ai-clipboard {
-  --ai-icon: var(--ai-regular-clipboard);
+.ai-square-behind-square-6 {
+  --ai-icon: var(--ai-regular-square-behind-square-6);
 }
 
-.ai-fill.ai-clipboard {
-  --ai-icon: var(--ai-fill-clipboard);
+.ai-fill.ai-square-behind-square-6 {
+  --ai-icon: var(--ai-fill-square-behind-square-6);
 }
 
 .ai-cross-small {
@@ -95,12 +95,12 @@
   --ai-icon: var(--ai-fill-hourglass);
 }
 
-.ai-import {
-  --ai-icon: var(--ai-regular-import);
+.ai-cloud-download {
+  --ai-icon: var(--ai-regular-cloud-download);
 }
 
-.ai-fill.ai-import {
-  --ai-icon: var(--ai-fill-import);
+.ai-fill.ai-cloud-download {
+  --ai-icon: var(--ai-fill-cloud-download);
 }
 
 .ai-quick-search {

@@ -224,6 +224,7 @@ figcaption > p {
   font-size: 11px;
   padding: 6px;
   border-radius: 4px;
+  gap: 4px;
 }
 
 .action-button.text {
@@ -234,9 +235,6 @@ figcaption > p {
   background-color: var(--background-layer) !important;
 }
 
-.detail-actions .action-button svg {
-  margin-right: 6px;
-}
 
 @media screen and (max-width: 719px) {
   .grid-container {
