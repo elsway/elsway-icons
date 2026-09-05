@@ -30,3 +30,11 @@
 .ai-fill.ai-chevron-bottom {
   --ai-icon: var(--ai-fill-chevron-bottom);
 }
+
+.ai-quick-search {
+  --ai-icon: var(--ai-regular-quick-search);
+}
+
+.ai-fill.ai-quick-search {
+  --ai-icon: var(--ai-fill-quick-search);
+}

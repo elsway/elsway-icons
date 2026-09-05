@@ -1,12 +1,7 @@
 import { useState, useEffect, useRef, ReactNode } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useHotkeys } from "react-hotkeys-hook";
-import {
-  CommandIcon,
-  MagnifyingGlassIcon,
-  XIcon,
-  HourglassHighIcon,
-} from "@elsway-icons/react";
+import { CommandIcon, XIcon, HourglassHighIcon } from "@elsway-icons/react";
 import ReactGA from "react-ga4";
 
 import { useDebounce } from "@/hooks";
@@ -75,7 +70,7 @@ const SearchInput = (_: SearchInputProps) => {
 
   return (
     <div className="search-bar">
-      <MagnifyingGlassIcon id="search-icon" size={24} />
+      <i className="ai ai-quick-search" id="search-icon" aria-hidden />
       <input
         ref={inputRef}
         id="search-input"

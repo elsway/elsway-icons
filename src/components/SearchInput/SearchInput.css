@@ -10,6 +10,12 @@
   background-color: #0000000d;
 }
 
+/* `.ai` icons size off font-size (1em square), so restore the 24px the
+   previous inline SVG rendered at. */
+#search-icon {
+  font-size: 24px;
+}
+
 .search-bar:focus-within {
   outline: none;
   color: #000000 !important;
