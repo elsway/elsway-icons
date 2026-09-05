@@ -233,7 +233,9 @@
 }
 
 .category-menu .cat-btn:hover {
-  background: var(--background-card);
+  /* the sidebar is already white, so --background-card read as no hover
+     at all; 5% black matches the header controls */
+  background: rgb(0 0 0 / 5%);
 }
 
 .category-menu .cat-btn.active {
