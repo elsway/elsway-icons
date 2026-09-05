@@ -35,7 +35,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 14px;
   color: #000;
   background: rgb(0 0 0 / 5%);
@@ -54,7 +54,7 @@
   font-size: 16px;
 }
 .category-menu .login-hint {
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -69,7 +69,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 11px;
 }
 .category-menu .login-email {
@@ -90,7 +90,7 @@
 }
 
 .category-menu .brand {
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 22px;
   font-weight: 400;
   margin: 0 0 8px;
@@ -114,7 +114,7 @@
 }
 
 .category-menu .brand-select-label {
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -126,7 +126,7 @@
 .category-menu .brand-select-control {
   position: relative;
   width: 100%;
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
 }
 
 .category-menu .brand-select-trigger {
@@ -190,7 +190,7 @@
 }
 
 .category-menu .section-label {
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -214,7 +214,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   padding: 8px 10px;
-  font-family: "Departure Mono", "IBM Plex Mono", monospace;
+  font-family: "Departure Mono", ui-monospace, monospace;
   font-size: 13px;
   color: var(--foreground);
   text-transform: lowercase;

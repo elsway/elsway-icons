@@ -41,7 +41,7 @@
   border: 1px solid var(--moss);
   border-radius: 16px;
   filter: drop-shadow(2px 2px 0 var(--moss-shadow));
-  font-family: "IBM Plex Mono";
+  font-family: "Departure Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
   font-size: 14px;
   pointer-events: initial;
 }

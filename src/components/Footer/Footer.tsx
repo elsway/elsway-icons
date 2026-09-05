@@ -60,14 +60,13 @@ const Footer = (_: FooterProps) => {
           <div className="fine-print">
             <p>
               Type set in{" "}
-              <a className="main-link" href="https://www.gent.media/manrope">
-                Manrope
+              <a
+                className="main-link"
+                href="https://departuremono.com/"
+              >
+                Departure Mono
               </a>{" "}
-              by Mikhail Sharanda and{" "}
-              <a className="main-link" href="https://www.ibm.com/plex/">
-                IBM Plex Mono
-              </a>
-              .
+              by Helena Zhang.
             </p>
           </div>
           <div className="illustrations-footer">
