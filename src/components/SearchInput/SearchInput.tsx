@@ -1,18 +1,12 @@
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useHotkeys } from "react-hotkeys-hook";
-import { CommandIcon, XIcon, HourglassHighIcon } from "@elsway-icons/react";
+import { XIcon, HourglassHighIcon } from "@elsway-icons/react";
 import ReactGA from "react-ga4";
 
 import { useDebounce } from "@/hooks";
 import { useApplicationStore } from "@/state";
 import "./SearchInput.css";
-
-const apple = /iPhone|iPod|iPad|Macintosh|MacIntel|MacPPC/i;
-const isApple = apple.test(window.navigator.platform);
-
-const mobile = /Android|iPhone|iPod|iPad|Opera Mini|IEMobile/i;
-const isMobile = mobile.test(window.navigator.userAgent);
 
 type SearchInputProps = {};
 
@@ -91,9 +85,6 @@ const SearchInput = (_: SearchInputProps) => {
           }
         }}
       />
-      {!value && !isMobile && (
-        <Keys>{isApple ? <CommandIcon /> : "Ctrl + "}K</Keys>
-      )}
       {value ? (
         value === query ? (
           <XIcon
@@ -108,9 +99,5 @@ const SearchInput = (_: SearchInputProps) => {
     </div>
   );
 };
-
-const Keys = ({ children }: { children?: ReactNode }) => (
-  <div className="keys">{children}</div>
-);
 
 export default SearchInput;
