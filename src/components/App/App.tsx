@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useMemo, useRef, useEffect, useState } from "react";
+import { Fragment, Suspense, useMemo, useRef, useEffect } from "react";
 
 import "./App.css";
 import IconGrid from "@/components/IconGrid";
@@ -27,22 +27,10 @@ const App: React.FC<any> = () => {
 
   const gridScrollRef = useRef<HTMLDivElement>(null);
 
-  // Category rail is an off-canvas drawer on small screens.
-  const [menuOpen, setMenuOpen] = useState(false);
-
   // Reset scroll to top when the visible set changes (or on mount)
   useEffect(() => {
     if (gridScrollRef.current) gridScrollRef.current.scrollTop = 0;
   }, [searchQuery, iconBrand]);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
 
   useCSSVariables(
     useMemo(
@@ -65,18 +53,11 @@ const App: React.FC<any> = () => {
   return (
     <Fragment>
       <div className="two-col-shell primary">
-        <aside className={`pane left-rail ${menuOpen ? "is-open" : ""}`}>
-          <CategoryMenu onSelect={() => setMenuOpen(false)} />
+        <aside className="pane left-rail">
+          <CategoryMenu />
         </aside>
-        {menuOpen && (
-          <div
-            className="rail-backdrop"
-            role="presentation"
-            onClick={() => setMenuOpen(false)}
-          />
-        )}
         <main className="pane middle-pane">
-          <AppHeader onOpenMenu={() => setMenuOpen(true)} />
+          <AppHeader />
           <div className="grid-scroll" ref={gridScrollRef}>
             <ErrorBoundary fallback={errorFallback}>
               <Suspense fallback={waitingFallback}>

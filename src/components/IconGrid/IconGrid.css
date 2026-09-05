@@ -280,23 +280,15 @@ figcaption > p {
 
 @media screen and (max-width: 536px) {
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
   }
 
   .grid-item {
-    width: 104px;
-    min-height: 104px;
+    width: 108px;
     height: unset;
-    gap: 8px;
-    padding: 8px 0;
-    margin: 2px;
-    justify-content: center;
+    padding: 4px 0;
+    justify-content: flex-start;
     border: 1px solid transparent;
-  }
-
-  .grid-item-icon {
-    width: 48px;
-    height: 48px;
   }
 
   .grid-item p {
