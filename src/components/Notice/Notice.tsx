@@ -26,10 +26,10 @@ const Notice = ({
           {type === "warn" && (
             <img
               className="notice-art"
-              src={`${import.meta.env.BASE_URL}img/empty-state.svg`}
+              src={`${import.meta.env.BASE_URL}img/empty-state.png`}
               alt=""
-              width={320}
-              height={200}
+              width={1800}
+              height={1348}
             />
           )}
           <p>{message}</p>
