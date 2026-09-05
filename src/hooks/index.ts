@@ -1,3 +1,4 @@
+export { default as useAiIcons } from "./useAiIcons";
 export { default as useCSSVariables } from "./useCSSVariables";
 export { default as useDebounce } from "./useDebounce";
 export { default as useEvent } from "./useEvent";

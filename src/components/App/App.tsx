@@ -1,6 +1,7 @@
 import { Fragment, Suspense, useMemo, useRef, useEffect } from "react";
 
 import "./App.css";
+import "@/styles/ai-icons.css";
 import IconGrid from "@/components/IconGrid";
 import Panel from "@/components/IconGrid/Panel";
 import CategoryMenu from "@/components/CategoryMenu";
@@ -9,7 +10,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 import EditIconModal from "@/components/Cms/EditIconModal";
 import GuideFab from "@/components/GuideFab/GuideFab";
-import { useCSSVariables } from "@/hooks";
+import { useAiIcons, useCSSVariables } from "@/hooks";
 import { ApplicationTheme, useApplicationStore } from "@/state";
 
 const errorFallback = <Notice message="Search error" />;
@@ -26,6 +27,9 @@ const App: React.FC<any> = () => {
   const iconBrand = useApplicationStore.use.iconBrand();
 
   const gridScrollRef = useRef<HTMLDivElement>(null);
+
+  // Keeps the `ai-{name}` classes pointed at the current brand's SVGs.
+  useAiIcons();
 
   // Reset scroll to top when the visible set changes (or on mount)
   useEffect(() => {

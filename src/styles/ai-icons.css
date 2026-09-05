@@ -1,0 +1,32 @@
+/* Class-based icons for the site's own UI — the same `ai` / `ai-fill` +
+   `ai-{name}` API the public CDN bundles expose, so in-app markup reads
+   exactly like the snippets we hand to users:
+
+     <i class="ai-fill ai-chevron-bottom"></i>
+
+   The CDN bundles inline all 1,402 icons (2-3 MB per brand/weight), which is
+   far too much to ship just for a handful of chrome icons — and they are
+   brand-fixed, while the site's brand changes at runtime. So each icon used
+   here resolves its shape from a CSS custom property that `useAiIcons` keeps
+   pointed at the current brand. Add an icon by listing it in AI_ICONS
+   (src/hooks/useAiIcons.ts) and adding its rule below. */
+
+.ai,
+.ai-fill {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  /* currentColor fill, so icons inherit text color like a glyph would */
+  background-color: currentColor;
+  -webkit-mask: var(--ai-icon) center / contain no-repeat;
+  mask: var(--ai-icon) center / contain no-repeat;
+}
+
+.ai-chevron-bottom {
+  --ai-icon: var(--ai-regular-chevron-bottom);
+}
+
+.ai-fill.ai-chevron-bottom {
+  --ai-icon: var(--ai-fill-chevron-bottom);
+}

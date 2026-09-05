@@ -152,8 +152,14 @@
   background-color: rgb(0 0 0 / 8%);
 }
 .category-menu .brand-select-caret {
-  font-size: 10px;
+  font-size: 18px;
   color: rgba(0, 0, 0, 0.55);
+  transition: transform 150ms ease;
+}
+
+/* Flips to point up while the menu is open, replacing the old ▲/▼ swap. */
+.category-menu .brand-select-control.is-open .brand-select-caret {
+  transform: rotate(180deg);
 }
 
 .category-menu .brand-select-menu {

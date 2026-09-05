@@ -52,9 +52,7 @@ const BrandDropdown: React.FC<{
         onClick={() => setOpen((v) => !v)}
       >
         <span>{selected.key}</span>
-        <span className="brand-select-caret" aria-hidden>
-          {open ? "▲" : "▼"}
-        </span>
+        <i className="ai-fill ai-chevron-bottom brand-select-caret" aria-hidden />
       </button>
       {open && (
         <ul className="brand-select-menu" role="listbox">
