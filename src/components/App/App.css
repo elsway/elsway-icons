@@ -1,11 +1,9 @@
 :root {
-  --red: #e8612b;
-  --mustard: #d6971e;
-  --moss: #3c402b;
-  --acid: #c4e456;
-  --olive: #a4b55b;
-  --moss-shadow: rgba(60, 64, 43, 0.2);
-  --pewter: #c9c5bf;
+  /* Neutral-only palette. The site is monochrome: hierarchy comes from
+     value and weight, never hue. */
+  --ink: #1a1a1a;
+  --ink-mid: #6a6a6a;
+  --ink-soft: #9a9a9a;
   --translucent: rgba(255, 255, 255, 0.5);
 
   /* Semantic tokens. Components reference only these, never the palette
@@ -106,7 +104,7 @@ a {
 
 /* Universal keyboard focus indicator */
 :focus-visible {
-  outline: 2px solid var(--moss);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -114,7 +112,7 @@ button:focus:not(:focus-visible) {
   outline: none;
 }
 button:focus-visible {
-  outline: 2px solid var(--moss);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -248,8 +246,8 @@ button:focus-visible {
 }
 
 ::selection {
-  color: var(--moss);
-  background-color: var(--acid);
+  color: #ffffff;
+  background-color: var(--ink);
 }
 
 ::-moz-color-swatch {
@@ -317,11 +315,11 @@ button:disabled {
 }
 
 .badge.new {
-  background-color: var(--mustard);
+  background-color: var(--ink);
 }
 
 .badge.updated {
-  background-color: var(--olive);
+  background-color: var(--ink-soft);
 }
 
 .badge {

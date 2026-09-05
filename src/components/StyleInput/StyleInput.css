@@ -70,21 +70,21 @@
   box-shadow: none;
 }
 .react-dropdown-select-item {
-  color: var(--moss);
+  color: var(--ink);
 }
 .react-dropdown-select-item:hover {
-  background-color: var(--acid) !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
 }
 
 .react-dropdown-select-item.react-dropdown-select-item-selected,
 .react-dropdown-select-item.react-dropdown-select-item-active {
-  color: var(--moss) !important;
-  background-color: var(--acid) !important;
+  color: var(--ink) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 .react-dropdown-select-item:focus {
-  color: var(--moss) !important;
-  background-color: var(--acid) !important;
+  color: var(--ink) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 .react-dropdown-select-item.react-dropdown-select-item-disabled {

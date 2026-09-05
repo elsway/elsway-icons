@@ -86,7 +86,7 @@
 }
 
 .disabled {
-  color: var(--pewter);
+  color: var(--ink-soft);
   user-select: none;
 }
 
@@ -288,7 +288,7 @@ figcaption > p {
 }
 
 .panel-icon.is-active {
-  color: var(--olive);
+  color: var(--ink);
 }
 
 .panel-caret {

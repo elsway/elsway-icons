@@ -53,8 +53,8 @@
   border-color: #1a1a1a;
 }
 .cms-btn.danger {
-  color: #b83232;
-  border-color: #b83232;
+  color: var(--ink);
+  border-color: var(--ink);
   margin-top: 12px;
 }
 .cms-btn.big {
@@ -105,11 +105,11 @@
   padding: 8px 10px;
   border-radius: 6px;
   margin-bottom: 12px;
-  background: #fff5d0;
+  background: rgba(0, 0, 0, 0.08);
   font-size: 11px;
 }
 .cms-status.busy {
-  background: #d9ecff;
+  background: rgba(0, 0, 0, 0.04);
 }
 .cms-hint {
   color: rgba(0, 0, 0, 0.6);

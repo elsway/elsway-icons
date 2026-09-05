@@ -62,7 +62,8 @@
   text-align: center;
 }
 .category-menu .login-hint.warn {
-  color: #b83232;
+  color: var(--ink);
+  font-weight: 700;
 }
 .category-menu .login-meta {
   display: flex;
