@@ -332,8 +332,11 @@ const Panel = () => {
               />
               <figcaption>
                 <p>{entry.name}</p>
-                <small className="versioning">{brand}</small>
-                <small className="versioning">{weightFolder}</small>
+                <small className="versioning">
+                  {brand}
+                  <span aria-hidden>•</span>
+                  {weightFolder}
+                </small>
               </figcaption>
             </figure>
             <hr />
