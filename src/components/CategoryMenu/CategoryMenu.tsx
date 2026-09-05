@@ -161,7 +161,7 @@ const SidebarFooter: React.FC = () => {
           <span className="login-btn-icon" aria-hidden>
             ⌂
           </span>
-          <span>Sign in</span>
+          <span>Login as Admin</span>
         </button>
         <span className="login-hint">CMS setup pending</span>
       </div>
@@ -179,7 +179,7 @@ const SidebarFooter: React.FC = () => {
           <span className="login-btn-icon" aria-hidden>
             ⌂
           </span>
-          <span>{signingIn ? "Waiting for GitHub…" : "Sign in with GitHub"}</span>
+          <span>{signingIn ? "Waiting for GitHub…" : "Login as Admin"}</span>
         </button>
       </div>
     );
