@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@elsway-icons/core':
-        specifier: file:./vendor/elsway-icons-core
-        version: file:vendor/elsway-icons-core
-      '@elsway-icons/react':
-        specifier: file:./vendor/elsway-icons-react
-        version: file:vendor/elsway-icons-react(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -176,16 +170,6 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
-
-  '@elsway-icons/core@file:vendor/elsway-icons-core':
-    resolution: {directory: vendor/elsway-icons-core, type: directory}
-
-  '@elsway-icons/react@file:vendor/elsway-icons-react':
-    resolution: {directory: vendor/elsway-icons-react, type: directory}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '>= 16.8'
-      react-dom: '>= 16.8'
 
   '@emotion/babel-plugin@11.13.5':
     resolution: {integrity: sha512-pxHCpT2ex+0q+HH91/zsdHkw/lXd468DIN2zvfvLtPKLLMo6gQj7oLObq8PhkrxOZb/gGCq03S3Z7PDhS8pduQ==}
@@ -1231,13 +1215,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
-
-  '@elsway-icons/core@file:vendor/elsway-icons-core': {}
-
-  '@elsway-icons/react@file:vendor/elsway-icons-react(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
-    dependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
 
   '@emotion/babel-plugin@11.13.5':
     dependencies:
