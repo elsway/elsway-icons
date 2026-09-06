@@ -328,7 +328,7 @@
       <li><span class="num">2</span><p>Pick a <strong>brand</strong> from the sidebar dropdown — <code>Default</code>, <code>Cars24</code>, <code>CarInfo</code>, <code>TeamBHP</code>, <code>VehicleInfo</code>. Same 1,402 icons, five corner treatments.</p></li>
       <li><span class="num">3</span><p>Pick a <strong>weight</strong> (<code>Regular</code> outline or <code>Fill</code> solid) and drag the size slider at the top.</p></li>
       <li><span class="num">4</span><p>Search by name, or browse categories in the left rail — counts update live.</p></li>
-      <li><span class="num">5</span><p>Click any icon to open its detail panel. Copy the raw SVG, or grab a ready snippet from the React / Web / Vue / CDN / Elm / Swift tabs.</p></li>
+      <li><span class="num">5</span><p>Click any icon to open its detail panel. Copy the raw SVG, or grab a ready snippet from the Web / React / Vue / CDN / TTF / Swift tabs.</p></li>
     </ol>
 
     <div class="url-panel">
@@ -369,6 +369,37 @@
 &lt;<span class="tag">i</span> <span class="attr">class</span>=<span class="str">"ai ai-heart"</span> <span class="attr">style</span>=<span class="str">"color:#1a1a1a; font-size:32px"</span>&gt;&lt;/<span class="tag">i</span>&gt;</pre>
 
     <p class="lede" style="margin-top: 18px;">Color comes from <code>color</code>, size from <code>font-size</code> — ordinary CSS, no data attributes. Each file covers all 1,402 icons for that one brand+weight (~2–3.8 MB uncompressed, ~400–700 KB gzipped over the CDN). Under the hood each class is a CSS <code>mask-image</code>, not a real webfont — same feel, no font-building step. Requires <code>@v2</code> — these files postdate <code>@v1</code>.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Everything at once</p>
+    <h2>Download the whole library<span class="badge-new">4 formats</span></h2>
+    <p class="lede">The round button at the bottom-right of the site opens <b>Download library</b>.
+      Pick a brand, then a format. The archive is built in your browser — nothing is uploaded, and
+      nothing is generated on a server.</p>
+
+    <table class="ref">
+      <caption>What each format gives you</caption>
+      <thead><tr><th>Format</th><th>Contents</th><th>Reach for it when</th></tr></thead>
+      <tbody>
+        <tr><td><b>SVG</b></td><td>2,804 files in one flat folder</td><td>You want the source art</td></tr>
+        <tr><td><b>JSON</b></td><td>Names, categories, file paths, glyph names, codepoints</td><td>You are generating code or a picker UI</td></tr>
+        <tr><td><b>TTF</b></td><td><code>.ttf</code>, <code>.woff</code>, a CSS file and <code>codepoints.json</code></td><td>You want an icon font — see the next section</td></tr>
+        <tr><td><b>PNG</b></td><td>2,804 rasters at 128&nbsp;px, transparent</td><td>Somewhere that cannot take a vector</td></tr>
+      </tbody>
+    </table>
+
+    <p class="lede" style="margin-top: 22px;"><b>Every download carries both weights.</b> There is no
+      weight picker — regular and fill always ship together, and the file name says which is which:</p>
+
+    <pre class="code">svg/heart-regular.svg
+svg/heart-fill.svg
+svg/broken-heart-regular.svg
+svg/broken-heart-fill.svg</pre>
+
+    <p class="lede" style="margin-top: 18px;">The suffix is deliberate. It sorts both weights of an
+      icon next to each other, and it matches the glyph names inside the font — so
+      <code>heart-fill</code> means the same thing whether you consume the SVGs or the font.</p>
   </section>
 
   <section>
@@ -528,33 +559,59 @@ const src = computed(() =&gt; `${BASE}/${props.brand}/${props.weight}/${props.na
   </section>
 
   <section>
-    <p class="eyebrow">Elm</p>
-    <h2>A helper function</h2>
-    <p class="lede">No package needed — the icon is just an image node.</p>
+    <p class="eyebrow">Icon font</p>
+    <h2>Install one font, type any icon<span class="badge-new">both weights</span></h2>
+    <p class="lede">Every brand ships as a single font holding all 2,804 glyphs — both weights in the
+      one file, so a project installs one font rather than two. Download it from
+      <b>Download library → TTF</b>.</p>
 
-    <pre class="code">module Autonaut exposing (icon)
+    <table class="ref">
+      <caption>What is in the TTF download</caption>
+      <thead><tr><th>File</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td><code>autonaut-{brand}.ttf</code></td><td>The font — install it anywhere a font goes</td></tr>
+        <tr><td><code>autonaut-{brand}.woff</code></td><td>The same font, web-optimised</td></tr>
+        <tr><td><code>autonaut-{brand}.css</code></td><td><code>@font-face</code> plus a class per glyph</td></tr>
+        <tr><td><code>codepoints.json</code></td><td>Every glyph name mapped to its codepoint</td></tr>
+      </tbody>
+    </table>
 
-import Html exposing (Html, img)
-import Html.Attributes exposing (src, width, height, alt)
+    <p class="lede" style="margin-top: 24px;">On the web, link the CSS and use a class. The weight is
+      part of the class name, not a separate stylesheet:</p>
 
+    <pre class="code"><span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span> <span class="attr">href</span>=<span class="str">"autonaut-cars24.css"</span> /&gt;
 
-base : String
-base =
-    <span class="str">"https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/raw/elsway"</span>
+&lt;<span class="tag">i</span> <span class="attr">class</span>=<span class="str">"ai-heart-regular"</span>&gt;&lt;/<span class="tag">i</span>&gt;
+&lt;<span class="tag">i</span> <span class="attr">class</span>=<span class="str">"ai-heart-fill"</span> <span class="attr">style</span>=<span class="str">"color:#1a1a1a; font-size:32px"</span>&gt;&lt;/<span class="tag">i</span>&gt;</pre>
 
+    <p class="lede" style="margin-top: 18px;">Colour and size come from <code>color</code> and
+      <code>font-size</code>, exactly like a letter.</p>
 
-icon : String -&gt; String -&gt; String -&gt; Int -&gt; Html msg
-icon brand weight name size =
-    img
-        [ src (base ++ <span class="str">"/"</span> ++ brand ++ <span class="str">"/"</span> ++ weight ++ <span class="str">"/"</span> ++ name ++ <span class="str">".svg"</span>)
-        , width size
-        , height size
-        , alt <span class="str">""</span>
-        ]
-        []</pre>
+    <p class="lede" style="margin-top: 24px;">Anywhere that is not a browser — Figma, Sketch, native
+      apps, a design tool — install the <code>.ttf</code> and type the codepoint. Codepoints live in
+      the Private Use Area starting at <code>U+E900</code>; <code>codepoints.json</code> lists all of
+      them, and they mean the same icon in every brand:</p>
 
-    <p class="lede" style="margin-top: 24px;">Called as:</p>
-    <pre class="code">Autonaut.icon <span class="str">"cars24"</span> <span class="str">"fill"</span> <span class="str">"heart"</span> 32</pre>
+    <pre class="code">heart-regular  U+EBCD
+heart-fill     U+F147</pre>
+
+    <table class="ref" style="margin-top: 24px;">
+      <caption>Font size per brand</caption>
+      <thead><tr><th>Brand</th><th>TTF</th><th>WOFF</th></tr></thead>
+      <tbody>
+        <tr><td>Default</td><td>486&nbsp;KB</td><td>245&nbsp;KB</td></tr>
+        <tr><td>Cars24</td><td>715&nbsp;KB</td><td>323&nbsp;KB</td></tr>
+        <tr><td>CarInfo</td><td>698&nbsp;KB</td><td>319&nbsp;KB</td></tr>
+        <tr><td>TeamBHP</td><td>479&nbsp;KB</td><td>237&nbsp;KB</td></tr>
+        <tr><td>VehicleInfo</td><td>702&nbsp;KB</td><td>314&nbsp;KB</td></tr>
+      </tbody>
+    </table>
+
+    <p class="lede" style="margin-top: 22px;">Two things to know. The font CSS claims every class
+      starting <code>ai-</code>, so do not load it alongside the mask-based
+      <code>cars24-fill.css</code> stylesheet above — pick one approach per page. And a handful of
+      icons are drawn with strokes rather than filled shapes, which a font cannot represent; those
+      few glyphs are incomplete in the font only. The SVGs are always exact.</p>
   </section>
 
   <section>
@@ -595,7 +652,7 @@ icon brand weight name size =
         <tr><td>React</td><td><code>&lt;img&gt;</code>, or CSS mask to inherit colour</td><td>none</td></tr>
         <tr><td>React Native</td><td><code>SvgUri</code></td><td>react-native-svg</td></tr>
         <tr><td>Vue 3</td><td><code>&lt;img :src&gt;</code></td><td>none</td></tr>
-        <tr><td>Elm</td><td><code>Html.img</code></td><td>none</td></tr>
+        <tr><td>Figma · native · anywhere</td><td>install the <code>.ttf</code>, type the codepoint</td><td>none</td></tr>
         <tr><td>SwiftUI</td><td>asset catalog, template image</td><td>none (bundled)</td></tr>
       </tbody>
     </table>
