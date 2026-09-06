@@ -15,7 +15,7 @@ import ReactGA from "react-ga4";
 import Tabs, { Tab } from "@/components/Tabs";
 import { useMediaQuery, useTransientState, useSessionStorage } from "@/hooks";
 import { SnippetType } from "@/lib";
-import { useApplicationStore, type IconBrand } from "@/state";
+import { useApplicationStore } from "@/state";
 import { getCodeSnippets } from "@/utils";
 import { useAuth } from "@/lib/github";
 
@@ -41,14 +41,6 @@ const RENDERED_SNIPPETS = [
   SnippetType.CDN,
   SnippetType.TTF,
   SnippetType.SWIFT,
-];
-
-const PANEL_BRANDS: { value: IconBrand; label: string }[] = [
-  { value: "default", label: "Default" },
-  { value: "cars24", label: "Cars24" },
-  { value: "teambhp", label: "TeamBHP" },
-  { value: "carinfo", label: "CarInfo" },
-  { value: "vehicleinfo", label: "VehicleInfo" },
 ];
 
 enum CopyType {
@@ -104,7 +96,6 @@ const Panel = () => {
     selectionEntry: entry,
     setSelectionEntry,
     iconBrand: brand,
-    setIconBrand,
   } = useApplicationStore();
   const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
   const elswaySrc = entry
@@ -344,23 +335,11 @@ const Panel = () => {
               />
               <figcaption>
                 <p>{entry.name}</p>
-                <label className="panel-brand">
-                  <span className="sr-only">Brand</span>
-                  <select
-                    value={brand}
-                    onChange={(e) =>
-                      setIconBrand(e.currentTarget.value as IconBrand)
-                    }
-                  >
-                    {PANEL_BRANDS.map((b) => (
-                      <option key={b.value} value={b.value}>
-                        {b.label}
-                      </option>
-                    ))}
-                  </select>
-                  <i className="ai-fill ai-chevron-bottom" aria-hidden />
-                </label>
-                <small className="versioning">{weightFolder}</small>
+                <small className="versioning">
+                  {brand}
+                  <span aria-hidden>•</span>
+                  {weightFolder}
+                </small>
               </figcaption>
             </figure>
             <hr />

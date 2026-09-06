@@ -138,3 +138,42 @@
   cursor: pointer;
 }
 .dl-foot button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.dl-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(0 0 0 / 50%);
+}
+.dl-brand-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.dl-brand select {
+  appearance: none;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ink);
+  background: rgb(0 0 0 / 5%);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 34px 10px 14px;
+  min-width: 180px;
+  cursor: pointer;
+}
+.dl-brand select:hover:not(:disabled) { background: rgb(0 0 0 / 8%); }
+.dl-brand select:disabled { opacity: 0.5; cursor: not-allowed; }
+.dl-brand i {
+  position: absolute;
+  right: 12px;
+  font-size: 14px;
+  color: rgb(0 0 0 / 55%);
+  pointer-events: none;
+}

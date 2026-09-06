@@ -32,7 +32,7 @@ const Notice = ({
               height={1348}
             />
           )}
-          <p>{message}</p>
+          <div className="notice-message">{message}</div>
           {children}
         </div>
       </motion.div>

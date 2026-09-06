@@ -152,6 +152,10 @@
   display: block;
 }
 
+.notice-message p {
+  margin: 0;
+}
+
 .empty-list-box p {
   margin-bottom: 0;
 }
@@ -307,33 +311,6 @@ figcaption > p {
   font-size: 28px;
 }
 
-/* Brand switcher inside the detail sheet */
-.panel-brand {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 2px;
-}
-.panel-brand select {
-  appearance: none;
-  font-family: inherit;
-  font-size: 12px;
-  color: var(--foreground);
-  background: rgb(0 0 0 / 5%);
-  border: 1px solid transparent;
-  border-radius: 6px;
-  padding: 3px 24px 3px 8px;
-  cursor: pointer;
-}
-.panel-brand select:hover { background: rgb(0 0 0 / 8%); }
-.panel-brand i {
-  position: absolute;
-  right: 7px;
-  font-size: 12px;
-  color: rgb(0 0 0 / 55%);
-  pointer-events: none;
-}
 
 /* Close sits in the sheet's top-right corner, not on the panel */
 .panel-close {

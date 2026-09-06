@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
-import { icons, useApplicationStore } from "@/state";
+import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { iconUrl } from "@/lib/github";
 import { IconStyle } from "@/lib/types";
 import codepoints from "../../../public/font/codepoints.json";
@@ -15,6 +16,14 @@ const FORMATS: { id: Format; label: string; blurb: string }[] = [
   { id: "json", label: "JSON", blurb: "Names, categories and font codepoints" },
   { id: "ttf", label: "TTF", blurb: "Both weights in one font, plus CSS" },
   { id: "png", label: "PNG", blurb: "Rasterised at 128px, transparent" },
+];
+
+const BRANDS: { value: IconBrand; label: string }[] = [
+  { value: "default", label: "Default" },
+  { value: "cars24", label: "Cars24" },
+  { value: "teambhp", label: "TeamBHP" },
+  { value: "carinfo", label: "CarInfo" },
+  { value: "vehicleinfo", label: "VehicleInfo" },
 ];
 
 const PNG_SIZE = 128;
@@ -72,8 +81,9 @@ const DownloadLibrary: React.FC<Props> = ({
   onOpen,
   ...rest
 }) => {
-  const brand = useApplicationStore.use.iconBrand();
+  const gridBrand = useApplicationStore.use.iconBrand();
   const weight = useApplicationStore.use.iconWeight();
+  const [brand, setBrand] = useState<IconBrand>(gridBrand);
   const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
 
   const [open, setOpen] = useState(false);
@@ -190,6 +200,7 @@ const DownloadLibrary: React.FC<Props> = ({
         className={className ?? "download-library-btn"}
         onClick={() => {
           onOpen?.();
+          setBrand(gridBrand);
           setOpen(true);
         }}
         {...rest}
@@ -202,59 +213,81 @@ const DownloadLibrary: React.FC<Props> = ({
         )}
       </button>
 
-      {open && (
-        <div
-          className="dl-scrim"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Download the icon library"
-          onClick={close}
-        >
-          <div className="dl-sheet" onClick={(e) => e.stopPropagation()}>
-            <header className="dl-head">
-              <h2>Download library</h2>
-              <p>
-                {total.toLocaleString()} icons · {brand} · {weightFolder}
-              </p>
-            </header>
+      {open &&
+        createPortal(
+            <div
+              className="dl-scrim"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Download the icon library"
+            onClick={close}
+          >
+            <div className="dl-sheet" onClick={(e) => e.stopPropagation()}>
+              <header className="dl-head">
+                <h2>Download library</h2>
+                <p>
+                  {total.toLocaleString()} icons · {weightFolder}
+                </p>
+              </header>
 
-            <div className="dl-formats">
-              {FORMATS.map((f) => (
-                <button
-                  key={f.id}
-                  type="button"
-                  className="dl-format"
-                  disabled={!!busy}
-                  onClick={() => build(f.id)}
-                >
-                  <span className="dl-format-label">{f.label}</span>
-                  <span className="dl-format-blurb">{f.blurb}</span>
-                  {busy === f.id && (
-                    <span className="dl-progress">
-                      {progress
-                        ? `${Math.round((progress / total) * 100)}%`
-                        : "starting…"}
-                    </span>
-                  )}
+              <label className="dl-brand">
+                <span>Brand</span>
+                <span className="dl-brand-control">
+                  <select
+                    value={brand}
+                    disabled={!!busy}
+                    onChange={(e) =>
+                      setBrand(e.currentTarget.value as IconBrand)
+                    }
+                  >
+                    {BRANDS.map((b) => (
+                      <option key={b.value} value={b.value}>
+                        {b.label}
+                      </option>
+                    ))}
+                  </select>
+                  <i className="ai-fill ai-chevron-bottom" aria-hidden />
+                </span>
+              </label>
+
+              <div className="dl-formats">
+                {FORMATS.map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    className="dl-format"
+                    disabled={!!busy}
+                    onClick={() => build(f.id)}
+                  >
+                    <span className="dl-format-label">{f.label}</span>
+                    <span className="dl-format-blurb">{f.blurb}</span>
+                    {busy === f.id && (
+                      <span className="dl-progress">
+                        {progress
+                          ? `${Math.round((progress / total) * 100)}%`
+                          : "starting…"}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {error && <p className="dl-error">{error}</p>}
+
+              <footer className="dl-foot">
+                <span>
+                  {busy
+                    ? "Building the archive — this runs in your browser."
+                    : "Weight follows the toolbar; brand is set here."}
+                </span>
+                <button type="button" onClick={close} disabled={!!busy}>
+                  Close
                 </button>
-              ))}
+              </footer>
             </div>
-
-            {error && <p className="dl-error">{error}</p>}
-
-            <footer className="dl-foot">
-              <span>
-                {busy
-                  ? "Building the archive — this runs in your browser."
-                  : "Switch brand or weight first to change what you get."}
-              </span>
-              <button type="button" onClick={close} disabled={!!busy}>
-                Close
-              </button>
-            </footer>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </>
   );
 };
