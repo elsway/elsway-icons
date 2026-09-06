@@ -101,8 +101,6 @@ const FabMenu: React.FC = () => {
           className="fab-item"
           data-fab-item
           href={guideUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           onClick={() => close(false)}
         >
           <i className="ai-fill ai-book" aria-hidden />
