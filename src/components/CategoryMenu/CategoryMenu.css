@@ -448,20 +448,54 @@
 .mobile-icon-btn i { font-size: 20px; }
 
 .mobile-bar-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 8px;
   align-items: center;
 }
-/* Both controls own their half of the row. */
-.mobile-bar-row .brand-select-control,
-.mobile-bar-row .react-dropdown-select {
-  width: 100% !important;
+
+/* Brand takes the space the weight control does not need, and scrolls
+   inside it. min-width:0 so the strip cannot widen the row. */
+.brand-segments {
+  flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
 }
-.mobile-bar-row .brand-select-trigger {
-  padding: 0 12px 0 16px;
+.brand-segments::-webkit-scrollbar { display: none; }
+
+.segment-btn {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--control-fill);
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.segment-btn:hover { background: var(--control-fill-hover); }
+.segment-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--control-ring);
+}
+.segment-btn.is-selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* The weight control keeps its natural size beside the strip. */
+.mobile-bar-row .react-dropdown-select {
+  flex: 0 0 auto;
+  width: 140px !important;
 }
 .mobile-bar-row .react-dropdown-select {
-  padding: 0 12px 0 16px !important;
+  padding: 0 10px 0 14px !important;
 }

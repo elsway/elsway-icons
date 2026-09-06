@@ -193,6 +193,30 @@ const CategoryPicker: React.FC<{
 };
 
 /**
+ * Brand as a segmented strip rather than a dropdown: five options is few
+ * enough to show, and picking one costs a single tap instead of two. It
+ * scrolls horizontally because the names do not fit the row at once.
+ */
+const BrandSegments: React.FC<{
+  value: IconBrand;
+  onChange: (v: IconBrand) => void;
+}> = ({ value, onChange }) => (
+  <div className="brand-segments" role="group" aria-label="Brand">
+    {BRAND_OPTIONS.map((o) => (
+      <button
+        key={o.value}
+        type="button"
+        className={`segment-btn ${o.value === value ? "is-selected" : ""}`}
+        aria-pressed={o.value === value}
+        onClick={() => onChange(o.value)}
+      >
+        {o.key}
+      </button>
+    ))}
+  </div>
+);
+
+/**
  * Mobile top bar. Search sits beside the wordmark and takes the whole row
  * when opened, which is the only way to fit a usable field at this width.
  * Search and category share one store field, so closing search resets the
@@ -255,7 +279,7 @@ const MobileBar: React.FC<{
       </div>
 
       <div className="mobile-bar-row">
-        <BrandDropdown value={brand} onChange={setBrand} />
+        <BrandSegments value={brand} onChange={setBrand} />
         <StyleInput />
       </div>
     </div>
