@@ -31,7 +31,6 @@
   --control-font: 16px;
   --control-fill: rgb(0 0 0 / 5%);
   --control-fill-hover: rgb(0 0 0 / 8%);
-  --control-fill-selected: rgb(0 0 0 / 16%);
   /* Focus keeps the resting tint and adds a ring. A control that flashed
      white on focus read as a state change rather than a focus cue. */
   --control-fill-focus: var(--control-fill);

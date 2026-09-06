@@ -100,13 +100,10 @@
   color: var(--foreground);
   cursor: pointer;
 }
-/* Two greys, one step apart: the lighter is where the cursor is, the darker
-   is what is chosen. Both stay grey so neither shouts over the list. */
-.dropdown-option.is-active {
-  background-color: var(--control-fill-hover);
-}
+/* Light grey for both the cursor and the chosen option. */
+.dropdown-option.is-active,
 .dropdown-option.is-selected {
-  background-color: var(--control-fill-selected);
+  background-color: var(--control-fill-hover);
   color: var(--foreground);
 }
 
