@@ -1,7 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
+import { useMediaQuery } from "@/hooks";
+import SearchInput from "@/components/SearchInput";
+import StyleInput from "@/components/StyleInput";
 import "./CategoryMenu.css";
+
+/** Matches the mobile band in the stylesheets. */
+const MOBILE = "(max-width: 560px)";
 
 type BrandOption = { key: string; value: IconBrand };
 
@@ -186,11 +192,82 @@ const CategoryPicker: React.FC<{
   );
 };
 
+/**
+ * Mobile top bar. Search sits beside the wordmark and takes the whole row
+ * when opened, which is the only way to fit a usable field at this width.
+ * Search and category share one store field, so closing search resets the
+ * grid to All rather than leaving an invisible filter applied.
+ */
+const MobileBar: React.FC<{
+  brand: IconBrand;
+  setBrand: (v: IconBrand) => void;
+  onReset: () => void;
+}> = ({ brand, setBrand, onReset }) => {
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    if (!searching) return;
+    document.getElementById("search-input")?.focus();
+  }, [searching]);
+
+  return (
+    <div className="mobile-bar">
+      <div className="mobile-bar-top">
+        {searching ? (
+          <>
+            <SearchInput />
+            <button
+              type="button"
+              className="mobile-icon-btn"
+              aria-label="Close search"
+              onClick={() => {
+                onReset();
+                setSearching(false);
+              }}
+            >
+              <i className="ai ai-cross-small" aria-hidden />
+            </button>
+          </>
+        ) : (
+          <>
+            <h1
+              className="brand"
+              role="button"
+              tabIndex={0}
+              onClick={() => window.location.reload()}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") window.location.reload();
+              }}
+            >
+              Autonaut Icons
+            </h1>
+            <button
+              type="button"
+              className="mobile-icon-btn"
+              aria-label="Search"
+              aria-expanded={false}
+              onClick={() => setSearching(true)}
+            >
+              <i className="ai ai-quick-search" aria-hidden />
+            </button>
+          </>
+        )}
+      </div>
+
+      <div className="mobile-bar-row">
+        <BrandDropdown value={brand} onChange={setBrand} />
+        <StyleInput />
+      </div>
+    </div>
+  );
+};
+
 const CategoryMenu: React.FC = () => {
   const setSearchQuery = useApplicationStore.use.setSearchQuery();
   const current = useApplicationStore.use.searchQuery();
   const brand = useApplicationStore.use.iconBrand();
   const setBrand = useApplicationStore.use.setIconBrand();
+  const isMobile = useMediaQuery(MOBILE);
 
   const { CATEGORIES, categoryCounts } = useMemo(() => {
     const map: Record<string, number> = {};
@@ -220,22 +297,32 @@ const CategoryMenu: React.FC = () => {
 
   return (
     <nav className="category-menu" aria-label="Icon library">
-      <h1
-        className="brand"
-        role="button"
-        tabIndex={0}
-        onClick={() => window.location.reload()}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") window.location.reload();
-        }}
-      >
-        Autonaut Icons
-      </h1>
+      {isMobile ? (
+        <MobileBar
+          brand={brand}
+          setBrand={setBrand}
+          onReset={() => setSearchQuery("")}
+        />
+      ) : (
+        <>
+          <h1
+            className="brand"
+            role="button"
+            tabIndex={0}
+            onClick={() => window.location.reload()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") window.location.reload();
+            }}
+          >
+            Autonaut Icons
+          </h1>
 
-      <div className="brand-select-wrap" aria-label="Brand">
-        <span className="brand-select-label">Brand</span>
-        <BrandDropdown value={brand} onChange={setBrand} />
-      </div>
+          <div className="brand-select-wrap" aria-label="Brand">
+            <span className="brand-select-label">Brand</span>
+            <BrandDropdown value={brand} onChange={setBrand} />
+          </div>
+        </>
+      )}
 
       <CategoryPicker
         categories={pickerCategories}

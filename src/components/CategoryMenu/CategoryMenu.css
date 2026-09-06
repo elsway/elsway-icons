@@ -386,3 +386,82 @@
     padding: 0 0 12px;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Mobile top bar: wordmark + search trigger on one row, brand + weight on the
+   next. Opening search takes the whole first row, which is the only way to
+   fit a usable field at this width.
+--------------------------------------------------------------------------- */
+.mobile-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-bar-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--control-h);
+}
+
+.mobile-bar-top .brand {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Search fills the row once open; the wordmark is unmounted, not hidden. */
+.mobile-bar-top .search-bar {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* The field's own clear sat next to the close button, giving the row two
+   adjacent crosses. Closing already clears, so one cross does both jobs.
+   The pending indicator stays -- it reports state, it is not an action. */
+.mobile-bar-top .clear-icon {
+  display: none;
+}
+
+.mobile-icon-btn {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--control-radius);
+  border: 1px solid transparent;
+  background: var(--control-fill);
+  color: var(--foreground);
+  cursor: pointer;
+}
+.mobile-icon-btn:hover { background: var(--control-fill-hover); }
+.mobile-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--control-ring);
+}
+.mobile-icon-btn i { font-size: 20px; }
+
+.mobile-bar-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+}
+/* Both controls own their half of the row. */
+.mobile-bar-row .brand-select-control,
+.mobile-bar-row .react-dropdown-select {
+  width: 100% !important;
+  min-width: 0;
+}
+.mobile-bar-row .brand-select-trigger {
+  padding: 0 12px 0 16px;
+}
+.mobile-bar-row .react-dropdown-select {
+  padding: 0 12px 0 16px !important;
+}
