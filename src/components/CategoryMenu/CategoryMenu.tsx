@@ -4,6 +4,7 @@ import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { useMediaQuery } from "@/hooks";
 import SearchInput from "@/components/SearchInput";
 import StyleInput from "@/components/StyleInput";
+import logoUrl from "@/assets/autonaut-logo.svg";
 import "./CategoryMenu.css";
 
 /** Matches the mobile band in the stylesheets. */
@@ -263,7 +264,7 @@ const MobileBar: React.FC<{
                 if (e.key === "Enter" || e.key === " ") window.location.reload();
               }}
             >
-              Autonaut Icons
+              <img src={logoUrl} alt="Autonaut Icons" className="brand-logo" />
             </h1>
             <button
               type="button"
@@ -347,7 +348,7 @@ const CategoryMenu: React.FC = () => {
               if (e.key === "Enter" || e.key === " ") window.location.reload();
             }}
           >
-            Autonaut Icons
+            <img src={logoUrl} alt="Autonaut Icons" className="brand-logo" />
           </h1>
 
           <div className="brand-select-wrap" aria-label="Brand">

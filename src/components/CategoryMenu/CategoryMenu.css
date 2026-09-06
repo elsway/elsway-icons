@@ -101,6 +101,20 @@
   cursor: pointer;
 }
 
+/* The wordmark is now an image; the h1 is just its box. The mark is a
+   two-line lockup, so it needs real height to stay legible -- 28px left the
+   second line too small to read. */
+.brand-logo {
+  display: block;
+  height: 38px;
+  width: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 560px) {
+  .brand-logo { height: 32px; }
+}
+
 .category-menu .brand:hover {
   opacity: 0.7;
 }
@@ -402,12 +416,15 @@
 .mobile-bar-top {
   display: flex;
   align-items: center;
+  /* The mark no longer stretches, so this keeps search pinned right. */
+  justify-content: space-between;
   gap: 8px;
   min-height: var(--control-h);
 }
 
 .mobile-bar-top .brand {
-  flex: 1 1 auto;
+  /* Sized by the mark, not stretched: the search button keeps the right. */
+  flex: 0 1 auto;
   min-width: 0;
   margin: 0;
   overflow: hidden;
