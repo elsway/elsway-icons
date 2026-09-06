@@ -4,7 +4,7 @@ import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { useMediaQuery } from "@/hooks";
 import SearchInput from "@/components/SearchInput";
 import StyleInput from "@/components/StyleInput";
-import logoUrl from "@/assets/autonaut-logo.svg";
+import logoUrl from "@/assets/autonaut-logo.png";
 import "./CategoryMenu.css";
 
 /** Matches the mobile band in the stylesheets. */
