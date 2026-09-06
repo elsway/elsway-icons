@@ -13,22 +13,12 @@ const ELSWAY_NAMES = new Set<string>(elswayManifest as string[]);
 import elswayCategoriesRaw from "../../public/raw/elsway/categories.json";
 const elswayCategories = elswayCategoriesRaw as Record<string, string[]>;
 
-function toPascal(name: string): string {
-  return name
-    .split(/[-_ ]+/)
-    .map((p) => (p ? p[0].toUpperCase() + p.slice(1) : ""))
-    .join("");
-}
-
-let CODEPOINT_SEED = 0xe000;
 function synthEntry(name: string): IconEntry {
   const cats = elswayCategories[name] || [];
   return {
     name,
-    pascal_name: toPascal(name),
     categories: cats,
     tags: [],
-    codepoint: CODEPOINT_SEED++,
   };
 }
 
@@ -78,7 +68,7 @@ export interface ApplicationState extends ApplicationFields {
 }
 
 const fuse = new Fuse(icons, {
-  keys: [{ name: "name", weight: 4 }, "tags", "categories", "codepoint"],
+  keys: [{ name: "name", weight: 4 }, "tags", "categories"],
   threshold: 0.2,
   useExtendedSearch: true,
 });

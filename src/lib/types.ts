@@ -14,8 +14,6 @@ export enum IconStyle {
 /** One row of `public/raw/elsway/manifest.json`, as the UI consumes it. */
 export interface IconEntry {
   name: string;
-  pascal_name: string;
   categories: readonly string[];
   tags: readonly string[];
-  codepoint: number;
 }

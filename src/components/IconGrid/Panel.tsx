@@ -48,7 +48,6 @@ enum CopyType {
   SVG_DATA,
   PNG,
   PNG_DATA,
-  UNICODE,
 }
 
 function cloneWithSize(svg: SVGSVGElement, size: number): SVGSVGElement {
@@ -120,7 +119,6 @@ const Panel = () => {
     if (!entry) return [{}, []];
 
     const snippets = getCodeSnippets({
-      displayName: entry?.pascal_name!,
       name: entry.name,
       brand,
       weight,
@@ -229,14 +227,6 @@ const Panel = () => {
     const fullName = `${entry.name}-${brand}-${weightFolder}`;
     navigator.clipboard?.writeText(`<!-- ${fullName} -->\n${content}`);
     setCopied(CopyType.SVG_RAW);
-  };
-
-  const handleCopyUnicode = async () => {
-    if (!entry) return;
-
-    const content = String.fromCharCode(entry.codepoint);
-    navigator.clipboard?.writeText(content);
-    setCopied(CopyType.UNICODE);
   };
 
   const handleDownloadSVG = async (
@@ -393,13 +383,6 @@ const Panel = () => {
                       title="Copy SVG as DataURL"
                       active={copied === CopyType.SVG_DATA}
                       onClick={handleCopyDataSVG}
-                    />
-
-                    <ActionButton
-                      label="Unicode"
-                      title="Copy Unicode character (v2.1.0 or newer)"
-                      active={copied === CopyType.UNICODE}
-                      onClick={handleCopyUnicode}
                     />
                   </>
                 )}

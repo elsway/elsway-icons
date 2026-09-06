@@ -3,62 +3,66 @@ import TinyColor from "tinycolor2";
 
 import { SnippetType } from "@/lib";
 
-function u8ToCGFloatStr(value: number): string {
-  return (value / 255).toLocaleString("en-US", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 4,
-  });
-}
-
 const CDN_TAG = "v2";
 
+/**
+ * Snippets for the detail panel. Every framework resolves the same CDN SVG
+ * URL — there is no npm package, so nothing here may imply one. These mirror
+ * the integration guide at /guide.html.
+ */
 export function getCodeSnippets({
   name,
-  displayName,
   brand,
   weight,
   size,
   color,
 }: {
   name: string;
-  displayName: string;
   brand: string;
   weight: IconStyle;
   size: number;
   color: string;
 }): Record<SnippetType, string> {
-  const isDefaultWeight = weight === "regular";
+  const isDefaultWeight = weight === IconStyle.REGULAR;
   const isDefaultColor = color === "#000000";
-  const camelName = displayName.replace(/^\w/, (c) => c.toLowerCase());
   const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
-  const { r, g, b } = TinyColor(color).toRgb();
+  const url = `https://cdn.jsdelivr.net/gh/elsway/elsway-icons@${CDN_TAG}/public/raw/elsway/${brand}/${weightFolder}/${name}.svg`;
+
+  // Only non-default values are worth spelling out in a copied snippet.
+  const attr = (k: string, v: string, skip: boolean) =>
+    skip ? "" : ` ${k}="${v}"`;
 
   return {
     [SnippetType.HTML]: `<i class="ai${
       isDefaultWeight ? "" : `-${weight}`
     } ai-${name}"></i>`,
-    [SnippetType.REACT]: `<${displayName}Icon size={${size}} ${
-      !isDefaultColor ? `color="${color}" ` : ""
-    }${isDefaultWeight ? "" : `weight="${weight}" `}/>`,
-    [SnippetType.VUE]: `<Ph${displayName} :size="${size}" ${
-      !isDefaultColor ? `color="${color}" ` : ""
-    }${isDefaultWeight ? "" : `weight="${weight}" `}/>`,
-    [SnippetType.CDN]: `https://cdn.jsdelivr.net/gh/elsway/elsway-icons@${CDN_TAG}/public/raw/elsway/${brand}/${weightFolder}/${name}.svg`,
-    [SnippetType.ELM]: `Elsway.${camelName}${
-      isDefaultWeight ? "" : " " + weight.replace(/^\w/, (c) => c.toUpperCase())
-    }
-    |> withSize ${size}
-    |> withSizeUnit "px"
-    |> toHtml []`,
-    [SnippetType.SWIFT]: `Ph.${camelName}.${weight}${
-      !isDefaultColor
-        ? `\n    .color(red: ${u8ToCGFloatStr(r)}, green: ${u8ToCGFloatStr(
-            g
-          )}, blue: ${u8ToCGFloatStr(b)})`
-        : ""
-    }
-    .frame(width: ${size}, height: ${size})
-    `,
+
+    [SnippetType.REACT]: `<Icon name="${name}"${attr(
+      "brand",
+      brand,
+      brand === "default"
+    )}${attr("weight", weight, isDefaultWeight)} size={${size}}${
+      isDefaultColor ? "" : ` color="${color}"`
+    } />`,
+
+    [SnippetType.VUE]: `<Icon name="${name}"${attr(
+      "brand",
+      brand,
+      brand === "default"
+    )}${attr("weight", weight, isDefaultWeight)} :size="${size}"${
+      isDefaultColor ? "" : ` color="${color}"`
+    } />`,
+
+    [SnippetType.CDN]: url,
+
+    [SnippetType.ELM]: `Autonaut.icon "${brand}" "${weightFolder}" "${name}" ${size}`,
+
+    [SnippetType.SWIFT]: `Image("${name}")
+    .renderingMode(.template)
+    .resizable()
+    .frame(width: ${size}, height: ${size})${
+      isDefaultColor ? "" : `\n    .foregroundStyle(Color(hex: "${color}"))`
+    }`,
   };
 }
 
