@@ -7,6 +7,7 @@ import { IconStyle } from "@/lib/types";
 import { type IconEntry } from "@/lib";
 import { parseColor, parseQuery, parseSize, parseWeight } from "@/utils";
 import elswayManifest from "../../public/raw/elsway/manifest.json";
+import iconCodepoints from "../../public/font/codepoints.json";
 
 const ELSWAY_NAMES = new Set<string>(elswayManifest as string[]);
 
@@ -19,6 +20,7 @@ function synthEntry(name: string): IconEntry {
     name,
     categories: cats,
     tags: [],
+    codepoint: (iconCodepoints as Record<string, number>)[name] ?? 0,
   };
 }
 

@@ -38,7 +38,7 @@ const RENDERED_SNIPPETS = [
   SnippetType.HTML,
   SnippetType.VUE,
   SnippetType.CDN,
-  SnippetType.ELM,
+  SnippetType.TTF,
   SnippetType.SWIFT,
 ];
 
@@ -48,6 +48,7 @@ enum CopyType {
   SVG_DATA,
   PNG,
   PNG_DATA,
+  UNICODE,
 }
 
 function cloneWithSize(svg: SVGSVGElement, size: number): SVGSVGElement {
@@ -229,6 +230,13 @@ const Panel = () => {
     setCopied(CopyType.SVG_RAW);
   };
 
+  const handleCopyUnicode = async () => {
+    if (!entry) return;
+    // Real font codepoint — see scripts/generate-fonts.mjs.
+    navigator.clipboard?.writeText(String.fromCodePoint(entry.codepoint));
+    setCopied(CopyType.UNICODE);
+  };
+
   const handleDownloadSVG = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -383,6 +391,13 @@ const Panel = () => {
                       title="Copy SVG as DataURL"
                       active={copied === CopyType.SVG_DATA}
                       onClick={handleCopyDataSVG}
+                    />
+
+                    <ActionButton
+                      label="Glyph"
+                      title="Copy the icon font character"
+                      active={copied === CopyType.UNICODE}
+                      onClick={handleCopyUnicode}
                     />
                   </>
                 )}

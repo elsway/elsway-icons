@@ -16,4 +16,6 @@ export interface IconEntry {
   name: string;
   categories: readonly string[];
   tags: readonly string[];
+  /** Stable font codepoint, from public/font/codepoints.json. */
+  codepoint: number;
 }

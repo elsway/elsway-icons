@@ -55,7 +55,14 @@ export function getCodeSnippets({
 
     [SnippetType.CDN]: url,
 
-    [SnippetType.ELM]: `Autonaut.icon "${brand}" "${weightFolder}" "${name}" ${size}`,
+    [SnippetType.TTF]: `/* once per project */
+@font-face {
+  font-family: "autonaut-${brand}-${weightFolder}";
+  src: url("autonaut-${brand}-${weightFolder}.woff") format("woff");
+}
+
+/* then, anywhere */
+<i class="ai-${name}"></i>`,
 
     [SnippetType.SWIFT]: `Image("${name}")
     .renderingMode(.template)

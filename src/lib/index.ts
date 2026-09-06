@@ -5,6 +5,6 @@ export enum SnippetType {
   VUE = "Vue",
   HTML = "Web",
   CDN = "CDN",
-  ELM = "Elm",
+  TTF = "Font",
   SWIFT = "Swift",
 }

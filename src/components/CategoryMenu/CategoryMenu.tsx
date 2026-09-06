@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { useAuth } from "@/lib/github";
+import DownloadLibrary from "@/components/DownloadLibrary";
 import "./CategoryMenu.css";
 
 type BrandOption = { key: string; value: IconBrand };
@@ -147,6 +148,7 @@ const CategoryMenu: React.FC = () => {
         </ul>
       </div>
 
+      <DownloadLibrary />
       <SidebarFooter />
     </nav>
   );
