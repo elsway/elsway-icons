@@ -137,11 +137,8 @@ const CategoryPicker: React.FC<{
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <span>{selected.label}</span>
-        <span className="category-picker-meta">
-          <span className="cat-count">{fmt(selected.count)}</span>
-          <i className="ai-fill ai-chevron-bottom brand-select-caret" aria-hidden />
-        </span>
+        <span className="category-picker-value">{selected.label}</span>
+        <i className="ai-fill ai-chevron-bottom brand-select-caret" aria-hidden />
       </button>
 
       {open &&

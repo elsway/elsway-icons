@@ -195,8 +195,14 @@ button:focus-visible {
 .two-col-shell {
   display: grid;
   grid-template-columns: 260px 1fr;
+  /* dvh tracks the viewport as mobile browser chrome shows and hides; with
+     plain vh the shell is taller than what is on screen, so the bottom of
+     the grid's scrollport sits under the URL bar and the grid reads as
+     unscrollable. The vh line stays as the fallback. */
   grid-template-rows: 100vh;
   height: 100vh;
+  grid-template-rows: 100dvh;
+  height: 100dvh;
   box-sizing: border-box;
   /* gap: 12px; */
   padding: 0;
@@ -216,6 +222,10 @@ button:focus-visible {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  /* Keep the gesture in the grid instead of chaining to the document. */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   padding: 16px 16px 40px;
 }
 

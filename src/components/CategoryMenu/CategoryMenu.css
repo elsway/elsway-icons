@@ -271,10 +271,11 @@
 .category-picker-trigger {
   width: 100%;
 }
-.category-picker-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+/* The label can be long; the caret must not be pushed off. */
+.category-picker-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Full-screen category sheet. */
@@ -456,19 +457,18 @@
 /* Brand owns a full row of its own -- sharing with the weight control left
    only two segments visible. min-width:0 so the strip scrolls instead of
    widening its parent. */
+/* Wraps rather than scrolls: a scrolling strip cut the last brand in half,
+   and a half-visible option is one people do not know is there. All five
+   stay whole, on two rows if that is what it takes. */
 .brand-segments {
   min-width: 0;
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-snap-type: x proximity;
 }
-.brand-segments::-webkit-scrollbar { display: none; }
 
 .segment-btn {
   flex: 0 0 auto;
-  scroll-snap-align: start;
   min-height: 44px;
   padding: 0 14px;
   border-radius: 999px;
@@ -491,14 +491,15 @@
   color: #fff;
 }
 
-/* Category takes the row; weight keeps its natural size beside it. */
-.mobile-bar-row .category-picker {
-  flex: 1 1 auto;
-  min-width: 0;
+/* Equal halves. */
+.mobile-bar-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
+.mobile-bar-row .category-picker,
 .mobile-bar-row .react-dropdown-select {
-  flex: 0 0 auto;
-  width: 140px !important;
+  min-width: 0;
+  width: 100% !important;
 }
 .mobile-bar-row .react-dropdown-select {
   padding: 0 10px 0 14px !important;

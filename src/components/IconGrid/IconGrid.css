@@ -43,8 +43,10 @@
   flex-shrink: 0;
 }
 
-.grid-item:hover {
-  background-color: var(--background-layer);
+@media (hover: hover) {
+  .grid-item:hover {
+    background-color: var(--background-layer);
+  }
 }
 
 .grid-item:focus-visible {
