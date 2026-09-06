@@ -111,12 +111,12 @@
   --ai-icon: var(--ai-fill-quick-search);
 }
 
-.ai-write-1 {
-  --ai-icon: var(--ai-regular-write-1);
+.ai-push {
+  --ai-icon: var(--ai-regular-push);
 }
 
-.ai-fill.ai-write-1 {
-  --ai-icon: var(--ai-fill-write-1);
+.ai-fill.ai-push {
+  --ai-icon: var(--ai-fill-push);
 }
 
 .ai-shield-keyhole {

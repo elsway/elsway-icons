@@ -18,10 +18,10 @@ const AI_ICONS = [
   "cloud-download",
   "cross-small",
   "hourglass",
+  "push",
   "quick-search",
   "shield-keyhole",
   "square-behind-square-6",
-  "write-1",
 ] as const;
 
 const WEIGHTS: Weight[] = ["regular", "fill"];

@@ -8,12 +8,12 @@ const options: DropdownOption<IconStyle>[] = [
   {
     value: IconStyle.REGULAR,
     label: "Regular",
-    icon: <i className="ai ai-write-1" aria-hidden />,
+    icon: <i className="ai ai-push" aria-hidden />,
   },
   {
     value: IconStyle.FILL,
     label: "Fill",
-    icon: <i className="ai-fill ai-write-1" aria-hidden />,
+    icon: <i className="ai-fill ai-push" aria-hidden />,
   },
 ];
 
