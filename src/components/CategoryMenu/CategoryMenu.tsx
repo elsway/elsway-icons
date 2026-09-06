@@ -226,7 +226,10 @@ const MobileBar: React.FC<{
   brand: IconBrand;
   setBrand: (v: IconBrand) => void;
   onReset: () => void;
-}> = ({ brand, setBrand, onReset }) => {
+  categories: Category[];
+  category: string;
+  onSelectCategory: (v: string) => void;
+}> = ({ brand, setBrand, onReset, categories, category, onSelectCategory }) => {
   const [searching, setSearching] = useState(false);
 
   useEffect(() => {
@@ -279,9 +282,15 @@ const MobileBar: React.FC<{
       </div>
 
       <div className="mobile-bar-row">
-        <BrandSegments value={brand} onChange={setBrand} />
+        <CategoryPicker
+          categories={categories}
+          value={category}
+          onSelect={onSelectCategory}
+        />
         <StyleInput />
       </div>
+
+      <BrandSegments value={brand} onChange={setBrand} />
     </div>
   );
 };
@@ -326,6 +335,9 @@ const CategoryMenu: React.FC = () => {
           brand={brand}
           setBrand={setBrand}
           onReset={() => setSearchQuery("")}
+          categories={pickerCategories}
+          category={current}
+          onSelectCategory={setSearchQuery}
         />
       ) : (
         <>
@@ -347,12 +359,6 @@ const CategoryMenu: React.FC = () => {
           </div>
         </>
       )}
-
-      <CategoryPicker
-        categories={pickerCategories}
-        value={current}
-        onSelect={setSearchQuery}
-      />
 
       <div className="section-label categories-inline-label">Categories</div>
       <div className="categories-scroll">

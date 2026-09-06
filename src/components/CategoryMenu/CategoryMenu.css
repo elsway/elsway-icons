@@ -453,10 +453,10 @@
   align-items: center;
 }
 
-/* Brand takes the space the weight control does not need, and scrolls
-   inside it. min-width:0 so the strip cannot widen the row. */
+/* Brand owns a full row of its own -- sharing with the weight control left
+   only two segments visible. min-width:0 so the strip scrolls instead of
+   widening its parent. */
 .brand-segments {
-  flex: 1 1 auto;
   min-width: 0;
   display: flex;
   gap: 6px;
@@ -491,7 +491,11 @@
   color: #fff;
 }
 
-/* The weight control keeps its natural size beside the strip. */
+/* Category takes the row; weight keeps its natural size beside it. */
+.mobile-bar-row .category-picker {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .mobile-bar-row .react-dropdown-select {
   flex: 0 0 auto;
   width: 140px !important;
