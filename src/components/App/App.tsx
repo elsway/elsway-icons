@@ -9,7 +9,7 @@ import AppHeader from "@/components/AppHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Notice from "@/components/Notice";
 import EditIconModal from "@/components/Cms/EditIconModal";
-import GuideFab from "@/components/GuideFab/GuideFab";
+import FabMenu from "@/components/FabMenu";
 import { useAiIcons } from "@/hooks";
 import { useApplicationStore } from "@/state";
 
@@ -52,7 +52,7 @@ const App: React.FC<any> = () => {
         </main>
       </div>
 
-      <GuideFab />
+      <FabMenu />
 
       {hasSelection && !editingEntry && (
         <div

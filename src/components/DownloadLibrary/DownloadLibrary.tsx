@@ -5,6 +5,7 @@ import { saveAs } from "file-saver";
 import { icons, useApplicationStore } from "@/state";
 import { iconUrl } from "@/lib/github";
 import { IconStyle } from "@/lib/types";
+import codepoints from "../../../public/font/codepoints.json";
 import "./DownloadLibrary.css";
 
 type Format = "svg" | "json" | "ttf" | "png";
@@ -12,7 +13,7 @@ type Format = "svg" | "json" | "ttf" | "png";
 const FORMATS: { id: Format; label: string; blurb: string }[] = [
   { id: "svg", label: "SVG", blurb: "One file per icon, exactly as drawn" },
   { id: "json", label: "JSON", blurb: "Names, categories and font codepoints" },
-  { id: "ttf", label: "TTF", blurb: "Icon font, CSS and codepoints" },
+  { id: "ttf", label: "TTF", blurb: "Both weights in one font, plus CSS" },
   { id: "png", label: "PNG", blurb: "Rasterised at 128px, transparent" },
 ];
 
@@ -59,7 +60,18 @@ function svgToPng(svg: string, size: number): Promise<Blob | null> {
   });
 }
 
-const DownloadLibrary: React.FC = () => {
+type Props = {
+  className?: string;
+  children?: React.ReactNode;
+  onOpen?: () => void;
+};
+
+const DownloadLibrary: React.FC<Props> = ({
+  className,
+  children,
+  onOpen,
+  ...rest
+}) => {
   const brand = useApplicationStore.use.iconBrand();
   const weight = useApplicationStore.use.iconWeight();
   const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
@@ -70,7 +82,7 @@ const DownloadLibrary: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const base = import.meta.env.BASE_URL;
-  const fontName = `autonaut-${brand}-${weightFolder}`;
+  const fontName = `autonaut-${brand}`;
   const total = icons.length;
 
   const close = () => {
@@ -96,13 +108,20 @@ const DownloadLibrary: React.FC = () => {
               brand,
               weight: weightFolder,
               count: total,
-              icons: icons.map((i) => ({
-                name: i.name,
-                categories: i.categories,
-                codepoint: i.codepoint,
-                unicode: `U+${i.codepoint.toString(16).toUpperCase()}`,
-                svg: `raw/elsway/${brand}/${weightFolder}/${i.name}.svg`,
-              })),
+              icons: icons.map((i) => {
+                const glyph = `${i.name}-${weightFolder}`;
+                const cp = (codepoints as Record<string, number>)[glyph];
+                return {
+                  name: i.name,
+                  categories: i.categories,
+                  glyph,
+                  codepoint: cp,
+                  unicode: cp
+                    ? `U+${cp.toString(16).toUpperCase()}`
+                    : undefined,
+                  svg: `raw/elsway/${brand}/${weightFolder}/${i.name}.svg`,
+                };
+              }),
             },
             null,
             2
@@ -112,7 +131,7 @@ const DownloadLibrary: React.FC = () => {
       }
 
       if (format === "ttf") {
-        const dir = `${base}font/${brand}-${weightFolder}`;
+        const dir = `${base}font/${brand}`;
         const files = [
           `${fontName}.ttf`,
           `${fontName}.woff`,
@@ -168,11 +187,19 @@ const DownloadLibrary: React.FC = () => {
     <>
       <button
         type="button"
-        className="download-library-btn"
-        onClick={() => setOpen(true)}
+        className={className ?? "download-library-btn"}
+        onClick={() => {
+          onOpen?.();
+          setOpen(true);
+        }}
+        {...rest}
       >
-        <i className="ai ai-cloud-download" aria-hidden />
-        <span>Download library</span>
+        {children ?? (
+          <>
+            <i className="ai ai-cloud-download" aria-hidden />
+            <span>Download library</span>
+          </>
+        )}
       </button>
 
       {open && (

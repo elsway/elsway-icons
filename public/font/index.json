@@ -1,52 +1,27 @@
 {
-  "default-regular": {
-    "fontName": "autonaut-default-regular",
-    "icons": 1402,
-    "ttfBytes": 267464
+  "default": {
+    "fontName": "autonaut-default",
+    "glyphs": 2804,
+    "ttfBytes": 497836
   },
-  "default-fill": {
-    "fontName": "autonaut-default-fill",
-    "icons": 1402,
-    "ttfBytes": 219360
+  "cars24": {
+    "fontName": "autonaut-cars24",
+    "glyphs": 2804,
+    "ttfBytes": 732956
   },
-  "cars24-regular": {
-    "fontName": "autonaut-cars24-regular",
-    "icons": 1402,
-    "ttfBytes": 401788
+  "carinfo": {
+    "fontName": "autonaut-carinfo",
+    "glyphs": 2804,
+    "ttfBytes": 715176
   },
-  "cars24-fill": {
-    "fontName": "autonaut-cars24-fill",
-    "icons": 1402,
-    "ttfBytes": 321936
+  "teambhp": {
+    "fontName": "autonaut-teambhp",
+    "glyphs": 2804,
+    "ttfBytes": 490584
   },
-  "carinfo-regular": {
-    "fontName": "autonaut-carinfo-regular",
-    "icons": 1402,
-    "ttfBytes": 391444
-  },
-  "carinfo-fill": {
-    "fontName": "autonaut-carinfo-fill",
-    "icons": 1402,
-    "ttfBytes": 314528
-  },
-  "teambhp-regular": {
-    "fontName": "autonaut-teambhp-regular",
-    "icons": 1402,
-    "ttfBytes": 262316
-  },
-  "teambhp-fill": {
-    "fontName": "autonaut-teambhp-fill",
-    "icons": 1402,
-    "ttfBytes": 217016
-  },
-  "vehicleinfo-regular": {
-    "fontName": "autonaut-vehicleinfo-regular",
-    "icons": 1402,
-    "ttfBytes": 392392
-  },
-  "vehicleinfo-fill": {
-    "fontName": "autonaut-vehicleinfo-fill",
-    "icons": 1402,
-    "ttfBytes": 317816
+  "vehicleinfo": {
+    "fontName": "autonaut-vehicleinfo",
+    "glyphs": 2804,
+    "ttfBytes": 719816
   }
 }

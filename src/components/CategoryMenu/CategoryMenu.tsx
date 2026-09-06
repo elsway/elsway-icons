@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { icons, useApplicationStore, type IconBrand } from "@/state";
-import { useAuth } from "@/lib/github";
-import DownloadLibrary from "@/components/DownloadLibrary";
 import "./CategoryMenu.css";
 
 type BrandOption = { key: string; value: IconBrand };
@@ -148,56 +146,7 @@ const CategoryMenu: React.FC = () => {
         </ul>
       </div>
 
-      <DownloadLibrary />
-      <SidebarFooter />
     </nav>
-  );
-};
-
-const SidebarFooter: React.FC = () => {
-  const { user, canWrite, signIn, signOut, configured, signingIn } = useAuth();
-  if (!configured) {
-    return (
-      <div className="sidebar-footer">
-        <button className="login-btn" type="button" disabled>
-          <i className="ai-fill ai-shield-keyhole login-btn-icon" aria-hidden />
-          <span>Login as Admin</span>
-        </button>
-        <span className="login-hint">CMS setup pending</span>
-      </div>
-    );
-  }
-  if (!user) {
-    return (
-      <div className="sidebar-footer">
-        <button
-          className="login-btn"
-          type="button"
-          onClick={signIn}
-          disabled={signingIn}
-        >
-          <i className="ai-fill ai-shield-keyhole login-btn-icon" aria-hidden />
-          <span>{signingIn ? "Waiting for GitHub…" : "Login as Admin"}</span>
-        </button>
-      </div>
-    );
-  }
-  return (
-    <div className="sidebar-footer">
-      <div className="login-meta">
-        <span className="login-email" title={user.login}>
-          @{user.login}
-        </span>
-        <button type="button" className="login-signout" onClick={signOut}>
-          sign out
-        </button>
-      </div>
-      <span className={`login-hint ${canWrite ? "" : "warn"}`}>
-        {canWrite
-          ? "CMS active — edit icons in place"
-          : "not a collaborator"}
-      </span>
-    </div>
   );
 };
 

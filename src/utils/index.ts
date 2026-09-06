@@ -57,12 +57,12 @@ export function getCodeSnippets({
 
     [SnippetType.TTF]: `/* once per project */
 @font-face {
-  font-family: "autonaut-${brand}-${weightFolder}";
-  src: url("autonaut-${brand}-${weightFolder}.woff") format("woff");
+  font-family: "autonaut-${brand}";
+  src: url("autonaut-${brand}.woff") format("woff");
 }
 
 /* then, anywhere */
-<i class="ai-${name}"></i>`,
+<i class="ai-${name}-${weightFolder}"></i>`,
 
     [SnippetType.SWIFT]: `Image("${name}")
     .renderingMode(.template)

@@ -306,3 +306,62 @@ figcaption > p {
 .panel-close {
   font-size: 28px;
 }
+
+/* Brand switcher inside the detail sheet */
+.panel-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+.panel-brand select {
+  appearance: none;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--foreground);
+  background: rgb(0 0 0 / 5%);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 3px 24px 3px 8px;
+  cursor: pointer;
+}
+.panel-brand select:hover { background: rgb(0 0 0 / 8%); }
+.panel-brand i {
+  position: absolute;
+  right: 7px;
+  font-size: 12px;
+  color: rgb(0 0 0 / 55%);
+  pointer-events: none;
+}
+
+/* Close sits in the sheet's top-right corner, not on the panel */
+.panel-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--foreground);
+  border: none;
+  cursor: pointer;
+}
+.panel-close:hover { background: rgb(0 0 0 / 6%); }
+.panel-close i { font-size: 18px; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

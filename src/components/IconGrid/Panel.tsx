@@ -9,12 +9,13 @@ import { motion, AnimatePresence, Variants } from "motion/react";
 import { Svg2Png } from "svg2png-converter";
 import { saveAs } from "file-saver";
 import { IconStyle } from "@/lib/types";
+import codepoints from "../../../public/font/codepoints.json";
 import ReactGA from "react-ga4";
 
 import Tabs, { Tab } from "@/components/Tabs";
 import { useMediaQuery, useTransientState, useSessionStorage } from "@/hooks";
 import { SnippetType } from "@/lib";
-import { useApplicationStore } from "@/state";
+import { useApplicationStore, type IconBrand } from "@/state";
 import { getCodeSnippets } from "@/utils";
 import { useAuth } from "@/lib/github";
 
@@ -40,6 +41,14 @@ const RENDERED_SNIPPETS = [
   SnippetType.CDN,
   SnippetType.TTF,
   SnippetType.SWIFT,
+];
+
+const PANEL_BRANDS: { value: IconBrand; label: string }[] = [
+  { value: "default", label: "Default" },
+  { value: "cars24", label: "Cars24" },
+  { value: "teambhp", label: "TeamBHP" },
+  { value: "carinfo", label: "CarInfo" },
+  { value: "vehicleinfo", label: "VehicleInfo" },
 ];
 
 enum CopyType {
@@ -95,6 +104,7 @@ const Panel = () => {
     selectionEntry: entry,
     setSelectionEntry,
     iconBrand: brand,
+    setIconBrand,
   } = useApplicationStore();
   const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
   const elswaySrc = entry
@@ -232,8 +242,12 @@ const Panel = () => {
 
   const handleCopyUnicode = async () => {
     if (!entry) return;
-    // Real font codepoint — see scripts/generate-fonts.mjs.
-    navigator.clipboard?.writeText(String.fromCodePoint(entry.codepoint));
+    // Both weights live in one font, keyed "<icon>-<weight>".
+    const cp = (codepoints as Record<string, number>)[
+      `${entry.name}-${weightFolder}`
+    ];
+    if (!cp) return;
+    navigator.clipboard?.writeText(String.fromCodePoint(cp));
     setCopied(CopyType.UNICODE);
   };
 
@@ -330,11 +344,23 @@ const Panel = () => {
               />
               <figcaption>
                 <p>{entry.name}</p>
-                <small className="versioning">
-                  {brand}
-                  <span aria-hidden>•</span>
-                  {weightFolder}
-                </small>
+                <label className="panel-brand">
+                  <span className="sr-only">Brand</span>
+                  <select
+                    value={brand}
+                    onChange={(e) =>
+                      setIconBrand(e.currentTarget.value as IconBrand)
+                    }
+                  >
+                    {PANEL_BRANDS.map((b) => (
+                      <option key={b.value} value={b.value}>
+                        {b.label}
+                      </option>
+                    ))}
+                  </select>
+                  <i className="ai-fill ai-chevron-bottom" aria-hidden />
+                </label>
+                <small className="versioning">{weightFolder}</small>
               </figcaption>
             </figure>
             <hr />
@@ -423,7 +449,7 @@ const Panel = () => {
 
           <button
             tabIndex={0}
-            className="close-button"
+            className="panel-close"
             aria-label="Close detail panel"
             title="Close"
             onClick={() => setSelectionEntry(null)}
@@ -431,7 +457,7 @@ const Panel = () => {
               e.key === "Enter" && setSelectionEntry(null);
             }}
           >
-            <i className="ai-fill ai-circle-x panel-close" aria-hidden />
+            <i className="ai ai-cross-small" aria-hidden />
           </button>
         </motion.aside>
       )}

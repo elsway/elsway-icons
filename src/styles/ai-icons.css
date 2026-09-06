@@ -126,3 +126,19 @@
 .ai-fill.ai-shield-keyhole {
   --ai-icon: var(--ai-fill-shield-keyhole);
 }
+
+.ai-bars-two {
+  --ai-icon: var(--ai-regular-bars-two);
+}
+
+.ai-fill.ai-bars-two {
+  --ai-icon: var(--ai-fill-bars-two);
+}
+
+.ai-book {
+  --ai-icon: var(--ai-regular-book);
+}
+
+.ai-fill.ai-book {
+  --ai-icon: var(--ai-fill-book);
+}
