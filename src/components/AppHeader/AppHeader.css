@@ -47,4 +47,26 @@
   .app-header {
     grid-template-columns: 1fr;
   }
+  /* Fluid, not 300px fixed — the fixed width overflowed the viewport. */
+  .app-header .react-dropdown-select,
+  .app-header .size-bar {
+    width: 100% !important;
+  }
+  .app-header-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-header {
+    padding: 12px 12px 0;
+  }
+  .app-header-controls {
+    grid-template-columns: 1fr;
+  }
+  /* Icon size is a desktop refinement; the phone gets search + weight. */
+  .app-header .size-bar {
+    display: none;
+  }
 }

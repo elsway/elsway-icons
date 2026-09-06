@@ -25,16 +25,6 @@
   outline: none;
 }
 
-@media screen and (max-width: 558px) {
-  .size-bar input {
-    margin: 0 auto;
-  }
-
-  .size-bar label {
-    display: none;
-  }
-}
-
 .size-bar input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;

@@ -274,21 +274,32 @@ figcaption > p {
   }
 }
 
-@media screen and (max-width: 536px) {
+@media screen and (max-width: 560px) {
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
   }
 
   .grid-item {
-    width: 108px;
+    width: 100%;
+    min-height: 0;
     height: unset;
-    padding: 4px 0;
+    margin: 2px 0;
+    padding: 8px 2px;
+    gap: 8px;
     justify-content: flex-start;
     border: 1px solid transparent;
   }
 
   .grid-item p {
-    padding: 0 4px;
+    padding: 0 2px;
+  }
+}
+
+/* Four tracks get too tight to read below this. */
+@media screen and (max-width: 400px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
