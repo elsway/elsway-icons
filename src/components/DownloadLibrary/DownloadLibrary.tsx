@@ -5,11 +5,22 @@ import { saveAs } from "file-saver";
 
 import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { iconUrl } from "@/lib/github";
-import { IconStyle } from "@/lib/types";
 import codepoints from "../../../public/font/codepoints.json";
 import "./DownloadLibrary.css";
 
 type Format = "svg" | "json" | "ttf" | "png";
+
+/** Every archive carries the whole library, so both weights always ship. */
+const WEIGHTS = ["regular", "fill"] as const;
+type Weight = (typeof WEIGHTS)[number];
+
+/**
+ * Downloaded files carry the weight as a suffix — heart-regular.svg,
+ * heart-fill.svg — matching the font glyph names, so one name means the same
+ * thing whether a project consumes the SVGs or the font. A flat folder then
+ * sorts both weights of an icon next to each other.
+ */
+const fileStem = (weight: Weight, name: string) => `${name}-${weight}`;
 
 const FORMATS: { id: Format; label: string; blurb: string }[] = [
   { id: "svg", label: "SVG", blurb: "One file per icon, exactly as drawn" },
@@ -82,9 +93,7 @@ const DownloadLibrary: React.FC<Props> = ({
   ...rest
 }) => {
   const gridBrand = useApplicationStore.use.iconBrand();
-  const weight = useApplicationStore.use.iconWeight();
   const [brand, setBrand] = useState<IconBrand>(gridBrand);
-  const weightFolder = weight === IconStyle.FILL ? "fill" : "regular";
 
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState<Format | null>(null);
@@ -94,7 +103,8 @@ const DownloadLibrary: React.FC<Props> = ({
 
   const base = import.meta.env.BASE_URL;
   const fontName = `autonaut-${brand}`;
-  const total = icons.length;
+  /** Progress counts files, and every icon contributes one per weight. */
+  const total = icons.length * WEIGHTS.length;
 
   const close = useCallback(() => {
     if (busy) return; // never leave a half-built zip behind
@@ -134,7 +144,7 @@ const DownloadLibrary: React.FC<Props> = ({
     setProgress(0);
     try {
       const zip = new JSZip();
-      const stamp = `autonaut-icons-${brand}-${weightFolder}`;
+      const stamp = `autonaut-icons-${brand}`;
 
       if (format === "json") {
         zip.file(
@@ -142,22 +152,30 @@ const DownloadLibrary: React.FC<Props> = ({
           JSON.stringify(
             {
               brand,
-              weight: weightFolder,
-              count: total,
-              icons: icons.map((i) => {
-                const glyph = `${i.name}-${weightFolder}`;
-                const cp = (codepoints as Record<string, number>)[glyph];
-                return {
-                  name: i.name,
-                  categories: i.categories,
-                  glyph,
-                  codepoint: cp,
-                  unicode: cp
-                    ? `U+${cp.toString(16).toUpperCase()}`
-                    : undefined,
-                  svg: `raw/elsway/${brand}/${weightFolder}/${i.name}.svg`,
-                };
-              }),
+              weights: [...WEIGHTS],
+              iconCount: icons.length,
+              fileCount: total,
+              icons: icons.map((i) => ({
+                name: i.name,
+                categories: i.categories,
+                weights: Object.fromEntries(
+                  WEIGHTS.map((w) => {
+                    const glyph = `${i.name}-${w}`;
+                    const cp = (codepoints as Record<string, number>)[glyph];
+                    return [
+                      w,
+                      {
+                        file: `svg/${fileStem(w, i.name)}.svg`,
+                        glyph,
+                        codepoint: cp,
+                        unicode: cp
+                          ? `U+${cp.toString(16).toUpperCase()}`
+                          : undefined,
+                      },
+                    ];
+                  })
+                ),
+              })),
             },
             null,
             2
@@ -190,16 +208,22 @@ const DownloadLibrary: React.FC<Props> = ({
 
       if (format === "svg" || format === "png") {
         const folder = zip.folder(format)!;
+        // Flat folder, weight-prefixed names, so both weights sit together
+        // and sort into groups.
+        const jobs = WEIGHTS.flatMap((w) =>
+          icons.map((icon) => ({ weight: w, name: icon.name }))
+        );
         await mapInBatches(
-          icons,
-          async (icon) => {
-            const res = await fetch(iconUrl(brand, weightFolder, icon.name));
+          jobs,
+          async ({ weight, name }) => {
+            const res = await fetch(iconUrl(brand, weight, name));
             if (!res.ok) return;
+            const stem = fileStem(weight, name);
             if (format === "svg") {
-              folder.file(`${icon.name}.svg`, await res.text());
+              folder.file(`${stem}.svg`, await res.text());
             } else {
               const png = await svgToPng(await res.text(), PNG_SIZE);
-              if (png) folder.file(`${icon.name}.png`, png);
+              if (png) folder.file(`${stem}.png`, png);
             }
           },
           setProgress
@@ -252,7 +276,8 @@ const DownloadLibrary: React.FC<Props> = ({
               <div className="dl-head-text">
                 <h2>Download library</h2>
                 <p>
-                  {total.toLocaleString()} icons · {weightFolder}
+                  {icons.length.toLocaleString()} icons · both weights ·{" "}
+                  {total.toLocaleString()} files
                 </p>
               </div>
 
@@ -305,7 +330,7 @@ const DownloadLibrary: React.FC<Props> = ({
                 <span>
                   {busy
                     ? "Building the archive — this runs in your browser."
-                    : "Weight follows the toolbar; brand is set here."}
+                    : "Regular and fill are both included; brand is set here."}
                 </span>
                 <button type="button" onClick={close} disabled={!!busy}>
                   Close
