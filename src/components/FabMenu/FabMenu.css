@@ -6,9 +6,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* ---- toggle ---------------------------------------------------------- */
 .fab-toggle {
   width: 52px;
   height: 52px;
@@ -16,6 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
   background: var(--ink);
   color: #fff;
   border: none;
@@ -23,35 +25,79 @@
   box-shadow:
     0 6px 16px rgb(0 0 0 / 22%),
     0 2px 4px rgb(0 0 0 / 12%);
-  transition: transform 150ms ease;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms ease;
 }
-.fab-toggle:hover { transform: translateY(-1px); }
-.fab-toggle-icon { font-size: 22px; }
+.fab-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 22px rgb(0 0 0 / 26%),
+    0 3px 6px rgb(0 0 0 / 14%);
+}
+.fab-toggle:active { transform: translateY(0); }
 
+/* the two glyphs sit on top of each other and cross-fade as it rotates */
+.fab-toggle-icons {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+.fab-toggle-icons i {
+  position: absolute;
+  inset: 0;
+  font-size: 22px;
+  transition:
+    opacity 200ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fab-toggle-icons .ai-bars-two { opacity: 1; transform: rotate(0deg); }
+.fab-toggle-icons .ai-cross-small { opacity: 0; transform: rotate(-90deg); }
+.fab[data-open="true"] .fab-toggle-icons .ai-bars-two {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+.fab[data-open="true"] .fab-toggle-icons .ai-cross-small {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* ---- menu ------------------------------------------------------------ */
 .fab-menu {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 8px;
+  gap: 4px;
   min-width: 232px;
   padding: 8px;
   background: #fff;
   border: 1px solid var(--border-card);
   border-radius: 12px;
   box-shadow: 0 18px 48px rgb(0 0 0 / 18%);
-  animation: fab-rise 160ms ease;
+  transform-origin: bottom right;
+
+  /* closed: faded, nudged down, and out of the tab order via visibility */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.96);
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 260ms;
 }
 
-@keyframes fab-rise {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .fab-menu { animation: none; }
-  .fab-toggle { transition: none; }
+.fab[data-open="true"] .fab-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s;
 }
 
-/* 44px tall to meet WCAG 2.2 target size */
+/* each row trails the one above it on the way in */
 .fab-item {
   display: flex;
   align-items: center;
@@ -69,7 +115,33 @@
   border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 160ms ease,
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 120ms ease;
 }
+.fab[data-open="true"] .fab-item {
+  opacity: 1;
+  transform: none;
+}
+.fab[data-open="true"] .fab-item:nth-child(1) { transition-delay: 40ms; }
+.fab[data-open="true"] .fab-item:nth-child(2) { transition-delay: 80ms; }
+.fab[data-open="true"] .fab-item:nth-child(3) { transition-delay: 120ms; }
+
 .fab-item:hover:not(:disabled) { background: rgb(0 0 0 / 5%); }
 .fab-item:disabled { opacity: 0.45; cursor: not-allowed; }
+.fab[data-open="true"] .fab-item:disabled { opacity: 0.45; }
 .fab-item i { font-size: 18px; flex: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fab-toggle,
+  .fab-toggle-icons i,
+  .fab-menu,
+  .fab-item {
+    transition-duration: 0.01ms;
+    transition-delay: 0ms;
+  }
+}

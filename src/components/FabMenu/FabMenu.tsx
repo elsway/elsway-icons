@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import DownloadLibrary from "@/components/DownloadLibrary";
 import { useAuth } from "@/lib/github";
@@ -8,6 +8,9 @@ import "./FabMenu.css";
  * Floating action button following the WAI-ARIA disclosure pattern: the toggle
  * owns aria-expanded/aria-controls, Escape closes and returns focus to it, and
  * Up/Down move between actions. Targets are 44px for WCAG 2.2 (2.5.8).
+ *
+ * The menu stays mounted and animates on both edges via CSS transitions —
+ * toggling `hidden` would snap it shut with no exit motion.
  */
 const FabMenu: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -18,10 +21,10 @@ const FabMenu: React.FC = () => {
   const { user, signIn, configured, signingIn } = useAuth();
   const guideUrl = `${import.meta.env.BASE_URL}guide.html`;
 
-  const close = (returnFocus = true) => {
+  const close = useCallback((returnFocus = true) => {
     setOpen(false);
     if (returnFocus) toggleRef.current?.focus();
-  };
+  }, []);
 
   // Focus the first action when the menu opens, so keyboard users land inside.
   useEffect(() => {
@@ -53,7 +56,9 @@ const FabMenu: React.FC = () => {
       items[next].focus();
     };
 
-    const onPointer = (e: MouseEvent) => {
+    // pointerdown, not mousedown, so touch and pen dismiss it too. The toggle
+    // lives inside wrapRef, so its own press never counts as "outside".
+    const onPointer = (e: PointerEvent) => {
       if (
         wrapRef.current &&
         e.target instanceof Node &&
@@ -64,12 +69,12 @@ const FabMenu: React.FC = () => {
     };
 
     document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("pointerdown", onPointer);
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("pointerdown", onPointer);
     };
-  }, [open]);
+  }, [open, close]);
 
   const loginLabel = !configured
     ? "CMS setup pending"
@@ -80,12 +85,11 @@ const FabMenu: React.FC = () => {
     : "Login as Admin";
 
   return (
-    <div className="fab" ref={wrapRef}>
+    <div className="fab" ref={wrapRef} data-open={open}>
       <div
         className="fab-menu"
         id="fab-menu"
         ref={menuRef}
-        hidden={!open}
         aria-label="Library actions"
       >
         <a
@@ -131,12 +135,13 @@ const FabMenu: React.FC = () => {
         aria-expanded={open}
         aria-controls="fab-menu"
         aria-label={open ? "Close library actions" : "Open library actions"}
-        onClick={() => (open ? close() : setOpen(true))}
+        // functional update: the handler must never read a stale `open`
+        onClick={() => setOpen((v) => !v)}
       >
-        <i
-          className={`ai ${open ? "ai-cross-small" : "ai-bars-two"} fab-toggle-icon`}
-          aria-hidden
-        />
+        <span className="fab-toggle-icons" aria-hidden>
+          <i className="ai ai-bars-two" />
+          <i className="ai ai-cross-small" />
+        </span>
       </button>
     </div>
   );
