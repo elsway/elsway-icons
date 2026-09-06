@@ -82,13 +82,14 @@
   color: var(--foreground);
   cursor: pointer;
 }
-/* The cursor is keyboard state, so it must show without a pointer. */
+/* Two greys, one step apart: the lighter is where the cursor is, the darker
+   is what is chosen. Both stay grey so neither shouts over the list. */
 .dropdown-option.is-active {
   background-color: var(--control-fill-hover);
 }
 .dropdown-option.is-selected {
-  background-color: var(--ink);
-  color: #fff;
+  background-color: var(--control-fill-selected);
+  color: var(--foreground);
 }
 
 @media (prefers-reduced-motion: reduce) {
