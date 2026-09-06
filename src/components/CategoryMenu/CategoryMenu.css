@@ -101,18 +101,21 @@
   cursor: pointer;
 }
 
-/* The wordmark is now an image; the h1 is just its box. The mark is a
-   two-line lockup, so it needs real height to stay legible -- 28px left the
-   second line too small to read. */
+/* The wordmark is now an image; the h1 is just its box. Desktop drives the
+   size from width; mobile drives it from height, so each resets the other
+   axis to auto rather than inheriting a fixed value and distorting. */
 .brand-logo {
   display: block;
-  height: 38px;
-  width: auto;
+  height: auto;
+  width: 200px;
   max-width: 100%;
 }
 
 @media (max-width: 560px) {
-  .brand-logo { height: 32px; }
+  .brand-logo {
+    height: 32px;
+    width: auto;
+  }
 }
 
 .category-menu .brand:hover {
