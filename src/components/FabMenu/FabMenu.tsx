@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import DownloadLibrary from "@/components/DownloadLibrary";
+import NewIconModal from "@/components/Cms/NewIconModal";
 import { useAuth } from "@/lib/github";
 import "./FabMenu.css";
 
@@ -18,7 +19,8 @@ const FabMenu: React.FC = () => {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { user, signIn, configured, signingIn } = useAuth();
+  const { user, canWrite, signIn, signOut, configured, signingIn } = useAuth();
+  const [showNew, setShowNew] = useState(false);
   const guideUrl = `${import.meta.env.BASE_URL}guide.html`;
 
   const close = useCallback((returnFocus = true) => {
@@ -78,8 +80,6 @@ const FabMenu: React.FC = () => {
 
   const loginLabel = !configured
     ? "CMS setup pending"
-    : user
-    ? `Signed in as @${user.login}`
     : signingIn
     ? "Waiting for GitHub…"
     : "Login as Admin";
@@ -100,7 +100,7 @@ const FabMenu: React.FC = () => {
           rel="noopener noreferrer"
           onClick={() => close(false)}
         >
-          <i className="ai ai-book" aria-hidden />
+          <i className="ai-fill ai-book" aria-hidden />
           <span>Instruction guide</span>
         </a>
 
@@ -109,23 +109,53 @@ const FabMenu: React.FC = () => {
           data-fab-item
           onOpen={() => close(false)}
         >
-          <i className="ai ai-cloud-download" aria-hidden />
+          <i className="ai-fill ai-cloud-download" aria-hidden />
           <span>Download library</span>
         </DownloadLibrary>
 
-        <button
-          type="button"
-          className="fab-item"
-          data-fab-item
-          disabled={!configured || !!user || signingIn}
-          onClick={() => {
-            signIn();
-            close(false);
-          }}
-        >
-          <i className="ai-fill ai-shield-keyhole" aria-hidden />
-          <span>{loginLabel}</span>
-        </button>
+        {canWrite && (
+          <button
+            type="button"
+            className="fab-item"
+            data-fab-item
+            onClick={() => {
+              close(false);
+              setShowNew(true);
+            }}
+          >
+            <i className="ai-fill ai-circle-plus" aria-hidden />
+            <span>Add new icon</span>
+          </button>
+        )}
+
+        {user ? (
+          <button
+            type="button"
+            className="fab-item fab-item-danger"
+            data-fab-item
+            onClick={() => {
+              signOut();
+              close(false);
+            }}
+          >
+            <i className="ai ai-arrow-box-left" aria-hidden />
+            <span>Logout</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="fab-item"
+            data-fab-item
+            disabled={!configured || signingIn}
+            onClick={() => {
+              signIn();
+              close(false);
+            }}
+          >
+            <i className="ai-fill ai-shield-keyhole" aria-hidden />
+            <span>{loginLabel}</span>
+          </button>
+        )}
       </div>
 
       <button
@@ -143,6 +173,13 @@ const FabMenu: React.FC = () => {
           <i className="ai ai-cross-small" />
         </span>
       </button>
+
+      {showNew && (
+        <NewIconModal
+          onClose={() => setShowNew(false)}
+          onCreated={() => window.location.reload()}
+        />
+      )}
     </div>
   );
 };

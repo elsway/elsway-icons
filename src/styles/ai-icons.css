@@ -142,3 +142,19 @@
 .ai-fill.ai-book {
   --ai-icon: var(--ai-fill-book);
 }
+
+.ai-arrow-box-left {
+  --ai-icon: var(--ai-regular-arrow-box-left);
+}
+
+.ai-fill.ai-arrow-box-left {
+  --ai-icon: var(--ai-fill-arrow-box-left);
+}
+
+.ai-circle-plus {
+  --ai-icon: var(--ai-regular-circle-plus);
+}
+
+.ai-fill.ai-circle-plus {
+  --ai-icon: var(--ai-fill-circle-plus);
+}

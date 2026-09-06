@@ -145,3 +145,13 @@
     transition-delay: 0ms;
   }
 }
+
+/* Logout is the one destructive action here, so it is the one place the
+   monochrome palette gives way to a warning colour. */
+.fab-item-danger,
+.fab-item-danger i {
+  color: #c0392b;
+}
+.fab-item-danger:hover:not(:disabled) {
+  background: rgb(192 57 43 / 8%);
+}

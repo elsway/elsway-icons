@@ -5,12 +5,14 @@ import useCSSVariables from "./useCSSVariables";
 
 /** Icons the site's own UI renders through the `ai-{name}` classes. */
 const AI_ICONS = [
+  "arrow-box-left",
   "bars-two",
   "book",
   "chevron-bottom",
   "chevron-double-left",
   "chevron-double-right",
   "circle-check",
+  "circle-plus",
   "circle-questionmark",
   "circle-x",
   "cloud-download",

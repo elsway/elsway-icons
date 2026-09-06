@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
@@ -90,17 +90,43 @@ const DownloadLibrary: React.FC<Props> = ({
   const [busy, setBusy] = useState<Format | null>(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   const base = import.meta.env.BASE_URL;
   const fontName = `autonaut-${brand}`;
   const total = icons.length;
 
-  const close = () => {
+  const close = useCallback(() => {
     if (busy) return; // never leave a half-built zip behind
     setOpen(false);
     setError(null);
     setProgress(0);
-  };
+  }, [busy]);
+
+  // The scrim only dims; it does not capture pointer events. That way a press
+  // outside dismisses this sheet *and* still activates whatever it landed on,
+  // so clicking another trigger opens that popover in the same gesture.
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (
+        sheetRef.current &&
+        e.target instanceof Node &&
+        !sheetRef.current.contains(e.target)
+      ) {
+        close();
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, close]);
 
   const build = async (format: Format) => {
     setBusy(format);
@@ -220,15 +246,15 @@ const DownloadLibrary: React.FC<Props> = ({
             role="dialog"
             aria-modal="true"
             aria-label="Download the icon library"
-            onClick={close}
           >
-            <div className="dl-sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="dl-sheet" ref={sheetRef}>
               <header className="dl-head">
+              <div className="dl-head-text">
                 <h2>Download library</h2>
                 <p>
                   {total.toLocaleString()} icons · {weightFolder}
                 </p>
-              </header>
+              </div>
 
               <label className="dl-brand">
                 <span>Brand</span>
@@ -249,8 +275,9 @@ const DownloadLibrary: React.FC<Props> = ({
                   <i className="ai-fill ai-chevron-bottom" aria-hidden />
                 </span>
               </label>
+            </header>
 
-              <div className="dl-formats">
+            <div className="dl-formats">
                 {FORMATS.map((f) => (
                   <button
                     key={f.id}
