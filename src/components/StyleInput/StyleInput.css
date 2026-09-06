@@ -1,13 +1,17 @@
 .react-dropdown-select {
   width: 176px !important;
-  height: 48px !important;
+  height: var(--control-h) !important;
+  box-sizing: border-box;
   justify-content: flex-start;
-  padding: 0 24px !important;
-  color: #000000;
-  border-radius: 8px !important;
-  background-color: rgb(0 0 0 / 5%);
-  font-size: 16px;
-  border: none !important;
+  padding: 0 var(--control-pad) !important;
+  color: var(--foreground);
+  border-radius: var(--control-radius) !important;
+  background-color: var(--control-fill);
+  font-size: var(--control-font);
+  border: 1px solid transparent !important;
+}
+.react-dropdown-select:hover {
+  background-color: var(--control-fill-hover);
 }
 
 @media screen and (max-width: 558px) {
@@ -34,9 +38,9 @@
 }
 
 .react-dropdown-select:focus-within {
-  background-color: #ffffff;
-  color: #000000;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) !important;
+  background-color: var(--control-fill-focus) !important;
+  color: var(--foreground);
+  box-shadow: var(--control-ring) !important;
   outline: none !important;
 }
 
@@ -58,33 +62,37 @@
 .react-dropdown-select-dropdown {
   position: absolute;
   left: 0;
-  border: none;
+  top: calc(100% + 4px);
+  border: var(--menu-border);
   width: 500px;
-  padding: 0;
+  padding: 4px;
   display: flex;
   flex-direction: column;
-  border-radius: 8px !important;
+  border-radius: var(--menu-radius) !important;
   max-height: 300px;
   overflow: auto;
   z-index: 9;
-  box-shadow: none;
+  box-shadow: var(--menu-shadow);
 }
 .react-dropdown-select-item {
   color: var(--ink);
 }
+.react-dropdown-select-item {
+  border-radius: var(--menu-item-radius);
+}
 .react-dropdown-select-item:hover {
-  background-color: rgba(0, 0, 0, 0.06) !important;
+  background-color: var(--control-fill) !important;
 }
 
 .react-dropdown-select-item.react-dropdown-select-item-selected,
 .react-dropdown-select-item.react-dropdown-select-item-active {
   color: var(--ink) !important;
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  background-color: var(--control-fill) !important;
 }
 
 .react-dropdown-select-item:focus {
   color: var(--ink) !important;
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  background-color: var(--control-fill-hover) !important;
 }
 
 .react-dropdown-select-item.react-dropdown-select-item-disabled {

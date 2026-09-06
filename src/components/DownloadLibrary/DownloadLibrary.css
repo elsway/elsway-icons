@@ -162,24 +162,16 @@
 }
 .dl-brand select {
   appearance: none;
-  font-family: inherit;
-  font-size: 14px;
   letter-spacing: normal;
   text-transform: none;
-  color: var(--ink);
-  background: rgb(0 0 0 / 5%);
-  border: 1px solid transparent;
-  border-radius: 8px;
-  padding: 10px 34px 10px 14px;
-  min-width: 168px;
+  padding: 0 44px 0 var(--control-pad);
+  min-width: 200px;
   cursor: pointer;
 }
-.dl-brand select:hover:not(:disabled) { background: rgb(0 0 0 / 8%); }
-.dl-brand select:disabled { opacity: 0.5; cursor: not-allowed; }
 .dl-brand i {
   position: absolute;
-  right: 12px;
-  font-size: 14px;
+  right: 16px;
+  font-size: var(--control-caret);
   color: rgb(0 0 0 / 55%);
   pointer-events: none;
 }

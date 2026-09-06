@@ -19,6 +19,81 @@
   --border-secondary: rgba(0, 0, 0, 0.06);
   --hover-tabs: rgba(0, 0, 0, 0.04);
   --hover-buttons: rgba(0, 0, 0, 0.06);
+
+  /* Form controls. Every text field and dropdown trigger on the site reads
+     from these, so the search bar, the weight and brand dropdowns and the
+     CMS inputs stay one control rather than five lookalikes. A resting
+     control is a tinted fill with no border; the 1px transparent border
+     reserves the space so focus cannot shift layout. */
+  --control-h: 48px;
+  --control-radius: 8px;
+  --control-pad: 24px;
+  --control-font: 16px;
+  --control-fill: rgb(0 0 0 / 5%);
+  --control-fill-hover: rgb(0 0 0 / 8%);
+  /* Focus keeps the resting tint and adds a ring. A control that flashed
+     white on focus read as a state change rather than a focus cue. */
+  --control-fill-focus: var(--control-fill);
+  --control-ring: 0 0 0 1px rgb(0 0 0 / 12%);
+  --control-caret: 18px;
+  --control-placeholder: rgb(0 0 0 / 45%);
+
+  /* Menus that drop out of those controls. */
+  --menu-radius: 8px;
+  --menu-item-radius: 6px;
+  --menu-shadow: 0 12px 32px rgb(0 0 0 / 12%);
+  --menu-border: 1px solid rgb(0 0 0 / 6%);
+}
+
+/* Shared control surface. Components add their own layout (width, flex)
+   but never redefine fill, radius, height or the focus treatment. */
+.control,
+.search-bar,
+.size-bar,
+.cms-row input,
+.dl-brand select,
+.category-menu .brand-select-trigger,
+.app-header .react-dropdown-select {
+  height: var(--control-h);
+  box-sizing: border-box;
+  border-radius: var(--control-radius);
+  border: 1px solid transparent;
+  background-color: var(--control-fill);
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: var(--control-font);
+}
+
+.control:hover:not(:disabled),
+.cms-row input:hover:not(:disabled),
+.dl-brand select:hover:not(:disabled),
+.category-menu .brand-select-trigger:hover {
+  background-color: var(--control-fill-hover);
+}
+
+/* Focus lands on the wrapper for composed controls (search bar, the
+   dropdown lib) and on the element itself for bare fields. */
+.control:focus-visible,
+.search-bar:focus-within,
+.size-bar:focus-within,
+.cms-row input:focus,
+.dl-brand select:focus-visible,
+.category-menu .brand-select-trigger:focus-visible,
+.app-header .react-dropdown-select:focus-within {
+  outline: none;
+  background-color: var(--control-fill-focus);
+  box-shadow: var(--control-ring);
+}
+
+.control:disabled,
+.cms-row input:disabled,
+.dl-brand select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+::placeholder {
+  color: var(--control-placeholder);
 }
 
 @font-face {

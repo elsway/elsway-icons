@@ -3,11 +3,7 @@
   display: flex;
   flex: 2;
   align-items: center;
-  height: 48px;
-  padding: 12px 24px;
-  border-radius: 8px;
-  color: #000;
-  background-color: #0000000d;
+  padding: 0 var(--control-pad);
 }
 
 /* `.ai` icons size off font-size (1em square), so restore the 24px the
@@ -16,12 +12,7 @@
   font-size: 24px;
 }
 
-.search-bar:focus-within {
-  outline: none;
-  color: #000000 !important;
-  background-color: #ffffff !important;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
-}
+
 
 .search-bar input {
   height: 100%;
@@ -29,14 +20,14 @@
   border: none;
   margin: 0 12px;
   padding: 0;
-  font-size: 16px;
-  color: #000000;
+  font-size: var(--control-font);
+  color: var(--foreground);
   background-color: transparent !important;
   text-overflow: ellipsis;
 }
 
 .search-bar input::placeholder {
-  color: rgba(0, 0, 0, 0.45) !important;
+  color: var(--control-placeholder) !important;
 }
 
 .search-bar input:focus {

@@ -13,13 +13,8 @@
   letter-spacing: 0.05em;
 }
 .cms-row input {
-  height: 32px;
-  padding: 0 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: #fff;
-  font-family: inherit;
-  font-size: 12px;
+  padding: 0 var(--control-pad);
+  width: 100%;
 }
 .cms-inline {
   display: flex;

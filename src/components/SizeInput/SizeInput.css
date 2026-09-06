@@ -3,13 +3,7 @@
   display: flex;
   flex: 2;
   align-items: center;
-  height: 48px;
-  padding: 12px 24px;
-  color: #000000;
-  border-radius: 8px;
-  background-color: rgb(0 0 0 / 5%);
-  font-family: "Departure Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
-  font-size: 16px;
+  padding: 0 var(--control-pad);
 }
 
 .size-bar label {
