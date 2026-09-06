@@ -1,0 +1,96 @@
+/* Shared dropdown surface. Geometry and fill come from the control tokens in
+   App.css, so this matches the search field and the weight select. */
+.dropdown {
+  position: relative;
+  min-width: 0;
+}
+
+.dropdown-trigger {
+  width: 100%;
+  height: var(--control-h);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 16px 0 var(--control-pad);
+  border-radius: var(--control-radius);
+  border: 1px solid transparent;
+  background-color: var(--control-fill);
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: var(--control-font);
+  cursor: pointer;
+}
+.dropdown-trigger:hover:not(:disabled) {
+  background-color: var(--control-fill-hover);
+}
+.dropdown-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--control-ring);
+}
+.dropdown-trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Open reads the same as focus, so the control looks one way however it was
+   reached. */
+.dropdown.is-open .dropdown-trigger {
+  background-color: var(--control-fill-focus);
+  box-shadow: var(--control-ring);
+}
+
+.dropdown-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-caret {
+  flex: 0 0 auto;
+  font-size: var(--control-caret);
+  color: rgb(0 0 0 / 55%);
+  transition: transform 150ms ease;
+}
+.dropdown.is-open .dropdown-caret {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: 280px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  background: var(--background-card);
+  border-radius: var(--menu-radius);
+  border: var(--menu-border);
+  box-shadow: var(--menu-shadow);
+}
+
+.dropdown-option {
+  padding: 10px 16px;
+  border-radius: var(--menu-item-radius);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  cursor: pointer;
+}
+/* The cursor is keyboard state, so it must show without a pointer. */
+.dropdown-option.is-active {
+  background-color: var(--control-fill-hover);
+}
+.dropdown-option.is-selected {
+  background-color: var(--ink);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-caret { transition: none; }
+}

@@ -5,6 +5,7 @@ import { saveAs } from "file-saver";
 
 import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { iconUrl } from "@/lib/github";
+import Dropdown, { type DropdownOption } from "@/components/Dropdown";
 import codepoints from "../../../public/font/codepoints.json";
 import "./DownloadLibrary.css";
 
@@ -29,7 +30,7 @@ const FORMATS: { id: Format; label: string; blurb: string }[] = [
   { id: "png", label: "PNG", blurb: "Rasterised at 128px, transparent" },
 ];
 
-const BRANDS: { value: IconBrand; label: string }[] = [
+const BRANDS: DropdownOption<IconBrand>[] = [
   { value: "default", label: "Default" },
   { value: "cars24", label: "Cars24" },
   { value: "teambhp", label: "TeamBHP" },
@@ -281,25 +282,14 @@ const DownloadLibrary: React.FC<Props> = ({
                 </p>
               </div>
 
-              <div className="dl-brand">
-                <span className="dl-brand-control">
-                  <select
-                    value={brand}
-                    aria-label="Brand"
-                    disabled={!!busy}
-                    onChange={(e) =>
-                      setBrand(e.currentTarget.value as IconBrand)
-                    }
-                  >
-                    {BRANDS.map((b) => (
-                      <option key={b.value} value={b.value}>
-                        {b.label}
-                      </option>
-                    ))}
-                  </select>
-                  <i className="ai-fill ai-chevron-bottom" aria-hidden />
-                </span>
-              </div>
+              <Dropdown
+                className="dl-brand"
+                label="Brand"
+                value={brand}
+                options={BRANDS}
+                onChange={setBrand}
+                disabled={!!busy}
+              />
             </header>
 
             <div className="dl-formats">

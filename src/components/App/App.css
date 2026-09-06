@@ -51,8 +51,6 @@
 .search-bar,
 .size-bar,
 .cms-row input,
-.dl-brand select,
-.category-menu .brand-select-trigger,
 .app-header .react-dropdown-select {
   height: var(--control-h);
   box-sizing: border-box;
@@ -65,9 +63,7 @@
 }
 
 .control:hover:not(:disabled),
-.cms-row input:hover:not(:disabled),
-.dl-brand select:hover:not(:disabled),
-.category-menu .brand-select-trigger:hover {
+.cms-row input:hover:not(:disabled) {
   background-color: var(--control-fill-hover);
 }
 
@@ -77,8 +73,6 @@
 .search-bar:focus-within,
 .size-bar:focus-within,
 .cms-row input:focus,
-.dl-brand select:focus-visible,
-.category-menu .brand-select-trigger:focus-visible,
 .app-header .react-dropdown-select:focus-within {
   outline: none;
   background-color: var(--control-fill-focus);
@@ -86,8 +80,7 @@
 }
 
 .control:disabled,
-.cms-row input:disabled,
-.dl-brand select:disabled {
+.cms-row input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

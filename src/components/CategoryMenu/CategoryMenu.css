@@ -141,64 +141,11 @@
 }
 
 /* Custom brand dropdown */
-.category-menu .brand-select-control {
-  position: relative;
-  width: 100%;
-  font-family: "Departure Mono", ui-monospace, monospace;
-}
 
-.category-menu .brand-select-trigger {
-  width: 100%;
-  padding: 0 16px 0 var(--control-pad);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  cursor: pointer;
-}
 /* Open uses the same ring as focus, so the control reads one way whether
    it was opened by pointer or keyboard. */
-.category-menu .brand-select-control.is-open .brand-select-trigger {
-  background-color: var(--control-fill-focus);
-  box-shadow: var(--control-ring);
-}
-.category-menu .brand-select-caret {
-  font-size: var(--control-caret);
-  color: rgb(0 0 0 / 55%);
-  transition: transform 150ms ease;
-}
 
 /* Flips to point up while the menu is open, replacing the old ▲/▼ swap. */
-.category-menu .brand-select-control.is-open .brand-select-caret {
-  transform: rotate(180deg);
-}
-
-.category-menu .brand-select-menu {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  z-index: 20;
-  list-style: none;
-  padding: 4px;
-  margin: 0;
-  background: var(--background-card);
-  border-radius: var(--menu-radius);
-  box-shadow: var(--menu-shadow);
-  border: var(--menu-border);
-}
-.category-menu .brand-select-item {
-  padding: 10px 16px;
-  border-radius: var(--menu-item-radius);
-  font-family: inherit;
-  font-size: 14px;
-  color: var(--foreground);
-  cursor: pointer;
-}
-.category-menu .brand-select-item:hover,
-.category-menu .brand-select-item.is-selected {
-  background-color: var(--control-fill);
-}
 
 .category-menu .section-label {
   font-family: "Departure Mono", ui-monospace, monospace;

@@ -4,87 +4,22 @@ import { icons, useApplicationStore, type IconBrand } from "@/state";
 import { useMediaQuery } from "@/hooks";
 import SearchInput from "@/components/SearchInput";
 import StyleInput from "@/components/StyleInput";
+import Dropdown, { type DropdownOption } from "@/components/Dropdown";
 import logoUrl from "@/assets/autonaut-logo.png";
 import "./CategoryMenu.css";
 
 /** Matches the mobile band in the stylesheets. */
 const MOBILE = "(max-width: 560px)";
 
-type BrandOption = { key: string; value: IconBrand };
-
-const BRAND_OPTIONS: BrandOption[] = [
-  { key: "Default", value: "default" },
-  { key: "Cars24", value: "cars24" },
-  { key: "TeamBHP", value: "teambhp" },
-  { key: "CarInfo", value: "carinfo" },
-  { key: "VehicleInfo", value: "vehicleinfo" },
+const BRAND_OPTIONS: DropdownOption<IconBrand>[] = [
+  { value: "default", label: "Default" },
+  { value: "cars24", label: "Cars24" },
+  { value: "teambhp", label: "TeamBHP" },
+  { value: "carinfo", label: "CarInfo" },
+  { value: "vehicleinfo", label: "VehicleInfo" },
 ];
 
 const fmt = (n: number) => n.toLocaleString();
-
-const BrandDropdown: React.FC<{
-  value: IconBrand;
-  onChange: (v: IconBrand) => void;
-}> = ({ value, onChange }) => {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onDoc = (e: MouseEvent) => {
-      if (
-        wrapRef.current &&
-        e.target instanceof Node &&
-        !wrapRef.current.contains(e.target)
-      ) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, [open]);
-
-  const selected = BRAND_OPTIONS.find((o) => o.value === value) ?? BRAND_OPTIONS[0];
-
-  return (
-    <div
-      ref={wrapRef}
-      className={`brand-select-control ${open ? "is-open" : ""}`}
-    >
-      <button
-        type="button"
-        className="brand-select-trigger"
-        aria-label="Brand"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span>{selected.key}</span>
-        <i className="ai-fill ai-chevron-bottom brand-select-caret" aria-hidden />
-      </button>
-      {open && (
-        <ul className="brand-select-menu" role="listbox">
-          {BRAND_OPTIONS.map((o) => (
-            <li
-              key={o.value}
-              role="option"
-              aria-selected={o.value === value}
-              className={`brand-select-item ${
-                o.value === value ? "is-selected" : ""
-              }`}
-              onClick={() => {
-                onChange(o.value);
-                setOpen(false);
-              }}
-            >
-              {o.key}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
 
 
 type Category = { name: string; label: string; count: number };
@@ -132,14 +67,14 @@ const CategoryPicker: React.FC<{
       <button
         type="button"
         ref={triggerRef}
-        className="brand-select-trigger category-picker-trigger"
+        className="dropdown-trigger category-picker-trigger"
         aria-label="Category"
         aria-haspopup="dialog"
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
         <span className="category-picker-value">{selected.label}</span>
-        <i className="ai-fill ai-chevron-bottom brand-select-caret" aria-hidden />
+        <i className="ai-fill ai-chevron-bottom dropdown-caret" aria-hidden />
       </button>
 
       {open &&
@@ -208,7 +143,7 @@ const BrandSegments: React.FC<{
         aria-pressed={o.value === value}
         onClick={() => onChange(o.value)}
       >
-        {o.key}
+        {o.label}
       </button>
     ))}
   </div>
@@ -351,9 +286,14 @@ const CategoryMenu: React.FC = () => {
             <img src={logoUrl} alt="Autonaut Icons" className="brand-logo" />
           </h1>
 
-          <div className="brand-select-wrap" aria-label="Brand">
+          <div className="brand-select-wrap">
             <span className="brand-select-label">Brand</span>
-            <BrandDropdown value={brand} onChange={setBrand} />
+            <Dropdown
+              label="Brand"
+              value={brand}
+              options={BRAND_OPTIONS}
+              onChange={setBrand}
+            />
           </div>
         </>
       )}
