@@ -256,11 +256,11 @@ const DownloadLibrary: React.FC<Props> = ({
                 </p>
               </div>
 
-              <label className="dl-brand">
-                <span>Brand</span>
+              <div className="dl-brand">
                 <span className="dl-brand-control">
                   <select
                     value={brand}
+                    aria-label="Brand"
                     disabled={!!busy}
                     onChange={(e) =>
                       setBrand(e.currentTarget.value as IconBrand)
@@ -274,7 +274,7 @@ const DownloadLibrary: React.FC<Props> = ({
                   </select>
                   <i className="ai-fill ai-chevron-bottom" aria-hidden />
                 </span>
-              </label>
+              </div>
             </header>
 
             <div className="dl-formats">
