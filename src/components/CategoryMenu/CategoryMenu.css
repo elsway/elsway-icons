@@ -457,18 +457,29 @@
 /* Brand owns a full row of its own -- sharing with the weight control left
    only two segments visible. min-width:0 so the strip scrolls instead of
    widening its parent. */
-/* Wraps rather than scrolls: a scrolling strip cut the last brand in half,
-   and a half-visible option is one people do not know is there. All five
-   stay whole, on two rows if that is what it takes. */
+/* One scrolling row, bled out of the rail's gutter so the strip runs to the
+   true screen edge. Cut against a 16px gutter it read as broken layout;
+   running off the edge reads as "there is more, keep swiping". The gutter is
+   given back as padding so the first and last brand still line up with the
+   controls above, and snapping parks whole pills rather than part of one. */
 .brand-segments {
   min-width: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
+  overflow-x: auto;
+  margin-inline: calc(var(--rail-gutter) * -1);
+  padding-inline: var(--rail-gutter);
+  scroll-padding-inline: var(--rail-gutter);
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
 }
+.brand-segments::-webkit-scrollbar { display: none; }
 
 .segment-btn {
   flex: 0 0 auto;
+  scroll-snap-align: start;
   min-height: 44px;
   padding: 0 14px;
   border-radius: 999px;

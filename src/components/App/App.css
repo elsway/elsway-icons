@@ -344,7 +344,9 @@ button:focus-visible {
   }
   .category-menu {
     height: auto;
-    padding: 12px 16px;
+    /* Named so the brand strip can bleed by exactly this much. */
+    --rail-gutter: 16px;
+    padding: 12px var(--rail-gutter);
     gap: 12px;
   }
   /* Comfortable hit area once the pointer is a finger. */
