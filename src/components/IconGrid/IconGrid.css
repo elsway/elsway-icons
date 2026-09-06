@@ -38,8 +38,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 72px;
   flex-shrink: 0;
 }
 
@@ -293,6 +293,11 @@ figcaption > p {
 
   .grid-item p {
     padding: 0 2px;
+  }
+
+  .grid-item-icon {
+    width: 60px;
+    height: 60px;
   }
 }
 
