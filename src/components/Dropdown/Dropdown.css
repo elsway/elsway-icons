@@ -42,9 +42,27 @@
 }
 
 .dropdown-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Options that carry a glyph line it up with the trigger's. */
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* `.ai` icons are 1em square, so font-size is the size knob. */
+.dropdown-value i,
+.dropdown-option i {
+  flex: 0 0 auto;
+  font-size: 24px;
 }
 
 .dropdown-caret {

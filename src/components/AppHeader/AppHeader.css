@@ -29,15 +29,14 @@
 .app-header .search-bar {
   width: auto;
 }
-.app-header .react-dropdown-select,
+.app-header .style-input,
 .app-header .size-bar {
-  width: 300px !important;
+  width: 300px;
 }
 
 /* Geometry only. Fill, radius, height, type and the focus ring come from
-   the shared control tokens in App.css. */
+   the shared control tokens in App.css, or from Dropdown.css. */
 .app-header .search-bar,
-.app-header .react-dropdown-select,
 .app-header .size-bar {
   display: flex;
   align-items: center;
@@ -48,9 +47,9 @@
     grid-template-columns: 1fr;
   }
   /* Fluid, not 300px fixed — the fixed width overflowed the viewport. */
-  .app-header .react-dropdown-select,
+  .app-header .style-input,
   .app-header .size-bar {
-    width: 100% !important;
+    width: 100%;
   }
   .app-header-controls {
     display: grid;

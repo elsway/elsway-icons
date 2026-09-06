@@ -475,10 +475,10 @@
   grid-template-columns: 1fr 1fr;
 }
 .mobile-bar-row .category-picker,
-.mobile-bar-row .react-dropdown-select {
+.mobile-bar-row .style-input {
   min-width: 0;
-  width: 100% !important;
+  width: 100%;
 }
-.mobile-bar-row .react-dropdown-select {
-  padding: 0 10px 0 14px !important;
+.mobile-bar-row .style-input .dropdown-trigger {
+  padding: 0 10px 0 14px;
 }

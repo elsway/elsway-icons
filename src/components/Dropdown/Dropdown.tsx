@@ -4,6 +4,8 @@ import "./Dropdown.css";
 export type DropdownOption<T extends string> = {
   value: T;
   label: string;
+  /** Optional leading glyph, shown in the trigger and in the list. */
+  icon?: React.ReactNode;
 };
 
 type Props<T extends string> = {
@@ -153,7 +155,10 @@ function Dropdown<T extends string>({
         onClick={() => (open ? close(false) : openList())}
         onKeyDown={onKeyDown}
       >
-        <span className="dropdown-value">{selected?.label}</span>
+        <span className="dropdown-value">
+          {selected?.icon}
+          {selected?.label}
+        </span>
         <i className="ai-fill ai-chevron-bottom dropdown-caret" aria-hidden />
       </button>
 
@@ -180,6 +185,7 @@ function Dropdown<T extends string>({
             onClick={() => commit(i)}
             onPointerEnter={() => setCursor(i)}
           >
+            {o.icon}
             {o.label}
           </li>
         ))}
