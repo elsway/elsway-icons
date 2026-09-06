@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generates FontAwesome-style CSS files — one per brand+weight — where each
+// Generates class-based CSS files — one per brand+weight — where each
 // icon is a `.ai-{name}` class using a CSS mask (not a real webfont, no glyph
 // encoding needed). Usage is <link> the one brand+weight you want, then
 // <i class="ai ai-4k"></i> anywhere.

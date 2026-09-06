@@ -12,7 +12,7 @@ type Format = "svg" | "json" | "ttf" | "png";
 const FORMATS: { id: Format; label: string; blurb: string }[] = [
   { id: "svg", label: "SVG", blurb: "One file per icon, exactly as drawn" },
   { id: "json", label: "JSON", blurb: "Names, categories and font codepoints" },
-  { id: "ttf", label: "TTF", blurb: "Icon font, CSS and IcoMoon selection" },
+  { id: "ttf", label: "TTF", blurb: "Icon font, CSS and codepoints" },
   { id: "png", label: "PNG", blurb: "Rasterised at 128px, transparent" },
 ];
 
@@ -117,7 +117,6 @@ const DownloadLibrary: React.FC = () => {
           `${fontName}.ttf`,
           `${fontName}.woff`,
           `${fontName}.css`,
-          "selection.json",
           "README.txt",
         ];
         await mapInBatches(
@@ -129,6 +128,9 @@ const DownloadLibrary: React.FC = () => {
           },
           () => setProgress(total)
         );
+        // shared across every brand, so it lives a level up
+        const cps = await fetch(`${base}font/codepoints.json`);
+        if (cps.ok) zip.file("codepoints.json", await cps.blob());
       }
 
       if (format === "svg" || format === "png") {

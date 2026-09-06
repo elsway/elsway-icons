@@ -28,7 +28,7 @@ https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v1/public/raw/elsway/{brand}/{we
 
 `@v1` is a pinned git tag — stable and cache-friendly. Use `@main` only if you deliberately want to always track the newest icons.
 
-**FontAwesome-style, no JS at all:** link one class-based stylesheet, then use `<i class="ai ai-{name}">` anywhere — pick one brand+weight file, same as choosing `fa-solid` vs `fa-regular`:
+**No JS at all:** link one class-based stylesheet, then use `<i class="ai ai-{name}">` anywhere — pick the one brand+weight file you need:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elsway/elsway-icons@v2/public/cdn/{brand}-{weight}.css">
