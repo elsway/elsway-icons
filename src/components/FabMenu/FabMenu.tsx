@@ -21,7 +21,12 @@ const FabMenu: React.FC = () => {
 
   const { user, canWrite, signIn, signOut, configured, signingIn } = useAuth();
   const [showNew, setShowNew] = useState(false);
-  const guideUrl = `${import.meta.env.BASE_URL}guide.html`;
+  // Vercel serves guide.html at /guide (cleanUrls) and redirects the .html
+  // form to it. The dev server has no such rewrite, so keep the extension
+  // locally or the link 404s while developing.
+  const guideUrl = `${import.meta.env.BASE_URL}guide${
+    import.meta.env.DEV ? ".html" : ""
+  }`;
 
   const close = useCallback((returnFocus = true) => {
     setOpen(false);

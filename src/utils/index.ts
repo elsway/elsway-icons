@@ -8,7 +8,7 @@ const CDN_TAG = "v2";
 /**
  * Snippets for the detail panel. Every framework resolves the same CDN SVG
  * URL — there is no npm package, so nothing here may imply one. These mirror
- * the integration guide at /guide.html.
+ * the integration guide at /guide.
  */
 export function getCodeSnippets({
   name,
